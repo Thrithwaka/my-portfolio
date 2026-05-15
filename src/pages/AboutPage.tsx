@@ -88,10 +88,13 @@ interface Research {
   imageUrl?: string;
 }
 
+import { EditableText } from '@/src/components/admin/EditableText';
+import { DecorationLayer } from '@/src/components/admin/DecorationLayer';
+
 export function AboutPage({ isAdmin }: { isAdmin?: boolean }) {
   const containerRef = useRef<HTMLDivElement>(null);
   const [activeEditor, setActiveEditor] = useState<string | null>(null);
-  const { data: aboutData, loading: aboutLoading } = useContent<any>('sections/about');
+  const { data: aboutData, loading: aboutLoading, update: updateAbout } = useContent<any>('sections/about');
 // ... rest of component ...
   const { data: projects } = useCollection<Project>('projects', 'priority');
   const { data: certs } = useCollection<Certification>('certifications', 'priority');
@@ -173,12 +176,19 @@ export function AboutPage({ isAdmin }: { isAdmin?: boolean }) {
           <>
             <VisualEditorWrapper isAdmin={isAdmin} onEdit={() => setActiveEditor('hero')} label="Edit Hero Section">
               <section className="sticky top-0 h-screen w-full flex flex-col items-center justify-center overflow-hidden z-0 px-6 bg-white dark:bg-black">
-              {/* Cinematic Background Asset - Removed as per user request */}
+              {/* Decoration Layer */}
+              <DecorationLayer 
+                isAdmin={isAdmin}
+                decorations={aboutData?.decorations || []}
+                onUpdate={(decs) => updateAbout({ decorations: decs })}
+              />
+
+              {/* Background */}
               <motion.div 
                 style={{ opacity: heroOpacity }}
                 className="absolute inset-0 pointer-events-none z-0"
               >
-                <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[120vw] h-[120vw] bg-zinc-50 dark:bg-white/[0.02] rounded-full blur-[120px]" />
+                <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[120vw] h-[120vw] bg-zinc-50 dark:bg-white/[0.02] rounded-full blur-[120px] opacity-0" />
               </motion.div>
 
               <motion.div 
@@ -186,13 +196,23 @@ export function AboutPage({ isAdmin }: { isAdmin?: boolean }) {
                 className="relative z-10 w-full flex flex-col items-center"
               >
                 <motion.div style={{ opacity: subTitleOpacity, y: subTitleY }} className="mb-8 md:mb-12">
-                  <span className="text-[10px] md:text-sm font-mono font-bold uppercase tracking-[0.6em] text-blue-600 dark:text-blue-400 block">
-                    {aboutData?.heroSubtitle || 'The Identity Matrix'}
-                  </span>
+                  <EditableText
+                    isAdmin={isAdmin}
+                    initialValue={aboutData?.heroSubtitle || 'The Identity Matrix'}
+                    onSave={(val) => updateAbout({ heroSubtitle: val })}
+                    className="text-[10px] md:text-sm font-mono font-bold uppercase tracking-[0.6em] text-blue-600 dark:text-blue-400 block"
+                  />
                 </motion.div>
 
                 <div className="flex flex-col items-center text-center w-full uppercase">
-                  {aboutData?.heroTitle ? (
+                  {isAdmin ? (
+                    <EditableText
+                      isAdmin={isAdmin}
+                      initialValue={aboutData?.heroTitle || "Designing Tomorrow's Intelligence"}
+                      onSave={(val) => updateAbout({ heroTitle: val })}
+                      className="text-4xl md:text-[8vw] font-black tracking-tight leading-[0.8] text-black dark:text-white uppercase text-center"
+                    />
+                  ) : aboutData?.heroTitle ? (
                     aboutData.heroTitle.split(' ').map((word: string, i: number) => (
                       <motion.h1 
                         key={i}
@@ -220,6 +240,13 @@ export function AboutPage({ isAdmin }: { isAdmin?: boolean }) {
                 style={{ opacity: introOpacity, pointerEvents: introPointerEvents as any }}
                 className="md:sticky md:top-0 min-h-screen md:h-screen w-full flex items-center justify-center bg-white dark:bg-black z-10 md:overflow-hidden py-16 md:py-0"
               >
+                {/* Decoration Layer */}
+                <DecorationLayer 
+                  isAdmin={isAdmin}
+                  decorations={aboutData?.decorations || []}
+                  onUpdate={(decs) => updateAbout({ decorations: decs })}
+                />
+                
                 <motion.div 
                   style={{ scale: introScale, y: introY }}
                   className="max-w-7xl mx-auto px-6 grid grid-cols-1 lg:grid-cols-12 gap-8 md:gap-24 items-center w-full pt-12 md:pt-0"
@@ -228,7 +255,7 @@ export function AboutPage({ isAdmin }: { isAdmin?: boolean }) {
                     style={{ x: introImageX }}
                     className="lg:col-span-5 relative group order-1"
                   >
-                    <div className="relative aspect-square rounded-full overflow-hidden border-4 md:border-8 border-white dark:border-zinc-900 shadow-2xl">
+                    <div className="relative aspect-square rounded-[2rem] md:rounded-[4rem] overflow-hidden border-4 md:border-8 border-white dark:border-zinc-900 shadow-2xl">
                       <img 
                         src={getDirectLink(aboutData?.deepIntroImage || aboutData?.profileImageUrl) || "https://images.unsplash.com/photo-1544256718-3bcf237f3974"} 
                         alt="Profile" 
@@ -246,16 +273,22 @@ export function AboutPage({ isAdmin }: { isAdmin?: boolean }) {
                         <div className="w-8 h-[1px] bg-blue-600" />
                         <span className="text-[10px] md:text-xs font-mono uppercase tracking-[0.5em] text-blue-600 dark:text-blue-400 font-bold block">The Narrative</span>
                       </div>
-                      <h2 className="text-3xl md:text-6xl font-black tracking-tighter uppercase text-black dark:text-white leading-none">
-                        {aboutData?.deepIntroTitle || 'About Me.'}
-                      </h2>
+                      <EditableText
+                        isAdmin={isAdmin}
+                        initialValue={aboutData?.deepIntroTitle || 'About Me.'}
+                        onSave={(val) => updateAbout({ deepIntroTitle: val })}
+                        className="text-3xl md:text-6xl font-black tracking-tighter uppercase text-black dark:text-white leading-none"
+                      />
                     </div>
                     
                     <div className="prose prose-zinc dark:prose-invert max-w-none">
                       <div className="relative">
                         <div className="absolute -left-6 top-0 bottom-0 w-[2px] bg-zinc-100 dark:bg-white/5 hidden lg:block" />
-                        <RichTextRenderer 
-                          content={aboutData?.deepIntroContent || defaultIntro} 
+                        <EditableText
+                          isAdmin={isAdmin}
+                          multiline
+                          initialValue={aboutData?.deepIntroContent || defaultIntro}
+                          onSave={(val) => updateAbout({ deepIntroContent: val })}
                           className="text-zinc-600 dark:text-zinc-400 text-sm md:text-lg leading-relaxed font-medium"
                         />
                       </div>

@@ -1,0 +1,309 @@
+{
+  "entities": {
+    "project": {
+      "title": "Elite Project",
+      "description": "Comprehensive project showcase with deep technical details",
+      "type": "object",
+      "properties": {
+        "title": { "type": "string" },
+        "slug": { "type": "string" },
+        "shortDescription": { "type": "string" },
+        "fullDescription": { "type": "string" },
+        "category": { "type": "string" },
+        "tags": { "type": "array", "items": { "type": "string" } },
+        "status": { "type": "string", "enum": ["Completed", "Ongoing", "Experimental"] },
+        "startDate": { "type": "string" },
+        "endDate": { "type": "string" },
+        "coverImageUrl": { "type": "string" },
+        "techStack": { "type": "array", "items": { "type": "string" } },
+        "objective": { "type": "string" },
+        "problemSolved": { "type": "string" },
+        "myRole": { "type": "string" },
+        "teamStructure": { "type": "string" },
+        "githubUrl": { "type": "string" },
+        "demoUrl": { "type": "string" },
+        "researchPaperUrl": { "type": "string" },
+        "presentationUrl": { "type": "string" },
+        "isFeatured": { "type": "boolean" },
+        "priority": { "type": "integer" },
+        "challenges": { "type": "string" },
+        "achievements": { "type": "string" },
+        "learningOutcomes": { "type": "string" },
+        "updatedAt": { "type": "string", "format": "date-time" }
+      },
+      "required": ["title", "shortDescription", "slug"]
+    },
+    "contributor": {
+      "title": "Project Contributor",
+      "description": "Team member or collaborator for a project",
+      "type": "object",
+      "properties": {
+        "name": { "type": "string" },
+        "avatarUrl": { "type": "string" },
+        "role": { "type": "string" },
+        "linkedInUrl": { "type": "string" },
+        "priority": { "type": "integer" }
+      },
+      "required": ["name"]
+    },
+    "project_media": {
+      "title": "Project Media Item",
+      "description": "Image or video asset for project gallery",
+      "type": "object",
+      "properties": {
+        "url": { "type": "string" },
+        "type": { "type": "string", "enum": ["image", "video", "diagram"] },
+        "caption": { "type": "string" },
+        "priority": { "type": "integer" }
+      },
+      "required": ["url", "type"]
+    },
+    "project_section": {
+      "title": "Custom Project Section",
+      "description": "An additional text/content section for detailed project info",
+      "type": "object",
+      "properties": {
+        "title": { "type": "string" },
+        "content": { "type": "string" },
+        "priority": { "type": "integer" }
+      },
+      "required": ["title", "content"]
+    },
+    "decoration": {
+      "title": "Visual Decoration",
+      "description": "Floating shape or design element like in Canva",
+      "type": "object",
+      "properties": {
+        "id": { "type": "string" },
+        "type": { "type": "string", "enum": ["circle", "square", "blob"] },
+        "color": { "type": "string" },
+        "x": { "type": "number" },
+        "y": { "type": "number" },
+        "size": { "type": "number" },
+        "opacity": { "type": "number" },
+        "blur": { "type": "number" },
+        "zIndex": { "type": "integer" }
+      },
+      "required": ["id", "type", "x", "y"]
+    },
+    "section_hero": {
+      "title": "Hero Section",
+      "description": "Content for the hero/landing section",
+      "type": "object",
+      "properties": {
+        "title": { "type": "string" },
+        "subtitle": { "type": "string" },
+        "ctaText": { "type": "string" },
+        "backgroundType": { "type": "string", "enum": ["color", "image", "video", "canvas"] },
+        "visualSource": { "type": "string" },
+        "decorations": { "type": "array", "items": { "$ref": "decoration" } }
+      },
+      "required": ["title"]
+    },
+    "section_about": {
+      "title": "About Section",
+      "description": "Biography and identity information",
+      "type": "object",
+      "properties": {
+        "heroTitle": { "type": "string" },
+        "heroSubtitle": { "type": "string" },
+        "heroVideoUrl": { "type": "string" },
+        "bio": { "type": "string" },
+        "vision": { "type": "string" },
+        "missionStatement": { "type": "string" },
+        "deepIntroTitle": { "type": "string" },
+        "deepIntroContent": { "type": "string" },
+        "deepIntroImage": { "type": "string" },
+        "profileImageUrl": { "type": "string" },
+        "identityTags": { "type": "array", "items": { "type": "string" } },
+        "decorations": { "type": "array", "items": { "$ref": "decoration" } }
+      }
+    },
+    "endorsement": {
+      "title": "Endorsement",
+      "description": "Client or collaborator testimonial",
+      "type": "object",
+      "properties": {
+        "name": { "type": "string" },
+        "role": { "type": "string" },
+        "quote": { "type": "string" },
+        "imageUrl": { "type": "string" },
+        "linkedInUrl": { "type": "string" },
+        "priority": { "type": "integer" }
+      },
+      "required": ["name", "quote"]
+    },
+    "skill": {
+      "title": "Skill",
+      "description": "A technical or creative skill",
+      "type": "object",
+      "properties": {
+        "name": { "type": "string" },
+        "category": { "type": "string" },
+        "level": { "type": "integer" }
+      },
+      "required": ["name"]
+    },
+    "research": {
+      "title": "Research Project",
+      "description": "Academic or professional research paper/project",
+      "type": "object",
+      "properties": {
+        "title": { "type": "string" },
+        "description": { "type": "string" },
+        "link": { "type": "string" },
+        "date": { "type": "string" },
+        "tags": { "type": "array", "items": { "type": "string" } }
+      },
+      "required": ["title"]
+    },
+    "blog_post": {
+      "title": "Blog / External Profile",
+      "description": "Link to Medium, Scholar, or other platforms",
+      "type": "object",
+      "properties": {
+        "platform": { "type": "string", "enum": ["Medium", "Google Scholar", "Other"] },
+        "url": { "type": "string" }
+      },
+      "required": ["platform", "url"]
+    },
+    "project": {
+      "title": "Project / Engineered System",
+      "description": "High-level technical project showcase",
+      "type": "object",
+      "properties": {
+        "title": { "type": "string" },
+        "description": { "type": "string" },
+        "category": { "type": "string" },
+        "imageUrl": { "type": "string" },
+        "videoUrl": { "type": "string" },
+        "githubUrl": { "type": "string" },
+        "demoUrl": { "type": "string" },
+        "techStack": { "type": "array", "items": { "type": "string" } },
+        "metrics": { "type": "array", "items": { "type": "string" } },
+        "priority": { "type": "integer" }
+      },
+      "required": ["title", "description"]
+    },
+    "certification": {
+      "title": "Certification / Badge / Achievement",
+      "description": "Professional credential, badge, or notable achievement",
+      "type": "object",
+      "properties": {
+        "title": { "type": "string" },
+        "issuer": { "type": "string" },
+        "imageUrl": { "type": "string" },
+        "verificationUrl": { "type": "string" },
+        "certificationType": { "type": "string", "enum": ["Certificates", "Badges", "Achievements"] },
+        "description": { "type": "string" },
+        "date": { "type": "string" },
+        "expirationDate": { "type": "string" },
+        "credentialId": { "type": "string" },
+        "skills": { "type": "array", "items": { "type": "string" } },
+        "isFeatured": { "type": "boolean" },
+        "priority": { "type": "integer" }
+      },
+      "required": ["title", "issuer", "certificationType"]
+    },
+    "education": {
+      "title": "Education",
+      "description": "Academic qualification",
+      "type": "object",
+      "properties": {
+        "institution": { "type": "string" },
+        "degree": { "type": "string" },
+        "period": { "type": "string" },
+        "description": { "type": "string" },
+        "imageUrl": { "type": "string" }
+      },
+      "required": ["institution", "degree"]
+    },
+    "service": {
+      "title": "Service",
+      "description": "Professional service package",
+      "type": "object",
+      "properties": {
+        "name": { "type": "string" },
+        "description": { "type": "string" },
+        "price": { "type": "string" },
+        "features": { "type": "array", "items": { "type": "string" } }
+      },
+      "required": ["name"]
+    },
+    "site_settings": {
+      "title": "Site Settings",
+      "description": "Global theme and configuration",
+      "type": "object",
+      "properties": {
+        "accentColor": { "type": "string" },
+        "motionIntensity": { "type": "string", "enum": ["low", "medium", "high"] },
+        "darkModeDefault": { "type": "boolean" },
+        "fontStyle": { "type": "string" },
+        "mediumUrl": { "type": "string" },
+        "scholarUrl": { "type": "string" },
+        "cvUrl": { "type": "string" },
+        "linkedinUrl": { "type": "string" },
+        "githubUrl": { "type": "string" },
+        "email": { "type": "string" }
+      }
+    }
+  },
+  "firestore": {
+    "sections/hero": {
+      "schema": "section_hero",
+      "description": "Hero section dynamic content"
+    },
+    "sections/about": {
+      "schema": "section_about",
+      "description": "About section dynamic content"
+    },
+    "endorsements": {
+      "schema": "endorsement",
+      "description": "User shared testimonials"
+    },
+    "skills": {
+      "schema": "skill",
+      "description": "Toolkit and skill mastery list"
+    },
+    "blog": {
+      "schema": "blog_post",
+      "description": "External blog profile links"
+    },
+    "research": {
+      "schema": "research",
+      "description": "Research projects and publications"
+    },
+    "projects": {
+      "schema": "project",
+      "description": "The central repository for all engineering projects"
+    },
+    "projects/{projectId}/contributors": {
+      "schema": "contributor",
+      "description": "Collaborators and team members for a specific project"
+    },
+    "projects/{projectId}/gallery": {
+      "schema": "project_media",
+      "description": "Main visual gallery for the project details"
+    },
+    "projects/{projectId}/sections": {
+      "schema": "project_section",
+      "description": "Extended custom narrative blocks for the project"
+    },
+    "certifications": {
+      "schema": "certification",
+      "description": "Professional badges and credentials"
+    },
+    "education": {
+      "schema": "education",
+      "description": "Academic qualifications"
+    },
+    "services": {
+      "schema": "service",
+      "description": "Offered services and pricing"
+    },
+    "settings/global": {
+      "schema": "site_settings",
+      "description": "Global application settings"
+    }
+  }
+}

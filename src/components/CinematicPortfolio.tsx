@@ -16,13 +16,16 @@ import { AboutManager } from '../pages/admin/AboutManager';
 import { EndorsementsManager } from '../pages/admin/EndorsementsManager';
 import { ToolkitManager } from '../pages/admin/ToolkitManager';
 
+import { EditableText } from './admin/EditableText';
+import { DecorationLayer } from './admin/DecorationLayer';
+
 export function CinematicPortfolio({ isAdmin }: { isAdmin?: boolean }) {
   const containerRef = useRef<HTMLDivElement>(null);
   const [activeEditor, setActiveEditor] = useState<string | null>(null);
 
-  const { data: heroData } = useContent<any>('sections/hero');
-  const { data: aboutData } = useContent<any>('sections/about');
-  const { data: settings } = useContent<any>('settings/global');
+  const { data: heroData, update: updateHero } = useContent<any>('sections/hero');
+  const { data: aboutData, update: updateAbout } = useContent<any>('sections/about');
+  const { data: settings, update: updateSettings } = useContent<any>('settings/global');
   const { data: endorsements } = useCollection<any>('endorsements', 'priority');
   const { data: skills } = useCollection<any>('skills');
 
@@ -76,10 +79,17 @@ export function CinematicPortfolio({ isAdmin }: { isAdmin?: boolean }) {
       {/* 1. HERO - PINNED */}
       <VisualEditorWrapper isAdmin={isAdmin} onEdit={() => setActiveEditor('hero')} label="Edit Hero Section">
         <section className="sticky top-0 h-screen w-full flex flex-col items-center justify-center overflow-hidden z-0 bg-white dark:bg-black">
+          {/* Decoration Layer */}
+          <DecorationLayer 
+            isAdmin={isAdmin}
+            decorations={heroData?.decorations || []}
+            onUpdate={(decs) => updateHero({ decorations: decs })}
+          />
+
           {/* Background Visual Asset */}
           <motion.div 
             style={{ opacity: heroOpacity }}
-            className="absolute inset-0 z-0"
+            className="absolute inset-0 z-0 pointer-events-none"
           >
             {heroData?.bgImageUrl ? (
               <div className="relative w-full h-full">
@@ -90,9 +100,7 @@ export function CinematicPortfolio({ isAdmin }: { isAdmin?: boolean }) {
                 />
                 <div className="absolute inset-0 bg-gradient-to-b from-white/0 via-white/50 to-white dark:from-black/0 dark:via-black/50 dark:to-black" />
               </div>
-            ) : (
-              <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[120vw] h-[120vw] bg-zinc-50 dark:bg-white/[0.02] rounded-full blur-3xl" />
-            )}
+            ) : null}
           </motion.div>
 
           <motion.div 
@@ -105,7 +113,14 @@ export function CinematicPortfolio({ isAdmin }: { isAdmin?: boolean }) {
               </span>
             </motion.div>
 
-            {heroData?.title ? (
+            {isAdmin ? (
+              <EditableText
+                isAdmin={isAdmin}
+                initialValue={heroData?.title || "Thrithwaka Preethi Shakya"}
+                onSave={(val) => updateHero({ title: val })}
+                className="text-4xl md:text-[8vw] font-black leading-[0.85] tracking-tighter text-black dark:text-white uppercase text-center"
+              />
+            ) : heroData?.title ? (
               <div className="flex flex-col items-center text-center w-full">
                 {heroData.title.split(' ').map((word: string, i: number) => (
                   <motion.h1 
@@ -126,13 +141,19 @@ export function CinematicPortfolio({ isAdmin }: { isAdmin?: boolean }) {
             )}
 
             <motion.div style={{ opacity: subTitleOpacity }} className="flex flex-col md:flex-row items-center justify-center gap-4 md:gap-8 pt-6 md:pt-12">
-              <p className="text-[10px] md:text-base font-bold uppercase tracking-[0.1em] md:tracking-[0.2em] text-zinc-400 dark:text-zinc-500">
-                {heroData?.subtitle || 'AI Engineer | Researcher | Innovator'}
-              </p>
+              <EditableText
+                isAdmin={isAdmin}
+                initialValue={heroData?.subtitle || 'AI Engineer | Researcher | Innovator'}
+                onSave={(val) => updateHero({ subtitle: val })}
+                className="text-[10px] md:text-base font-bold uppercase tracking-[0.1em] md:tracking-[0.2em] text-zinc-400 dark:text-zinc-500"
+              />
               <div className="hidden md:block w-12 h-px bg-zinc-200 dark:bg-white/10" />
-              <button className="text-[10px] md:text-xs font-bold uppercase tracking-widest hover:text-blue-600 transition-colors animate-pulse text-black dark:text-white">
-                {heroData?.ctaText || 'Scroll to Explore'}
-              </button>
+              <EditableText
+                isAdmin={isAdmin}
+                initialValue={heroData?.ctaText || 'Scroll to Explore'}
+                onSave={(val) => updateHero({ ctaText: val })}
+                className="text-[10px] md:text-xs font-bold uppercase tracking-widest hover:text-blue-600 transition-colors animate-pulse text-black dark:text-white"
+              />
             </motion.div>
           </motion.div>
         </section>
@@ -144,17 +165,30 @@ export function CinematicPortfolio({ isAdmin }: { isAdmin?: boolean }) {
           style={{ opacity: aboutOpacity, pointerEvents: aboutPointerEvents as any }}
           className="sticky top-0 h-screen w-full flex items-center justify-center bg-white dark:bg-black z-10 pt-16 lg:pt-0"
         >
+          {/* Decoration Layer */}
+          <DecorationLayer 
+            isAdmin={isAdmin}
+            decorations={aboutData?.decorations || []}
+            onUpdate={(decs) => updateAbout({ decorations: decs })}
+          />
+
           <motion.div 
             style={{ scale: aboutScale, y: aboutY }}
             className="max-w-7xl mx-auto px-6 grid grid-cols-1 lg:grid-cols-2 gap-8 md:gap-24 items-center pointer-events-auto max-h-[85vh] lg:max-h-none overflow-y-auto no-scrollbar"
           >
             <div className="space-y-4 md:space-y-10">
               <h2 className="text-[10px] md:text-sm font-mono uppercase tracking-[0.3em] text-blue-600">The Mission</h2>
-              <p className="text-3xl md:text-7xl font-bold leading-[1] tracking-tight text-black dark:text-white">
-                Pioneer AI. <br className="hidden md:block" /> <span className="text-blue-600 italic font-serif">Human Focus.</span>
-              </p>
-              <RichTextRenderer 
-                content={aboutData?.bio?.substring(0, 300) ? aboutData.bio.substring(0, 300) + '...' : "I am a visionary AI Engineer dedicated to crafting systems that not only solve complex problems but redefine how we interact with technology..."} 
+              <EditableText
+                isAdmin={isAdmin}
+                initialValue={aboutData?.vision || "Pioneer AI. Human Focus."}
+                onSave={(val) => updateAbout({ vision: val })}
+                className="text-3xl md:text-7xl font-bold leading-[1] tracking-tight text-black dark:text-white italic font-serif"
+              />
+              <EditableText
+                isAdmin={isAdmin}
+                multiline
+                initialValue={aboutData?.missionStatement || "I am a visionary AI Engineer dedicated to crafting systems that not only solve complex problems but redefine how we interact with technology..."}
+                onSave={(val) => updateAbout({ missionStatement: val })}
                 className="text-sm md:text-xl text-zinc-500 dark:text-zinc-400 leading-relaxed max-w-xl"
               />
               <Link to="/about" className="inline-flex items-center text-[10px] md:text-sm font-bold uppercase tracking-widest h-10 md:h-14 px-6 md:px-10 bg-black dark:bg-white text-white dark:text-black rounded-full hover:scale-105 transition-transform">
@@ -162,7 +196,7 @@ export function CinematicPortfolio({ isAdmin }: { isAdmin?: boolean }) {
               </Link>
             </div>
             
-            <div className="relative aspect-square rounded-full overflow-hidden bg-zinc-100 dark:bg-zinc-900 shadow-2xl max-w-sm mx-auto md:ml-auto border-4 md:border-8 border-white dark:border-zinc-900">
+            <div className="relative aspect-square rounded-2xl md:rounded-3xl overflow-hidden bg-zinc-100 dark:bg-zinc-900 shadow-2xl max-w-sm mx-auto md:ml-auto">
               {aboutData?.profileImageUrl ? (
                 <img src={getDirectLink(aboutData.profileImageUrl)} alt="Portrait" className="w-full h-full object-cover transition-all duration-1000 saturate-100" />
               ) : (

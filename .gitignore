@@ -83,6 +83,5 @@ firebase-debug.log
 *.local
 
 # Project-specific sensitive configs
-firebase-blueprint.json
 metadata.json
 security_spec.md
