@@ -8,6 +8,7 @@ import { Label } from '@/components/ui/label';
 import { Loader2, Save, X, User, Heart, Compass, Info, Image as ImageIcon, Video, Eye, EyeOff } from 'lucide-react';
 import { FileUploader } from '@/src/components/admin/FileUploader';
 import { RichTextRenderer } from '@/src/components/RichTextRenderer';
+import { getDirectLink } from '@/lib/utils';
 import { motion, AnimatePresence } from 'motion/react';
 
 interface AboutContent {
@@ -52,6 +53,10 @@ export function AboutManager() {
     setIsSaving(true);
     try {
       await update(form);
+      alert('Profile updated successfully.');
+    } catch (err: any) {
+      console.error(err);
+      alert(`Update failed: ${err.message || 'Check your permissions.'}`);
     } finally {
       setIsSaving(false);
     }
@@ -291,7 +296,7 @@ export function AboutManager() {
                 <div className="space-y-6">
                    <div className="aspect-square w-full rounded-2xl bg-black overflow-hidden relative ring-1 ring-white/10 group">
                       {form.profileImageUrl ? (
-                        <img src={form.profileImageUrl} className="w-full h-full object-cover transition-transform duration-700 pointer-events-none group-hover:scale-105" />
+                        <img src={getDirectLink(form.profileImageUrl)} className="w-full h-full object-cover transition-transform duration-700 pointer-events-none group-hover:scale-105" />
                       ) : (
                         <div className="w-full h-full flex items-center justify-center text-zinc-900"><User size={48} strokeWidth={0.5} /></div>
                       )}

@@ -1,13 +1,13 @@
 import React, { useState, useEffect } from 'react';
 import { useParams, useNavigate, Link } from 'react-router-dom';
 import { motion, useScroll, useSpring } from 'motion/react';
-import { 
-  ArrowLeft, Github, ExternalLink, Calendar, Users, 
+import { ArrowLeft, Github, ExternalLink, Calendar, Users, 
   Layers, ChevronRight, CheckCircle2, History, Target,
   Cpu, Layout, FileText, Share2, MessageSquare
 } from 'lucide-react';
 import { collection, query, where, getDocs, limit, doc, onSnapshot, orderBy } from 'firebase/firestore';
 import { db } from '@/lib/firebase';
+import { getDirectLink } from '@/lib/utils';
 import { ContributorAvatars } from '@/src/components/projects/ContributorAvatars';
 import { RichTextRenderer } from '@/src/components/RichTextRenderer';
 
@@ -96,7 +96,7 @@ export function ProjectDetailPage() {
       <section className="relative h-[60vh] md:h-[80vh] w-full overflow-hidden">
         {project.coverImageUrl ? (
           <img 
-            src={project.coverImageUrl} 
+            src={getDirectLink(project.coverImageUrl)} 
             alt={project.title} 
             className="w-full h-full object-cover"
           />
@@ -198,10 +198,10 @@ export function ProjectDetailPage() {
                         className="rounded-[2.5rem] overflow-hidden bg-zinc-100 dark:bg-zinc-900 aspect-video group"
                       >
                         {item.type === 'image' || item.type === 'diagram' ? (
-                          <img src={item.url} alt={item.caption || 'Gallery Image'} className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-110" />
+                          <img src={getDirectLink(item.url)} alt={item.caption || 'Gallery Image'} className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105" />
                         ) : item.type === 'video' ? (
                           <video 
-                            src={item.url} 
+                            src={getDirectLink(item.url)} 
                             className="w-full h-full object-cover" 
                             controls 
                             playsInline
@@ -317,7 +317,7 @@ export function ProjectDetailPage() {
                     {contributors.map(c => (
                       <div key={c.id} className="flex items-center justify-between group">
                         <div className="flex items-center gap-4">
-                          <img src={c.avatarUrl} alt={c.name} className="w-12 h-12 rounded-2xl object-cover bg-zinc-100" />
+                          <img src={getDirectLink(c.avatarUrl)} alt={c.name} className="w-12 h-12 rounded-2xl object-cover bg-zinc-100" />
                           <div>
                             <p className="font-bold text-sm uppercase tracking-tight">{c.name}</p>
                             <p className="text-[10px] text-zinc-500 font-mono uppercase tracking-widest">{c.role}</p>

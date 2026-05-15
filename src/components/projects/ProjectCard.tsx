@@ -2,6 +2,7 @@ import React from 'react';
 import { motion } from 'motion/react';
 import { ArrowUpRight, Github, ExternalLink, Calendar, Layers } from 'lucide-react';
 import { Link } from 'react-router-dom';
+import { getDirectLink } from '@/lib/utils';
 import { ContributorAvatars } from './ContributorAvatars';
 import { RichTextRenderer } from '@/src/components/RichTextRenderer';
 
@@ -34,7 +35,7 @@ export function ProjectCard({ project }: { project: Project }) {
         <div className="lg:w-1/3 relative h-64 lg:h-auto overflow-hidden bg-zinc-50 dark:bg-zinc-800">
           {project.coverImageUrl ? (
             <img 
-              src={project.coverImageUrl} 
+              src={getDirectLink(project.coverImageUrl)} 
               alt={project.title}
               className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105"
             />

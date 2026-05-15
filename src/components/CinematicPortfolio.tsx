@@ -2,6 +2,7 @@ import React, { useRef } from 'react';
 import { motion, useScroll, useTransform, useSpring } from 'motion/react';
 import { useContent } from '@/src/hooks/useContent';
 import { useCollection } from '@/src/hooks/useCollection';
+import { getDirectLink } from '@/lib/utils';
 import { ChevronRight, ArrowRight, Brain, Code, Globe, Shield, Database, Cpu, MessageSquare, Lightbulb, Users, Target, Zap, Github, Linkedin, GraduationCap, Mail, Phone, User as UserIcon } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import { Link } from 'react-router-dom';
@@ -72,7 +73,7 @@ export function CinematicPortfolio() {
           {heroData?.bgImageUrl ? (
             <div className="relative w-full h-full">
               <img 
-                src={heroData.bgImageUrl} 
+                src={getDirectLink(heroData.bgImageUrl)} 
                 className="w-full h-full object-cover dark:opacity-40 opacity-20 transition-opacity duration-1000" 
                 alt="Background"
               />
@@ -150,7 +151,7 @@ export function CinematicPortfolio() {
           
           <div className="relative aspect-video lg:aspect-video rounded-[1.5rem] md:rounded-[4rem] overflow-hidden bg-zinc-100 dark:bg-zinc-900 shadow-2xl">
             {aboutData?.profileImageUrl ? (
-              <img src={aboutData.profileImageUrl} alt="Portrait" className="w-full h-full object-cover grayscale transition-all duration-1000" />
+              <img src={getDirectLink(aboutData.profileImageUrl)} alt="Portrait" className="w-full h-full object-cover grayscale transition-all duration-1000" />
             ) : (
               <div className="w-full h-full flex items-center justify-center text-zinc-300 dark:text-zinc-800 font-mono text-sm md:text-xl uppercase">Signal_Offline_</div>
             )}
@@ -200,10 +201,10 @@ export function CinematicPortfolio() {
                             <div className="w-10 h-10 md:w-12 md:h-12 bg-zinc-200 dark:bg-zinc-800 rounded-xl overflow-hidden cursor-pointer">
                                {rec.linkedInUrl ? (
                                  <a href={rec.linkedInUrl} target="_blank" rel="noreferrer">
-                                   {rec.imageUrl ? <img src={rec.imageUrl} alt={rec.name} className="w-full h-full object-cover" /> : <UserIcon size={20} className="w-full h-full p-2 text-zinc-500" />}
+                                   {rec.imageUrl ? <img src={getDirectLink(rec.imageUrl)} alt={rec.name} className="w-full h-full object-cover" /> : <UserIcon size={20} className="w-full h-full p-2 text-zinc-500" />}
                                  </a>
                                ) : (
-                                 rec.imageUrl ? <img src={rec.imageUrl} alt={rec.name} className="w-full h-full object-cover" /> : <UserIcon size={20} className="w-full h-full p-2 text-zinc-500" />
+                                 rec.imageUrl ? <img src={getDirectLink(rec.imageUrl)} alt={rec.name} className="w-full h-full object-cover" /> : <UserIcon size={20} className="w-full h-full p-2 text-zinc-500" />
                                )}
                             </div>
                             <div>

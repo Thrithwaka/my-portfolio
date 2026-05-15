@@ -30,6 +30,7 @@ import {
 } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import { Link } from 'react-router-dom';
+import { getDirectLink } from '@/lib/utils';
 import { RichTextRenderer } from '@/src/components/RichTextRenderer';
 
 interface Project {
@@ -168,9 +169,9 @@ export function AboutPage() {
             >
               {aboutData?.heroVideoUrl ? (
                 <div className="relative w-full h-full opacity-30">
-                  {aboutData.heroVideoUrl.match(/\.(mp4|webm|ogg)$/i) ? (
+                  {aboutData.heroVideoUrl.match(/\.(mp4|webm|ogg)$/i) || aboutData.heroVideoUrl.includes('drive.google.com') ? (
                     <video 
-                      src={aboutData.heroVideoUrl} 
+                      src={getDirectLink(aboutData.heroVideoUrl)} 
                       className="w-full h-full object-cover" 
                       autoPlay 
                       loop 
@@ -179,7 +180,7 @@ export function AboutPage() {
                     />
                   ) : (
                     <img 
-                      src={aboutData.heroVideoUrl} 
+                      src={getDirectLink(aboutData.heroVideoUrl)} 
                       className="w-full h-full object-cover" 
                       alt="Background"
                     />
@@ -238,7 +239,7 @@ export function AboutPage() {
               >
                 <div className="relative aspect-[4/5] rounded-[2rem] md:rounded-[4rem] overflow-hidden border-4 md:border-8 border-white dark:border-zinc-900 shadow-2xl max-h-[45vh] md:max-h-none">
                   <img 
-                    src={aboutData?.deepIntroImage || aboutData?.profileImageUrl || "https://images.unsplash.com/photo-1544256718-3bcf237f3974"} 
+                    src={getDirectLink(aboutData?.deepIntroImage || aboutData?.profileImageUrl) || "https://images.unsplash.com/photo-1544256718-3bcf237f3974"} 
                     alt="Profile" 
                     className="w-full h-full object-cover grayscale transition-all duration-1000 group-hover:grayscale-0 group-hover:scale-105" 
                   />
@@ -447,14 +448,14 @@ export function AboutPage() {
                           >
                             <div className="flex items-start justify-between mb-6">
                               <div className="w-12 h-12 md:w-16 md:h-16 bg-white dark:bg-zinc-800 rounded-2xl shadow-sm border border-zinc-100 dark:border-zinc-700 p-2 overflow-hidden flex items-center justify-center relative group-hover:after:content-[''] group-hover:after:absolute group-hover:after:inset-0 group-hover:after:bg-gradient-to-r group-hover:after:from-transparent group-hover:after:via-white/20 group-hover:after:to-transparent group-hover:after:-translate-x-full group-hover:after:animate-[shimmer_2s_infinite]">
-                                <img 
-                                  src={cert.imageUrl || "https://images.unsplash.com/photo-1633356122544-f134324a6cee"} 
-                                  alt={cert.issuer} 
-                                  className="w-full h-full object-contain" 
-                                  loading="lazy"
-                                  referrerPolicy="no-referrer"
-                                />
-                              </div>
+                              <img 
+                                src={getDirectLink(cert.imageUrl) || "https://images.unsplash.com/photo-1633356122544-f134324a6cee"} 
+                                alt={cert.issuer} 
+                                className="w-full h-full object-contain" 
+                                loading="lazy"
+                                referrerPolicy="no-referrer"
+                              />
+                            </div>
                               {cert.isFeatured && (
                                 <div className="px-3 py-1 rounded-full bg-blue-50 dark:bg-blue-900/20 text-blue-600 dark:text-blue-400 text-[8px] font-bold uppercase tracking-widest">
                                   Featured
@@ -540,7 +541,7 @@ export function AboutPage() {
                   >
                     <div className="w-full md:w-32 h-32 md:h-40 bg-zinc-50 dark:bg-white/[0.02] rounded-2xl md:rounded-3xl overflow-hidden shrink-0">
                       {res.imageUrl ? (
-                        <img src={res.imageUrl} className="w-full h-full object-cover grayscale group-hover:grayscale-0 transition-all duration-1000" alt="Research" />
+                        <img src={getDirectLink(res.imageUrl)} className="w-full h-full object-cover grayscale group-hover:grayscale-0 transition-all duration-1000" alt="Research" />
                       ) : (
                         <div className="w-full h-full flex items-center justify-center text-zinc-300">
                            <FileCode size={32} />

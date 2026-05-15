@@ -8,6 +8,7 @@ import { Card, CardContent } from '@/components/ui/card';
 import { Loader2, Plus, Trash2, Award, ExternalLink, Calendar, X, ShieldCheck, Sparkles, Medal, Eye, EyeOff } from 'lucide-react';
 import { FileUploader } from '@/src/components/admin/FileUploader';
 import { RichTextRenderer } from '@/src/components/RichTextRenderer';
+import { getDirectLink } from '@/lib/utils';
 import { motion, AnimatePresence } from 'motion/react';
 
 interface Certification {
@@ -48,14 +49,20 @@ export function CertificationsManager() {
 
   const handleSave = async () => {
     if (!editForm.title || !editForm.issuer) return;
-    if (editingId) {
-      await update(editingId, editForm);
-    } else {
-      await add(editForm as Certification);
+    try {
+      if (editingId) {
+        await update(editingId, editForm);
+      } else {
+        await add(editForm as Certification);
+      }
+      setEditingId(null);
+      setIsAdding(false);
+      setEditForm({});
+      alert('Credential saved successfully.');
+    } catch (err: any) {
+      console.error(err);
+      alert(`Save failed: ${err.message || 'Check permissions.'}`);
     }
-    setEditingId(null);
-    setIsAdding(false);
-    setEditForm({});
   };
 
   return (
@@ -98,7 +105,7 @@ export function CertificationsManager() {
           >
              <div className="flex flex-col items-center text-center space-y-6 p-8 border border-dashed border-zinc-800 rounded-2xl">
                 <div className="w-20 h-20 rounded-2xl bg-zinc-900 border border-white/5 flex items-center justify-center overflow-hidden">
-                   {editForm.imageUrl ? <img src={editForm.imageUrl} className="w-full h-full object-cover" /> : <Award size={32} className="text-zinc-800" />}
+                   {editForm.imageUrl ? <img src={getDirectLink(editForm.imageUrl)} className="w-full h-full object-cover" /> : <Award size={32} className="text-zinc-800" />}
                 </div>
                 <div className="space-y-3">
                    <div className="flex items-center justify-center gap-2">
@@ -197,7 +204,7 @@ export function CertificationsManager() {
                       </div>
                       {editForm.imageUrl && (
                         <div className="w-12 h-12 rounded-xl bg-black border border-white/10 p-2 overflow-hidden shrink-0">
-                           <img src={editForm.imageUrl} className="w-full h-full object-contain" />
+                           <img src={getDirectLink(editForm.imageUrl)} className="w-full h-full object-contain" />
                         </div>
                       )}
                    </div>
@@ -231,7 +238,7 @@ export function CertificationsManager() {
              <Card className="bg-[#0A0A0A] border-white/5 rounded-3xl overflow-hidden hover:border-amber-500/20 transition-all duration-500 group shadow-lg relative h-full">
                 <CardContent className="p-6 space-y-6 flex flex-col h-full">
                    <div className="w-16 h-16 rounded-xl bg-black border border-white/5 flex items-center justify-center p-3 overflow-hidden shrink-0 group-hover:scale-105 transition-transform">
-                      {item.imageUrl ? <img src={item.imageUrl} className="w-full h-full object-contain" /> : <Award size={24} className="text-zinc-900" />}
+                      {item.imageUrl ? <img src={getDirectLink(item.imageUrl)} className="w-full h-full object-contain" /> : <Award size={24} className="text-zinc-900" />}
                    </div>
                    
                    <div className="flex-1 space-y-2">

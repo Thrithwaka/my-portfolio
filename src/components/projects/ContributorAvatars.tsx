@@ -1,5 +1,6 @@
 import React from 'react';
 import { motion } from 'motion/react';
+import { getDirectLink } from '@/lib/utils';
 
 interface Contributor {
   id: string;
@@ -32,7 +33,7 @@ export function ContributorAvatars({ contributors, limit = 4 }: ContributorAvata
         >
           {c.avatarUrl ? (
             <img 
-              src={c.avatarUrl} 
+              src={getDirectLink(c.avatarUrl)} 
               alt={c.name}
               className="w-8 h-8 md:w-10 md:h-10 rounded-full border-2 border-white dark:border-black object-cover bg-zinc-100"
             />
