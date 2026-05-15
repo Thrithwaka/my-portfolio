@@ -294,7 +294,7 @@ export function AboutManager() {
           <div className="sticky top-10 space-y-6">
              <div className="p-8 bg-zinc-900/40 border border-white/5 rounded-3xl space-y-8 backdrop-blur-xl shadow-2xl">
                 <div className="space-y-6">
-                   <div className="aspect-square w-full rounded-2xl bg-black overflow-hidden relative ring-1 ring-white/10 group">
+                   <div className="aspect-[4/5] w-full rounded-[2rem] bg-black overflow-hidden relative ring-1 ring-white/10 group">
                       {form.profileImageUrl ? (
                         <img src={getDirectLink(form.profileImageUrl)} className="w-full h-full object-cover transition-transform duration-700 pointer-events-none group-hover:scale-105" />
                       ) : (

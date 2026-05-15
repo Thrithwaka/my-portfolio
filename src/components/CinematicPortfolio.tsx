@@ -149,9 +149,9 @@ export function CinematicPortfolio() {
             </Link>
           </div>
           
-          <div className="relative aspect-video lg:aspect-video rounded-[1.5rem] md:rounded-[4rem] overflow-hidden bg-zinc-100 dark:bg-zinc-900 shadow-2xl">
+          <div className="relative aspect-[4/5] md:aspect-[3/4] rounded-[2.5rem] md:rounded-[4rem] overflow-hidden bg-zinc-100 dark:bg-zinc-900 shadow-2xl max-w-sm mx-auto md:ml-auto">
             {aboutData?.profileImageUrl ? (
-              <img src={getDirectLink(aboutData.profileImageUrl)} alt="Portrait" className="w-full h-full object-cover grayscale transition-all duration-1000" />
+              <img src={getDirectLink(aboutData.profileImageUrl)} alt="Portrait" className="w-full h-full object-cover transition-all duration-1000" />
             ) : (
               <div className="w-full h-full flex items-center justify-center text-zinc-300 dark:text-zinc-800 font-mono text-sm md:text-xl uppercase">Signal_Offline_</div>
             )}

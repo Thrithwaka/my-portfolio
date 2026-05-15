@@ -167,7 +167,7 @@ export function AboutPage() {
               style={{ opacity: heroOpacity }}
               className="absolute inset-0 pointer-events-none z-0"
             >
-              {aboutData?.heroVideoUrl ? (
+              {aboutData?.heroVideoUrl && aboutData.heroVideoUrl !== aboutData.profileImageUrl ? (
                 <div className="relative w-full h-full opacity-30">
                   {aboutData.heroVideoUrl.match(/\.(mp4|webm|ogg)$/i) || 
                    aboutData.heroVideoUrl.includes('drive.google.com') || 
@@ -243,7 +243,7 @@ export function AboutPage() {
                   <img 
                     src={getDirectLink(aboutData?.deepIntroImage || aboutData?.profileImageUrl) || "https://images.unsplash.com/photo-1544256718-3bcf237f3974"} 
                     alt="Profile" 
-                    className="w-full h-full object-cover grayscale transition-all duration-1000 group-hover:grayscale-0 group-hover:scale-105" 
+                    className="w-full h-full object-cover transition-all duration-1000 group-hover:scale-105" 
                   />
                   <div className="absolute inset-0 bg-blue-600/5 group-hover:bg-transparent transition-colors" />
                 </div>
@@ -543,7 +543,7 @@ export function AboutPage() {
                   >
                     <div className="w-full md:w-32 h-32 md:h-40 bg-zinc-50 dark:bg-white/[0.02] rounded-2xl md:rounded-3xl overflow-hidden shrink-0">
                       {res.imageUrl ? (
-                        <img src={getDirectLink(res.imageUrl)} className="w-full h-full object-cover grayscale group-hover:grayscale-0 transition-all duration-1000" alt="Research" />
+                        <img src={getDirectLink(res.imageUrl)} className="w-full h-full object-cover transition-all duration-1000" alt="Research" />
                       ) : (
                         <div className="w-full h-full flex items-center justify-center text-zinc-300">
                            <FileCode size={32} />
