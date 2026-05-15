@@ -3,7 +3,7 @@ import { motion, useScroll, useTransform, useSpring } from 'motion/react';
 import { useContent } from '@/src/hooks/useContent';
 import { useCollection } from '@/src/hooks/useCollection';
 import { getDirectLink } from '@/lib/utils';
-import { ChevronRight, ArrowRight, Brain, Code, Globe, Shield, Database, Cpu, MessageSquare, Lightbulb, Users, Target, Zap, Github, Linkedin, GraduationCap, Mail, Phone, User as UserIcon } from 'lucide-react';
+import { ChevronRight, ArrowRight, Brain, Code, Globe, Shield, Database, Cpu, MessageSquare, Lightbulb, Users, Target, Zap, Github, Linkedin, GraduationCap, Mail, Phone, User as UserIcon, Sparkles } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import { Link } from 'react-router-dom';
 import { RichTextRenderer } from '@/src/components/RichTextRenderer';
