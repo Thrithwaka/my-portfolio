@@ -237,12 +237,12 @@ export function CinematicPortfolio({ isAdmin }: { isAdmin?: boolean }) {
             style={{ scale: recScale, y: recY }}
             className="w-full space-y-8 md:space-y-16 flex flex-col items-center"
           >
-            <div className="text-center space-y-2 md:space-y-4 px-6">
-              <h2 className="text-xs md:text-sm font-mono uppercase tracking-[0.3em] text-blue-600">Strategic Validation</h2>
-              <h3 className="text-4xl md:text-7xl font-bold tracking-tighter text-black dark:text-white">Professional Trust.</h3>
+            <div className="text-center space-y-1 md:space-y-4 px-6">
+              <h2 className="text-[10px] md:text-xs font-mono uppercase tracking-[0.3em] text-blue-600">Strategic Validation</h2>
+              <h3 className="text-3xl md:text-6xl font-bold tracking-tighter text-black dark:text-white">Professional Trust.</h3>
             </div>
 
-            <div className="relative w-full overflow-hidden py-10">
+            <div className="relative w-full overflow-hidden py-4 md:py-8">
                 <motion.div 
                   animate={{ x: ["0%", "-50%"] }}
                   transition={{ 
@@ -250,40 +250,47 @@ export function CinematicPortfolio({ isAdmin }: { isAdmin?: boolean }) {
                     repeat: Infinity, 
                     ease: "linear" 
                   }}
-                  className="flex space-x-6 w-max"
+                  className="flex space-x-4 md:space-x-8 w-max items-center"
                 >
                   {[...Array(2)].map((_, i) => (
-                    <div key={i} className="flex space-x-6">
+                    <div key={i} className="flex space-x-4 md:space-x-8">
                       {(endorsements?.length > 0 ? endorsements : [
                         { quote: "Thrithwaka's approach to AI is remarkably precise. He doesn't just build models; he builds value.", name: "Dr. Elena Vance", role: "Principal Scientist", company: "MIT Lab" },
                         { quote: "A rare talent who understands the hardware, the software, and the human impact simultaneously.", name: "Marcus Thorne", role: "CTO", company: "Neural systems" },
                         { quote: "The level of engineering polish in his research publications sets a new industry standard.", name: "Sarah Chen", role: "Director of Innovation", company: "DataFlow AI" }
                       ]).map((rec: any, j: number) => {
                         const CardContent = (
-                          <div className="inline-block w-[320px] md:w-[450px] p-8 md:p-10 border border-zinc-100 dark:border-white/5 rounded-[2rem] md:rounded-[3rem] bg-zinc-50/50 dark:bg-zinc-900/50 backdrop-blur-xl whitespace-normal h-full">
-                            <RichTextRenderer 
-                              content={rec.quote} 
-                              className="text-lg md:text-xl font-medium leading-relaxed text-zinc-800 dark:text-zinc-200 italic font-serif mb-8" 
-                            />
-                            <div className="flex items-center space-x-4">
-                              <div className="w-10 h-10 md:w-12 md:h-12 bg-zinc-200 dark:bg-zinc-800 rounded-xl overflow-hidden cursor-pointer">
-                                 {rec.linkedInUrl ? (
-                                   <a href={rec.linkedInUrl} target="_blank" rel="noreferrer">
-                                     {rec.imageUrl ? <img src={getDirectLink(rec.imageUrl)} alt={rec.name} className="w-full h-full object-cover" /> : <UserIcon size={20} className="w-full h-full p-2 text-zinc-500" />}
-                                   </a>
-                                 ) : (
-                                   rec.imageUrl ? <img src={getDirectLink(rec.imageUrl)} alt={rec.name} className="w-full h-full object-cover" /> : <UserIcon size={20} className="w-full h-full p-2 text-zinc-500" />
-                                 )}
+                          <div className="group/rec-card flex flex-col w-[300px] md:w-[480px] min-h-[320px] md:h-[420px] p-8 md:p-12 border border-zinc-100 dark:border-white/5 rounded-[2.5rem] md:rounded-[4rem] bg-zinc-50/50 dark:bg-zinc-900/50 backdrop-blur-3xl whitespace-normal hover:bg-zinc-100 dark:hover:bg-zinc-800/80 transition-all duration-700">
+                            <div className="flex-1 overflow-y-auto pr-2 custom-scrollbar mb-6 md:mb-10">
+                              <RichTextRenderer 
+                                content={rec.quote} 
+                                className="text-sm md:text-lg font-medium leading-relaxed text-zinc-700 dark:text-zinc-300 italic font-serif" 
+                              />
+                            </div>
+                            <div className="flex items-center space-x-4 md:space-x-6 border-t border-zinc-200/50 dark:border-white/5 pt-6 md:pt-8">
+                              <div className="relative">
+                                <div className="w-12 h-12 md:w-16 md:h-16 bg-zinc-200 dark:bg-zinc-800 rounded-2xl md:rounded-[1.5rem] overflow-hidden shadow-lg transition-transform duration-500 group-hover/rec-card:scale-110">
+                                   {rec.linkedInUrl ? (
+                                     <a href={rec.linkedInUrl} target="_blank" rel="noreferrer">
+                                       {rec.imageUrl ? <img src={getDirectLink(rec.imageUrl)} alt={rec.name} className="w-full h-full object-cover" /> : <UserIcon size={24} className="w-full h-full p-3 text-zinc-500" />}
+                                     </a>
+                                   ) : (
+                                     rec.imageUrl ? <img src={getDirectLink(rec.imageUrl)} alt={rec.name} className="w-full h-full object-cover" /> : <UserIcon size={24} className="w-full h-full p-3 text-zinc-500" />
+                                   )}
+                                </div>
+                                <div className="absolute -bottom-1 -right-1 bg-blue-600 rounded-full p-1 shadow-lg">
+                                  <Sparkles size={8} className="text-white" />
+                                </div>
                               </div>
-                              <div>
+                              <div className="space-y-0.5">
                                  {rec.linkedInUrl ? (
-                                   <a href={rec.linkedInUrl} target="_blank" rel="noreferrer" className="font-bold text-sm md:text-base text-black dark:text-white hover:text-blue-600 transition-colors block">
+                                   <a href={rec.linkedInUrl} target="_blank" rel="noreferrer" className="font-bold text-sm md:text-lg text-black dark:text-white hover:text-blue-600 transition-colors block">
                                      {rec.name}
                                    </a>
                                  ) : (
-                                   <p className="font-bold text-sm md:text-base text-black dark:text-white">{rec.name}</p>
+                                   <p className="font-bold text-sm md:text-lg text-black dark:text-white">{rec.name}</p>
                                  )}
-                                <p className="text-[9px] font-mono uppercase tracking-[0.1em] text-zinc-400">{rec.role} {rec.company ? `@ ${rec.company}` : ''}</p>
+                                <p className="text-[10px] md:text-[11px] font-mono uppercase tracking-[0.15em] text-zinc-500 dark:text-zinc-400">{rec.role} {rec.company ? `@ ${rec.company}` : ''}</p>
                               </div>
                             </div>
                           </div>
