@@ -103,18 +103,23 @@ export function RichTextEditor({ value, onChange, placeholder, label }: RichText
   }: { 
     onClick: () => void; 
     isActive?: boolean; 
-    children: React.ReactNode;
-    title: string;
+    children: React.ReactNode; 
+    title: string; 
     disabled?: boolean;
   }) => (
     <button
       type="button"
-      onClick={onClick}
+      onMouseDown={(e) => e.preventDefault()} // CRITICAL: Prevent editor focus loss
+      onClick={(e) => {
+        e.preventDefault();
+        e.stopPropagation();
+        onClick();
+      }}
       title={title}
       disabled={disabled}
       className={`p-2 rounded-lg transition-all ${
         isActive 
-          ? 'bg-blue-600 text-white' 
+          ? 'bg-blue-600 text-white shadow-[0_0_15px_rgba(37,99,235,0.4)]' 
           : 'text-zinc-500 hover:bg-white/5 hover:text-white disabled:opacity-30 disabled:hover:bg-transparent'
       }`}
     >
