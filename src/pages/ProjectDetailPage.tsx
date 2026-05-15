@@ -197,9 +197,7 @@ export function ProjectDetailPage() {
                         whileInView={{ opacity: 1, scale: 1 }}
                         className="rounded-[2.5rem] overflow-hidden bg-zinc-100 dark:bg-zinc-900 aspect-video group"
                       >
-                        {item.type === 'image' || item.type === 'diagram' ? (
-                          <img src={getDirectLink(item.url)} alt={item.caption || 'Gallery Image'} className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105" />
-                        ) : item.type === 'video' ? (
+                        {item.type === 'video' || item.url.match(/\.(mp4|webm|ogg)$/i) || (item.url.includes('res.cloudinary.com') && item.url.includes('/video/')) ? (
                           <video 
                             src={getDirectLink(item.url)} 
                             className="w-full h-full object-cover" 
@@ -207,9 +205,7 @@ export function ProjectDetailPage() {
                             playsInline
                           />
                         ) : (
-                          <div className="w-full h-full flex items-center justify-center p-8 text-center text-zinc-400">
-                             <p className="text-xs uppercase tracking-widest">Format Not Supported</p>
-                          </div>
+                          <img src={getDirectLink(item.url)} alt={item.caption || 'Gallery Image'} className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105" />
                         )}
                         {item.caption && (
                           <div className="p-6 bg-white dark:bg-zinc-900 border-t border-zinc-100 dark:border-white/5">

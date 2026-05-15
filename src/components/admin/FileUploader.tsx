@@ -1,6 +1,4 @@
 import React, { useState } from 'react';
-import { storage } from '@/lib/firebase';
-import { ref, uploadBytesResumable, getDownloadURL } from 'firebase/storage';
 import { Loader2, Upload, CheckCircle2, AlertCircle } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 
@@ -20,38 +18,51 @@ export function FileUploader({ onUploadComplete, folder = 'uploads', accept = 'i
     const file = e.target.files?.[0];
     if (!file) return;
 
+    const cloudName = (import.meta as any).env.VITE_CLOUDINARY_CLOUD_NAME;
+    const uploadPreset = (import.meta as any).env.VITE_CLOUDINARY_UPLOAD_PRESET;
+
+    if (!cloudName || !uploadPreset) {
+      setError('Cloudinary configuration missing.');
+      return;
+    }
+
     setUploading(true);
     setProgress(0);
     setError(null);
 
-    const fileName = `${Date.now()}_${file.name.replace(/\s+/g, '_')}`;
-    const storageRef = ref(storage, `${folder}/${fileName}`);
-    const uploadTask = uploadBytesResumable(storageRef, file);
+    const formData = new FormData();
+    formData.append('file', file);
+    formData.append('upload_preset', uploadPreset);
+    formData.append('folder', folder);
 
-    uploadTask.on(
-      'state_changed',
-      (snapshot) => {
-        const p = (snapshot.bytesTransferred / snapshot.totalBytes) * 100;
-        setProgress(Math.round(p));
-      },
-      (err) => {
-        console.error('Upload error:', err);
-        setError('Upload failed. Please try again.');
-        setUploading(false);
-      },
-      async () => {
-        try {
-          const downloadURL = await getDownloadURL(uploadTask.snapshot.ref);
-          onUploadComplete(downloadURL);
-          setUploading(false);
-          setProgress(0);
-        } catch (err) {
-          console.error('Error getting download URL:', err);
-          setError('Failed to retrieve file URL.');
-          setUploading(false);
-        }
+    const xhr = new XMLHttpRequest();
+    xhr.open('POST', `https://api.cloudinary.com/v1_1/${cloudName}/auto/upload`, true);
+
+    xhr.upload.onprogress = (event) => {
+      if (event.lengthComputable) {
+        const p = Math.round((event.loaded / event.total) * 100);
+        setProgress(p);
       }
-    );
+    };
+
+    xhr.onload = () => {
+      setUploading(false);
+      if (xhr.status === 200) {
+        const response = JSON.parse(xhr.responseText);
+        onUploadComplete(response.secure_url);
+        setProgress(0);
+      } else {
+        const response = JSON.parse(xhr.responseText);
+        setError(response.error?.message || 'Upload failed.');
+      }
+    };
+
+    xhr.onerror = () => {
+      setUploading(false);
+      setError('Network error during upload.');
+    };
+
+    xhr.send(formData);
   };
 
   return (

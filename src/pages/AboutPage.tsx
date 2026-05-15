@@ -169,7 +169,9 @@ export function AboutPage() {
             >
               {aboutData?.heroVideoUrl ? (
                 <div className="relative w-full h-full opacity-30">
-                  {aboutData.heroVideoUrl.match(/\.(mp4|webm|ogg)$/i) || aboutData.heroVideoUrl.includes('drive.google.com') ? (
+                  {aboutData.heroVideoUrl.match(/\.(mp4|webm|ogg)$/i) || 
+                   aboutData.heroVideoUrl.includes('drive.google.com') || 
+                   (aboutData.heroVideoUrl.includes('res.cloudinary.com') && aboutData.heroVideoUrl.includes('/video/')) ? (
                     <video 
                       src={getDirectLink(aboutData.heroVideoUrl)} 
                       className="w-full h-full object-cover" 
