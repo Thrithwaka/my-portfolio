@@ -40,13 +40,13 @@ function App() {
       <Router>
         <ScrollToTop />
         <div className="min-h-screen bg-white dark:bg-black text-black dark:text-white transition-colors duration-500">
-          <Navbar user={user} />
+          <Navbar user={user} isAdmin={isAdmin} />
           <Routes>
-            <Route path="/" element={<CinematicPortfolio />} />
-            <Route path="/about" element={<AboutPage />} />
-            <Route path="/projects" element={<ProjectsPage />} />
-            <Route path="/projects/:slug" element={<ProjectDetailPage />} />
-            <Route path="/contact" element={<ContactPage />} />
+            <Route path="/" element={<CinematicPortfolio isAdmin={isAdmin} />} />
+            <Route path="/about" element={<AboutPage isAdmin={isAdmin} />} />
+            <Route path="/projects" element={<ProjectsPage isAdmin={isAdmin} />} />
+            <Route path="/projects/:slug" element={<ProjectDetailPage isAdmin={isAdmin} />} />
+            <Route path="/contact" element={<ContactPage isAdmin={isAdmin} />} />
             <Route path="/admin/login" element={user ? <Navigate to="/admin/dashboard" /> : <AdminLogin />} />
             <Route 
               path="/admin/dashboard/*" 

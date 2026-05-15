@@ -6,7 +6,7 @@ import { collection, onSnapshot, query, orderBy, getDocs, addDoc, serverTimestam
 import { db, auth } from '@/lib/firebase';
 import { ProjectCard } from '@/src/components/projects/ProjectCard';
 
-export function ProjectsPage() {
+export function ProjectsPage({ isAdmin }: { isAdmin?: boolean }) {
   const [projects, setProjects] = useState<any[]>([]);
   const [loading, setLoading] = useState(true);
   const [isSeeding, setIsSeeding] = useState(false);

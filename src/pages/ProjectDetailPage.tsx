@@ -11,7 +11,7 @@ import { getDirectLink } from '@/lib/utils';
 import { ContributorAvatars } from '@/src/components/projects/ContributorAvatars';
 import { RichTextRenderer } from '@/src/components/RichTextRenderer';
 
-export function ProjectDetailPage() {
+export function ProjectDetailPage({ isAdmin }: { isAdmin?: boolean }) {
   const { slug } = useParams<{ slug: string }>();
   const navigate = useNavigate();
   const [project, setProject] = useState<any>(null);

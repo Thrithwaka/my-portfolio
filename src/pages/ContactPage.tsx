@@ -5,7 +5,7 @@ import { Input } from '@/components/ui/input';
 import { Textarea } from '@/components/ui/textarea';
 import { Mail, Linkedin, Github, FileText, Send } from 'lucide-react';
 
-export function ContactPage() {
+export function ContactPage({ isAdmin }: { isAdmin?: boolean }) {
   const [formData, setFormData] = React.useState({
     name: '',
     email: '',

@@ -6,14 +6,14 @@ import { User, signOut } from 'firebase/auth';
 import { auth } from '@/lib/firebase';
 import { Menu, X, ChevronDown, ExternalLink, Sun, Moon } from 'lucide-react';
 
-export function Navbar({ user }: { user: User | null }) {
+export function Navbar({ user, isAdmin: isGlobalAdmin }: { user: User | null; isAdmin?: boolean }) {
   const [isScrolled, setIsScrolled] = useState(false);
   const [isOpen, setIsOpen] = useState(false);
   const [isBlogOpen, setIsBlogOpen] = useState(false);
   const [theme, setTheme] = useState<'light' | 'dark'>('dark');
   const { data: settings } = useContent<any>('settings/global');
   const location = useLocation();
-  const isAdmin = location.pathname.startsWith('/admin');
+  const isAdminPath = location.pathname.startsWith('/admin');
 
   useEffect(() => {
     const handleScroll = () => {
@@ -30,7 +30,7 @@ export function Navbar({ user }: { user: User | null }) {
     }
 
     return () => window.removeEventListener('scroll', handleScroll);
-  }, []);
+  }, [location.pathname]);
 
   const toggleTheme = () => {
     const newTheme = theme === 'dark' ? 'light' : 'dark';
@@ -80,7 +80,7 @@ export function Navbar({ user }: { user: User | null }) {
   return (
     <>
       <AnimatePresence>
-        {(isScrolled || isAdmin) && (
+        {(isScrolled || isAdminPath) && (
           <motion.nav 
             initial={{ opacity: 0, y: -20 }}
             animate={{ opacity: 1, y: 0 }}
@@ -95,7 +95,7 @@ export function Navbar({ user }: { user: User | null }) {
 
               {/* Desktop Nav */}
               <div className="hidden md:flex items-center space-x-10">
-                {!isAdmin && navLinks.map(link => (
+                {!isAdminPath && navLinks.map(link => (
                   <Link 
                     key={link.name} 
                     to={link.href} 
@@ -109,7 +109,7 @@ export function Navbar({ user }: { user: User | null }) {
                 ))}
 
                 {/* Blogs Dropdown */}
-                {!isAdmin && (
+                {!isAdminPath && (
                   <div className="relative group" onMouseEnter={() => setIsBlogOpen(true)} onMouseLeave={() => setIsBlogOpen(false)}>
                     <button className="text-xs font-medium uppercase tracking-[0.1em] text-zinc-500 dark:text-zinc-400 flex items-center group-hover:text-black dark:group-hover:text-white transition-colors text-left uppercase">
                       Blogs <ChevronDown size={14} className={`ml-1 transition-transform duration-300 ${isBlogOpen ? 'rotate-180' : ''}`} />
@@ -138,6 +138,15 @@ export function Navbar({ user }: { user: User | null }) {
                       )}
                     </AnimatePresence>
                   </div>
+                )}
+
+                {isGlobalAdmin && (
+                  <Link 
+                    to="/admin/dashboard" 
+                    className="text-[10px] font-bold uppercase tracking-widest px-4 py-2 bg-blue-600 text-white rounded-full hover:bg-blue-700 transition-colors"
+                  >
+                    Dashboard
+                  </Link>
                 )}
                 
                 {user ? (
