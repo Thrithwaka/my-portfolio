@@ -81,13 +81,13 @@ export function AdminDashboard({ user }: { user: User }) {
       <motion.aside 
         initial={false}
         animate={{ 
-          width: isSidebarOpen ? 320 : 0, 
+          width: isSidebarOpen ? 280 : 0, 
           opacity: isSidebarOpen ? 1 : 0,
           pointerEvents: isSidebarOpen ? 'auto' : 'none'
         }}
         className="border-r border-white/5 flex flex-col bg-[#020202] relative z-50 overflow-hidden shrink-0"
       >
-        <div className="p-8 space-y-8 flex flex-col h-full w-[320px]">
+        <div className="p-6 space-y-6 flex flex-col h-full w-[280px]">
           <div className="flex items-center justify-between">
             <Link to="/" className="flex items-center space-x-3 group">
               <div className="w-9 h-9 bg-white rounded-xl flex items-center justify-center shadow-lg shadow-white/5 group-hover:scale-105 transition-transform">
@@ -111,7 +111,7 @@ export function AdminDashboard({ user }: { user: User }) {
             />
           </div>
 
-          <nav className="flex-1 space-y-8 overflow-y-auto pr-2 custom-scrollbar">
+          <nav className="flex-1 space-y-6 overflow-y-auto pr-2 custom-scrollbar" data-lenis-prevent>
             {categories.map(category => {
               const items = filteredMenu.filter(i => i.category === category);
               if (items.length === 0) return null;
@@ -230,7 +230,7 @@ export function AdminDashboard({ user }: { user: User }) {
         </header>
 
         {/* Global Canvas */}
-        <main className="flex-1 overflow-y-auto p-12 custom-scrollbar scroll-smooth">
+        <main className="flex-1 overflow-y-auto p-8 custom-scrollbar scroll-smooth" data-lenis-prevent>
           <AnimatePresence mode="wait">
             <motion.div
               key={location.pathname}
@@ -319,9 +319,9 @@ function Overview({ user }: { user: any }) {
           <motion.h1 
             initial={{ opacity: 0, x: -20 }}
             animate={{ opacity: 1, x: 0 }}
-            className="text-7xl xl:text-8xl font-black tracking-[calc(-0.06em)] uppercase leading-[0.85] italic"
+            className="text-5xl xl:text-6xl font-black tracking-tight uppercase leading-tight italic"
           >
-            Command <br/> <span className="text-transparent bg-clip-text bg-gradient-to-r from-zinc-700 to-zinc-900">Surface</span>
+            Command <span className="text-transparent bg-clip-text bg-gradient-to-r from-zinc-700 to-zinc-900">Surface</span>
           </motion.h1>
           <p className="text-zinc-500 text-lg max-w-2xl font-medium leading-relaxed">
             Welcome back, {user.displayName || 'Preethi'}. Your digital portfolio ecosystem is currently operating within <span className="text-white font-bold">optimal parameters</span>. Coordinate your brand signal from this centralized node.
@@ -343,75 +343,74 @@ function Overview({ user }: { user: any }) {
       </header>
 
       {/* Grid: Identity Pulse */}
-      <div className="grid grid-cols-1 xl:grid-cols-4 gap-8">
-        <div className="xl:col-span-3 grid grid-cols-1 md:grid-cols-3 gap-6">
+      <div className="grid grid-cols-1 xl:grid-cols-4 gap-6">
+        <div className="xl:col-span-3 grid grid-cols-1 md:grid-cols-4 gap-4">
           {[
-            { label: 'Ecosystem Pulse', value: `${stats.projects}`, icon: Box, detail: 'Active Strategic Ventures', color: 'text-blue-500', path: '/admin/dashboard/projects' },
-            { label: 'Signal Complexity', value: `${stats.skills}`, icon: Cpu, detail: 'Mastered Tech', color: 'text-emerald-500', path: '/admin/dashboard/toolkit' },
-            { label: 'Intelligence pool', value: `${stats.research}`, icon: BookOpen, detail: 'Publications', color: 'text-indigo-500', path: '/admin/dashboard/research' },
-            { label: 'Credential Flow', value: `${stats.certs}`, icon: ShieldCheck, detail: 'Verified Badges', color: 'text-purple-500', path: '/admin/dashboard/certifications' },
+            { label: 'Ecosystem Pulse', value: `${stats.projects}`, icon: Box, detail: 'Projects', color: 'text-blue-500', path: '/admin/dashboard/projects' },
+            { label: 'Signal Complexity', value: `${stats.skills}`, icon: Cpu, detail: 'Skills', color: 'text-emerald-500', path: '/admin/dashboard/toolkit' },
+            { label: 'Intelligence pool', value: `${stats.research}`, icon: BookOpen, detail: 'Papers', color: 'text-indigo-500', path: '/admin/dashboard/research' },
+            { label: 'Credential Flow', value: `${stats.certs}`, icon: ShieldCheck, detail: 'Certs', color: 'text-purple-500', path: '/admin/dashboard/certifications' },
           ].map((stat, idx) => (
             <Link 
               key={stat.label} 
               to={stat.path}
-              className="group p-10 border border-white/[0.03] rounded-[3rem] bg-gradient-to-br from-white/[0.03] to-transparent hover:bg-white/[0.05] hover:border-white/10 transition-all relative overflow-hidden flex flex-col justify-between min-h-[280px]"
+              className="group p-6 border border-white/[0.03] rounded-[2rem] bg-gradient-to-br from-white/[0.03] to-transparent hover:bg-white/[0.05] hover:border-white/10 transition-all relative overflow-hidden flex flex-col justify-between min-h-[200px]"
             >
-               <div className={`absolute top-0 right-0 p-12 opacity-[0.03] group-hover:opacity-[0.08] transition-all duration-700 ${stat.color} group-hover:scale-110 group-hover:rotate-6`}>
-                 <stat.icon size={160} strokeWidth={1} />
+               <div className={`absolute top-0 right-0 p-8 opacity-[0.03] group-hover:opacity-[0.08] transition-all duration-700 ${stat.color} group-hover:scale-110 group-hover:rotate-6`}>
+                 <stat.icon size={100} strokeWidth={1} />
                </div>
                
                <div className="relative flex justify-between items-start">
                   <div className="space-y-1">
-                    <p className="text-[10px] uppercase tracking-[0.3em] font-black text-zinc-600">{stat.label}</p>
-                    <p className="text-[9px] uppercase font-bold text-zinc-800 tracking-widest">{idx + 1}.0 NODE ACTIVE</p>
+                    <p className="text-[10px] uppercase tracking-[0.2em] font-black text-zinc-600">{stat.label}</p>
                   </div>
-                  <div className={`w-10 h-10 rounded-2xl bg-white/[0.05] flex items-center justify-center ${stat.color} group-hover:bg-current group-hover:text-black transition-all shadow-xl`}>
-                    <ArrowUpRight size={18} />
+                  <div className={`w-8 h-8 rounded-xl bg-white/[0.05] flex items-center justify-center ${stat.color} group-hover:bg-current group-hover:text-black transition-all shadow-xl`}>
+                    <ArrowUpRight size={14} />
                   </div>
                </div>
-
-               <div className="relative space-y-2">
-                 <h2 className="text-7xl font-black tracking-tighter leading-none">{stat.value}</h2>
-                 <div className="flex items-center gap-3">
+ 
+               <div className="relative space-y-1">
+                 <h2 className="text-5xl font-black tracking-tighter leading-none">{stat.value}</h2>
+                 <div className="flex items-center gap-2">
                     <div className={`w-1 h-1 rounded-full ${stat.color} animate-pulse`} />
-                    <p className="text-[10px] uppercase font-bold text-zinc-500 tracking-[0.2em]">{stat.detail}</p>
+                    <p className="text-[9px] uppercase font-bold text-zinc-500 tracking-[0.2em]">{stat.detail}</p>
                  </div>
                </div>
             </Link>
           ))}
         </div>
-
-        <div className="xl:col-span-1 p-10 border border-white/[0.03] rounded-[3.5rem] bg-[#0A0A0A] flex flex-col justify-between items-center text-center relative overflow-hidden group">
+ 
+        <div className="xl:col-span-1 p-6 border border-white/[0.03] rounded-3xl bg-[#0A0A0A] flex flex-col justify-between items-center text-center relative overflow-hidden group">
            <div className="absolute inset-0 bg-blue-600/5 blur-[80px] opacity-0 group-hover:opacity-100 transition-opacity" />
            
-           <div className="space-y-2 relative z-10">
-             <p className="text-[11px] uppercase tracking-[0.3em] font-black text-zinc-600">Integrity Score</p>
-             <p className="text-[9px] uppercase font-bold text-blue-500 tracking-widest">Brand Completion</p>
+           <div className="space-y-1 relative z-10">
+             <p className="text-[10px] uppercase tracking-widest font-black text-zinc-600">Integrity Score</p>
+             <p className="text-[8px] uppercase font-bold text-blue-500 tracking-widest">Brand Completion</p>
            </div>
            
-           <div className="relative w-48 h-48 my-8 group/circle z-10 transition-transform duration-700 hover:scale-105">
+           <div className="relative w-28 h-28 my-4 group/circle z-10 transition-transform duration-700 hover:scale-105">
               <svg className="w-full h-full -rotate-90">
-                <circle cx="96" cy="96" r="88" stroke="currentColor" strokeWidth="12" fill="transparent" className="text-zinc-900" />
+                <circle cx="56" cy="56" r="50" stroke="currentColor" strokeWidth="6" fill="transparent" className="text-zinc-900" />
                 <motion.circle 
-                  cx="96" cy="96" r="88" 
-                  stroke="currentColor" strokeWidth="12" 
+                  cx="56" cy="56" r="50" 
+                  stroke="currentColor" strokeWidth="6" 
                   fill="transparent" 
-                  strokeDasharray={553} 
-                  initial={{ strokeDashoffset: 553 }}
-                  animate={{ strokeDashoffset: 553 - (553 * stats.completion / 100) }}
+                  strokeDasharray={314} 
+                  initial={{ strokeDashoffset: 314 }}
+                  animate={{ strokeDashoffset: 314 - (314 * stats.completion / 100) }}
                   transition={{ duration: 2, ease: [0.16, 1, 0.3, 1] }}
                   className="text-blue-500" 
                 />
               </svg>
               <div className="absolute inset-0 flex flex-col items-center justify-center">
-                <span className="text-5xl font-black tracking-tighter leading-none">{stats.completion}<span className="text-2xl text-blue-500">%</span></span>
-                <span className="text-[9px] font-bold text-zinc-600 uppercase tracking-widest mt-2">{stats.completion === 100 ? 'Peak' : 'Refinement Needed'}</span>
+                <span className="text-2xl font-black tracking-tighter leading-none">{stats.completion}<span className="text-sm text-blue-500">%</span></span>
+                <span className="text-[8px] font-bold text-zinc-600 uppercase tracking-widest mt-1">{stats.completion === 100 ? 'Peak' : 'Refine'}</span>
               </div>
            </div>
 
-           <Button variant="ghost" className="w-full relative z-10 py-8 bg-white/5 hover:bg-white hover:text-black rounded-3xl border border-white/5 transition-all active:scale-95 group/btn">
-             <span className="text-[10px] uppercase font-black tracking-[0.2em] mr-3">Optimize Ecosystem</span>
-             <ChevronRight size={14} className="group-hover/btn:translate-x-1 transition-transform" />
+           <Button variant="ghost" className="w-full relative z-10 py-6 bg-white/5 hover:bg-white hover:text-black rounded-2xl border border-white/5 transition-all active:scale-95 group/btn h-auto">
+             <span className="text-[9px] uppercase font-black tracking-widest mr-2">Optimize Ecosystem</span>
+             <ChevronRight size={12} className="group-hover/btn:translate-x-1 transition-transform" />
            </Button>
         </div>
       </div>

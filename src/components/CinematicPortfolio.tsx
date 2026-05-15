@@ -27,32 +27,32 @@ export function CinematicPortfolio() {
   });
 
   // Hero Animations
-  const heroOpacity = useTransform(smoothProgress, [0, 0.1, 0.18], [1, 1, 0]);
-  const heroScale = useTransform(smoothProgress, [0, 0.12, 0.2], [1, 1, 0.8]);
+  const heroOpacity = useTransform(smoothProgress, [0, 0.1, 0.22], [1, 1, 0]);
+  const heroScale = useTransform(smoothProgress, [0, 0.12, 0.25], [1, 1, 0.8]);
   
   // Responsive transformation values
   const isMobile = typeof window !== 'undefined' ? window.innerWidth < 768 : false;
   const xOffset = isMobile ? 200 : 500;
 
-  const name1X = useTransform(smoothProgress, [0, 0.1, 0.2], [0, 0, xOffset]);
-  const name2X = useTransform(smoothProgress, [0, 0.1, 0.2], [0, 0, -xOffset]);
-  const name3X = useTransform(smoothProgress, [0, 0.1, 0.2], [0, 0, xOffset]);
+  const name1X = useTransform(smoothProgress, [0, 0.1, 0.25], [0, 0, xOffset]);
+  const name2X = useTransform(smoothProgress, [0, 0.1, 0.25], [0, 0, -xOffset]);
+  const name3X = useTransform(smoothProgress, [0, 0.1, 0.25], [0, 0, xOffset]);
 
-  const subTitleY = useTransform(smoothProgress, [0, 0.08], [0, 50]);
-  const subTitleOpacity = useTransform(smoothProgress, [0, 0.06], [1, 0]);
+  const subTitleY = useTransform(smoothProgress, [0, 0.1], [0, 50]);
+  const subTitleOpacity = useTransform(smoothProgress, [0, 0.08], [1, 0]);
 
   // Section Transitions
-  const aboutScale = useTransform(smoothProgress, [0.15, 0.2, 0.4, 0.45], [0.8, 1, 1, 0.8]);
-  const aboutOpacity = useTransform(smoothProgress, [0.15, 0.18, 0.42, 0.45], [0, 1, 1, 0]);
-  const aboutY = useTransform(smoothProgress, [0.15, 0.22, 0.38, 0.45], [100, 0, 0, -50]);
+  const aboutScale = useTransform(smoothProgress, [0.15, 0.22, 0.42, 0.48], [0.8, 1, 1, 0.8]);
+  const aboutOpacity = useTransform(smoothProgress, [0.15, 0.2, 0.45, 0.48], [0, 1, 1, 0]);
+  const aboutY = useTransform(smoothProgress, [0.15, 0.25, 0.38, 0.48], [100, 0, 0, -50]);
 
-  const recScale = useTransform(smoothProgress, [0.4, 0.45, 0.7, 0.75], [0.8, 1, 1, 0.8]);
-  const recOpacity = useTransform(smoothProgress, [0.4, 0.42, 0.72, 0.75], [0, 1, 1, 0]);
-  const recY = useTransform(smoothProgress, [0.4, 0.48, 0.68, 0.75], [50, 0, 0, -50]);
+  const recScale = useTransform(smoothProgress, [0.42, 0.48, 0.68, 0.74], [0.8, 1, 1, 0.8]);
+  const recOpacity = useTransform(smoothProgress, [0.42, 0.46, 0.7, 0.74], [0, 1, 1, 0]);
+  const recY = useTransform(smoothProgress, [0.42, 0.5, 0.65, 0.74], [50, 0, 0, -50]);
 
-  const skillScale = useTransform(smoothProgress, [0.7, 0.75, 0.95, 1], [0.8, 1, 1, 1]);
-  const skillOpacity = useTransform(smoothProgress, [0.7, 0.72, 1, 1], [0, 1, 1, 1]);
-  const skillY = useTransform(smoothProgress, [0.7, 0.78], [50, 0]);
+  const skillScale = useTransform(smoothProgress, [0.68, 0.74, 0.9, 0.95], [0.8, 1, 1, 0.8]);
+  const skillOpacity = useTransform(smoothProgress, [0.68, 0.72, 0.92, 0.95], [0, 1, 1, 0]);
+  const skillY = useTransform(smoothProgress, [0.68, 0.76, 0.88, 0.95], [50, 0, 0, -100]);
 
   const aboutPointerEvents = useTransform(aboutOpacity, (o) => o > 0.5 ? "auto" : "none");
   const recPointerEvents = useTransform(recOpacity, (o) => o > 0.5 ? "auto" : "none");
@@ -60,10 +60,10 @@ export function CinematicPortfolio() {
 
   return (
     <>
-      <div ref={containerRef} className="relative h-[350vh] bg-white dark:bg-black selection:bg-blue-600 selection:text-white transition-colors duration-1000">
+      <div ref={containerRef} className="relative h-[450vh] bg-white dark:bg-black selection:bg-blue-600 selection:text-white transition-colors duration-1000">
       
       {/* 1. HERO - PINNED */}
-      <section className="sticky top-0 h-screen w-full flex flex-col items-center justify-center overflow-hidden z-0 bg-black">
+      <section className="sticky top-0 h-screen w-full flex flex-col items-center justify-center overflow-hidden z-0 bg-white dark:bg-black">
         {/* Background Visual Asset */}
         <motion.div 
           style={{ opacity: heroOpacity }}
@@ -251,7 +251,7 @@ export function CinematicPortfolio() {
             </p>
           </div>
 
-            <div className="grid grid-cols-1 lg:grid-cols-2 gap-6 md:gap-16 max-h-[60vh] md:max-h-[50vh] overflow-y-auto md:overflow-visible pr-2 custom-scrollbar">
+            <div className="grid grid-cols-1 lg:grid-cols-2 gap-6 md:gap-16 pr-2">
               <div className="space-y-6 md:space-y-10">
                 <h4 className="text-lg md:text-xl font-bold flex items-center gap-3 md:gap-4 text-black dark:text-white uppercase tracking-tighter">
                   <div className="w-8 h-8 md:w-10 md:h-10 bg-blue-600/20 rounded-lg flex items-center justify-center"><Cpu size={16} className="text-blue-500" /></div> technical_systems

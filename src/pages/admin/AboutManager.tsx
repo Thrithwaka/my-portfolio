@@ -67,82 +67,80 @@ export function AboutManager() {
   };
 
   return (
-    <div className="space-y-16 max-w-7xl pb-32">
+    <div className="space-y-8 max-w-7xl pb-32">
        {/* CMS Header Section */}
-       <header className="flex flex-col lg:flex-row lg:items-center justify-between gap-8 bg-zinc-900/10 p-10 rounded-[3rem] border border-white/5 relative overflow-hidden group">
+       <header className="flex flex-col lg:flex-row lg:items-center justify-between gap-6 bg-zinc-900/40 p-8 rounded-3xl border border-white/5 relative overflow-hidden group">
           <div className="absolute top-0 right-0 w-64 h-64 bg-emerald-600/5 blur-[100px]" />
-          <div className="relative z-10 space-y-4">
-             <div className="flex items-center gap-3">
-                <div className="w-10 h-10 rounded-2xl bg-emerald-500/10 flex items-center justify-center text-emerald-500 border border-emerald-500/20 shadow-lg shadow-emerald-500/10">
-                   <User size={20} />
+          <div className="relative z-10 space-y-2">
+             <div className="flex items-center gap-2">
+                <div className="w-8 h-8 rounded-xl bg-emerald-500/10 flex items-center justify-center text-emerald-500 border border-emerald-500/20 shadow-lg shadow-emerald-500/10">
+                   <User size={16} />
                  </div>
-                 <div className="flex flex-col">
-                    <h3 className="text-[10px] font-black uppercase tracking-[0.4em] text-emerald-500 leading-none">Persona Design</h3>
-                    <p className="text-[9px] font-mono text-zinc-600 uppercase tracking-widest mt-1">Section ID: SECT_ABOUT_02</p>
-                 </div>
+                 <h3 className="text-[10px] font-black uppercase tracking-[0.3em] text-emerald-500 leading-none">Persona Design</h3>
              </div>
-             <h2 className="text-4xl md:text-5xl font-black tracking-tighter uppercase italic leading-none">Identity <span className="text-zinc-800">Architect</span></h2>
-             <p className="text-zinc-500 text-sm max-w-xl font-medium">Define your human-technical intersection. Craft the narrative that bridges your raw technical capability with your strategic vision.</p>
+             <h2 className="text-3xl font-black tracking-tight uppercase italic leading-none text-white">Identity <span className="text-zinc-600">Architect</span></h2>
+             <p className="text-zinc-400 text-xs max-w-xl font-medium">Craft the narrative that bridges technical capability with strategic vision.</p>
           </div>
-          <div className="relative z-10 flex items-center gap-4">
+          <div className="relative z-10 flex items-center gap-3">
              <Button 
                 variant="ghost"
                 onClick={() => setShowPreview(!showPreview)}
-                className="h-16 px-8 text-zinc-500 hover:text-white font-black uppercase tracking-widest text-[10px] rounded-3xl border border-white/5"
+                className="h-10 px-6 text-zinc-500 hover:text-white font-bold uppercase tracking-widest text-[10px] rounded-xl border border-white/5"
              >
-                {showPreview ? <EyeOff size={18} className="mr-3" /> : <Eye size={18} className="mr-3" />}
-                {showPreview ? 'Exit Simulation' : 'Live Simulation'}
+                {showPreview ? <EyeOff size={14} className="mr-2" /> : <Eye size={14} className="mr-2" />}
+                {showPreview ? 'Exit Preview' : 'Live Preview'}
              </Button>
              <Button 
                 onClick={handleSave} 
                 disabled={isSaving}
-                className="h-16 px-12 bg-white text-black hover:bg-zinc-200 font-black rounded-3xl transition-all shadow-2xl hover:shadow-white/20 active:scale-95 group relative overflow-hidden"
+                className="h-10 px-8 bg-white text-black hover:bg-zinc-200 font-bold rounded-xl transition-all shadow-lg active:scale-95 group relative"
              >
-                {isSaving ? <Loader2 className="animate-spin mr-3" /> : <Save size={18} className="mr-3 group-hover:scale-110 transition-transform" />}
-                <span className="uppercase tracking-[0.2em] text-[11px]">{isSaving ? 'Committing Persona...' : 'Commit Brand'}</span>
+                {isSaving ? <Loader2 className="animate-spin mr-2" size={14} /> : <Save size={14} className="mr-2" />}
+                <span className="uppercase tracking-widest text-[10px]">{isSaving ? 'Saving...' : 'Save Profile'}</span>
              </Button>
           </div>
        </header>
 
-      <div className="grid grid-cols-1 lg:grid-cols-3 gap-12">
-        <div className="lg:col-span-2 space-y-16">
+      <div className="grid grid-cols-1 lg:grid-cols-3 gap-8">
+        <div className="lg:col-span-2 space-y-8">
           <AnimatePresence mode="wait">
             {showPreview ? (
               <motion.div 
                 key="preview"
-                initial={{ opacity: 0, x: -20 }}
+                initial={{ opacity: 0, x: -10 }}
                 animate={{ opacity: 1, x: 0 }}
-                exit={{ opacity: 0, x: 20 }}
-                className="space-y-20 p-12 bg-black rounded-[4rem] border border-blue-500/10 shadow-2xl min-h-[800px]"
+                exit={{ opacity: 0, x: 10 }}
+                className="space-y-12 p-8 bg-black rounded-3xl border border-blue-500/10 shadow-2xl min-h-[600px] custom-scrollbar overflow-y-auto"
+                data-lenis-prevent
               >
                 {/* Simulated Hero Section */}
-                <div className="space-y-4">
-                   <h1 className="text-4xl md:text-6xl font-black uppercase tracking-tighter leading-none italic text-blue-600">{form.heroTitle || 'HEADLINE_NULL'}</h1>
-                   <p className="text-xl md:text-2xl font-bold uppercase tracking-[0.1em] text-zinc-600 italic">{form.heroSubtitle || 'SUBTITLE_NULL'}</p>
+                <div className="space-y-2">
+                   <h1 className="text-3xl font-black uppercase tracking-tighter leading-none italic text-blue-600">{form.heroTitle || 'HEADLINE_NULL'}</h1>
+                   <p className="text-lg font-bold uppercase tracking-widest text-zinc-600 italic">{form.heroSubtitle || 'SUBTITLE_NULL'}</p>
                 </div>
 
-                <div className="grid grid-cols-1 gap-12 pt-10">
+                <div className="grid grid-cols-1 gap-8">
                    <div className="space-y-4">
-                      <h4 className="text-[10px] font-black uppercase tracking-[0.4em] text-zinc-500">Global Directive</h4>
-                      <RichTextRenderer content={form.missionStatement} className="text-2xl md:text-3xl font-black italic text-emerald-500 leading-tight" />
+                      <h4 className="text-[9px] font-black uppercase tracking-widest text-zinc-500">Global Directive</h4>
+                      <RichTextRenderer content={form.missionStatement} className="text-2xl font-black italic text-emerald-500 leading-tight" />
                    </div>
 
-                   <div className="grid grid-cols-1 md:grid-cols-2 gap-10">
-                      <div className="space-y-4">
-                         <h4 className="text-[10px] font-black uppercase tracking-[0.4em] text-zinc-500">Technical Bio</h4>
-                         <RichTextRenderer content={form.bio} className="text-sm text-zinc-400 leading-relaxed font-medium" />
+                   <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
+                      <div className="space-y-2">
+                         <h4 className="text-[9px] font-black uppercase tracking-widest text-zinc-500">Technical Bio</h4>
+                         <RichTextRenderer content={form.bio} className="text-[13px] text-zinc-400 leading-relaxed font-medium" />
                       </div>
-                      <div className="space-y-4">
-                         <h4 className="text-[10px] font-black uppercase tracking-[0.4em] text-zinc-500">Future Vision</h4>
-                         <RichTextRenderer content={form.vision} className="text-sm text-zinc-400 leading-relaxed font-medium italic" />
+                      <div className="space-y-2">
+                         <h4 className="text-[9px] font-black uppercase tracking-widest text-zinc-500">Future Vision</h4>
+                         <RichTextRenderer content={form.vision} className="text-[13px] text-zinc-400 leading-relaxed font-medium italic" />
                       </div>
                    </div>
 
-                   <div className="pt-10 border-t border-white/5 space-y-6">
-                      <h4 className="text-[10px] font-black uppercase tracking-[0.4em] text-zinc-500">Archive Content</h4>
-                      <div className="space-y-6">
-                         <h2 className="text-3xl font-black uppercase tracking-tighter italic">{form.deepIntroTitle}</h2>
-                         <RichTextRenderer content={form.deepIntroContent} className="text-zinc-500 leading-relaxed" />
+                   <div className="pt-8 border-t border-white/5 space-y-4">
+                      <h4 className="text-[9px] font-black uppercase tracking-widest text-zinc-500">Archive Content</h4>
+                      <div className="space-y-4">
+                         <h2 className="text-2xl font-black uppercase tracking-tighter italic text-white">{form.deepIntroTitle}</h2>
+                         <RichTextRenderer content={form.deepIntroContent} className="text-[13px] text-zinc-500 leading-relaxed" />
                       </div>
                    </div>
                 </div>
@@ -150,149 +148,135 @@ export function AboutManager() {
             ) : (
               <motion.div 
                 key="form"
-                initial={{ opacity: 0, x: 20 }}
+                initial={{ opacity: 0, x: 10 }}
                 animate={{ opacity: 1, x: 0 }}
-                exit={{ opacity: 0, x: -20 }}
-                className="space-y-16"
+                exit={{ opacity: 0, x: -10 }}
+                className="space-y-8"
               >
                 {/* HERO CONFIG */}
-                <section className="space-y-10 group/section">
-            <header className="flex items-center justify-between px-2">
-               <div className="flex items-center gap-4">
-                  <div className="w-1.5 h-6 bg-blue-500 rounded-full" />
-                  <h3 className="text-xl font-black tracking-tight uppercase italic">Cinematic Entrance</h3>
-               </div>
-               <span className="text-[10px] font-mono text-zinc-800">CONFIG_A1</span>
+                <section className="space-y-6">
+            <header className="flex items-center gap-3 px-2">
+               <div className="w-1 h-3 bg-blue-500 rounded-full" />
+               <h3 className="text-sm font-bold uppercase tracking-widest text-white">Cinematic Entrance</h3>
             </header>
             
-            <div className="grid grid-cols-1 md:grid-cols-2 gap-8 bg-zinc-900/20 p-10 rounded-[3rem] border border-white/5 backdrop-blur-sm">
-              <div className="space-y-4">
-                <Label className="text-zinc-500 uppercase tracking-widest text-[10px] font-black italic">Hero Headline</Label>
+            <div className="grid grid-cols-1 md:grid-cols-2 gap-6 bg-zinc-900/20 p-8 rounded-3xl border border-white/5 backdrop-blur-sm">
+              <div className="space-y-2">
+                <Label className="text-zinc-500 uppercase tracking-widest text-[9px] font-bold px-2">Hero Headline</Label>
                 <Input 
                   value={form.heroTitle} 
                   onChange={e => setForm(f => ({ ...f, heroTitle: e.target.value }))}
-                  className="bg-black border-white/5 h-20 text-2xl font-black tracking-tight rounded-2xl px-6 focus:border-blue-500/20 transition-all"
+                  className="bg-black border-white/10 h-14 text-lg font-bold tracking-tight rounded-xl px-4 focus:border-blue-500/50 transition-all text-white"
                   placeholder="The Architect Behind Intelligent Systems"
                 />
               </div>
-              <div className="space-y-4">
-                <Label className="text-zinc-500 uppercase tracking-widest text-[10px] font-black italic">Hero Subtitle</Label>
+              <div className="space-y-2">
+                <Label className="text-zinc-500 uppercase tracking-widest text-[9px] font-bold px-2">Hero Subtitle</Label>
                 <Input 
                   value={form.heroSubtitle} 
                   onChange={e => setForm(f => ({ ...f, heroSubtitle: e.target.value }))}
-                  className="bg-black border-white/5 h-20 text-xl font-bold tracking-tight rounded-2xl px-6 focus:border-blue-500/20 transition-all text-zinc-400"
+                  className="bg-black border-white/10 h-14 text-md font-bold tracking-tight rounded-xl px-4 focus:border-blue-500/50 transition-all text-zinc-400"
                   placeholder="Engineering the Next Civilization"
                 />
               </div>
               
-              <div className="md:col-span-2 pt-4">
-                <div className="space-y-4">
-                   <div className="flex items-center justify-between">
-                     <Label className="text-zinc-500 uppercase tracking-widest text-[10px] font-black italic">Visual Identity Asset</Label>
-                     <Video size={14} className="text-zinc-800" />
-                   </div>
-                   <div className="p-8 bg-black rounded-[2.5rem] border border-white/5 space-y-6">
+              <div className="md:col-span-2 space-y-2">
+                 <Label className="text-zinc-500 uppercase tracking-widest text-[9px] font-bold px-2">Hero Asset (Video/Image Link)</Label>
+                 <div className="flex gap-4 items-center">
+                    <div className="flex-1">
                       <FileUploader 
                         onUploadComplete={(url) => setForm(f => ({ ...f, heroVideoUrl: url }))}
                         folder="about"
-                        label="Inject Global Intro Asset"
+                        label="Upload Asset"
                       />
-                      <Input 
-                        value={form.heroVideoUrl} 
-                        onChange={e => setForm(f => ({ ...f, heroVideoUrl: e.target.value }))}
-                        className="bg-zinc-900 border-white/5 text-[10px] font-mono h-12 rounded-xl px-4"
-                        placeholder="Direct URL Link (Protocol Required)..."
-                      />
-                   </div>
-                </div>
+                    </div>
+                    <Input 
+                      value={form.heroVideoUrl} 
+                      onChange={e => setForm(f => ({ ...f, heroVideoUrl: e.target.value }))}
+                      className="flex-[2] bg-black border-white/10 text-[10px] font-mono h-12 rounded-xl px-4"
+                      placeholder="Asset URL..."
+                    />
+                 </div>
               </div>
             </div>
           </section>
 
           {/* MISSION & VISION */}
-          <section className="space-y-10">
-            <header className="flex items-center justify-between px-2">
-               <div className="flex items-center gap-4">
-                  <div className="w-1.5 h-6 bg-emerald-500 rounded-full" />
-                  <h3 className="text-xl font-black tracking-tight uppercase italic">Strategic Purpose</h3>
-               </div>
-               <span className="text-[10px] font-mono text-zinc-800">CORE_SYNC</span>
+          <section className="space-y-6">
+            <header className="flex items-center gap-3 px-2">
+               <div className="w-1 h-3 bg-emerald-500 rounded-full" />
+               <h3 className="text-sm font-bold uppercase tracking-widest text-white">Strategic Purpose</h3>
             </header>
 
-            <div className="space-y-8 bg-zinc-900/20 p-10 rounded-[4rem] border border-white/5">
-               <div className="space-y-4">
-                 <RichTextEditor 
-                    label="Mission Statement (Global Directive)"
-                    value={form.missionStatement || ''} 
-                    onChange={val => setForm(f => ({ ...f, missionStatement: val }))}
-                    placeholder="Capture your ultimate purpose in one high-frequency signal..."
-                 />
-               </div>
-
-              <div className="grid grid-cols-1 md:grid-cols-2 gap-10">
+            <div className="space-y-6 bg-zinc-900/20 p-8 rounded-3xl border border-white/5">
                 <RichTextEditor 
-                  label="Technical Biography"
+                   label="Mission Statement"
+                   value={form.missionStatement || ''} 
+                   onChange={val => setForm(f => ({ ...f, missionStatement: val }))}
+                   placeholder="..."
+                />
+
+              <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+                <RichTextEditor 
+                  label="Technical Bio"
                   value={form.bio || ''} 
                   onChange={val => setForm(f => ({ ...f, bio: val }))}
-                  placeholder="Orchestrate the journey from inception to innovation..."
+                  placeholder="..."
                 />
                 <RichTextEditor 
                   label="Evolutionary Vision"
                   value={form.vision || ''} 
                   onChange={val => setForm(f => ({ ...f, vision: val }))}
-                  placeholder="Where is the logic path leading you next?"
+                  placeholder="..."
                 />
               </div>
             </div>
           </section>
 
           {/* DEEP INTRO */}
-          <section className="space-y-10 pb-20">
-             <header className="flex items-center justify-between px-2">
-               <div className="flex items-center gap-4">
-                  <div className="w-1.5 h-6 bg-purple-500 rounded-full" />
-                  <h3 className="text-xl font-black tracking-tight uppercase italic">Extended Narrative</h3>
-               </div>
-               <span className="text-[10px] font-mono text-zinc-800">DATA_ARCHIVE</span>
+          <section className="space-y-6 pb-20">
+             <header className="flex items-center gap-3 px-2">
+               <div className="w-1 h-3 bg-purple-500 rounded-full" />
+               <h3 className="text-sm font-bold uppercase tracking-widest text-white">Extended Narrative</h3>
             </header>
 
-            <div className="space-y-12 bg-zinc-900/20 p-12 rounded-[4rem] border border-white/5">
-              <div className="grid grid-cols-1 md:grid-cols-2 gap-12">
-                 <div className="space-y-4">
-                  <Label className="text-zinc-500 uppercase tracking-widest text-[10px] font-black italic">Archive Title</Label>
+            <div className="space-y-8 bg-zinc-900/20 p-8 rounded-3xl border border-white/5">
+              <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+                 <div className="space-y-2">
+                  <Label className="text-zinc-500 uppercase tracking-widest text-[9px] font-bold px-2">Archive Title</Label>
                   <Input 
                     value={form.deepIntroTitle} 
                     onChange={e => setForm(f => ({ ...f, deepIntroTitle: e.target.value }))}
-                    className="bg-black border-white/5 h-20 text-xl font-black tracking-tight rounded-2xl px-6"
+                    className="bg-black border-white/10 h-14 text-lg font-bold tracking-tight rounded-xl px-4"
                     placeholder="The Depth Component"
                   />
                  </div>
-                 <div className="space-y-4">
-                  <Label className="text-zinc-500 uppercase tracking-widest text-[10px] font-black italic">Archive Asset (Markdown Ref)</Label>
-                  <div className="bg-black p-4 rounded-2xl space-y-4 border border-white/5">
-                    <FileUploader 
-                      onUploadComplete={(url) => setForm(f => ({ ...f, deepIntroImage: url }))}
-                      folder="about"
-                      label="Replace Image"
-                    />
+                 <div className="space-y-2">
+                  <Label className="text-zinc-500 uppercase tracking-widest text-[9px] font-bold px-2">Archive Asset</Label>
+                  <div className="flex gap-4">
+                    <div className="flex-1">
+                      <FileUploader 
+                        onUploadComplete={(url) => setForm(f => ({ ...f, deepIntroImage: url }))}
+                        folder="about"
+                        label="Upload Asset"
+                      />
+                    </div>
                     <Input 
                       value={form.deepIntroImage} 
                       onChange={e => setForm(f => ({ ...f, deepIntroImage: e.target.value }))}
-                      className="bg-zinc-900 border-white/5 text-[10px] font-mono h-10 px-4"
-                      placeholder="Asset URL..."
+                      className="bg-black border-white/10 text-[10px] font-mono h-12 px-4 rounded-xl flex-1"
+                      placeholder="URL..."
                     />
                   </div>
                  </div>
               </div>
 
-              <div className="space-y-4">
-                <RichTextEditor 
-                  label="Neural Web Logic (Content)"
-                  value={form.deepIntroContent || ''} 
-                  onChange={val => setForm(f => ({ ...f, deepIntroContent: val }))}
-                  placeholder="System Architecture..."
-                />
-              </div>
+              <RichTextEditor 
+                label="Extended Content"
+                value={form.deepIntroContent || ''} 
+                onChange={val => setForm(f => ({ ...f, deepIntroContent: val }))}
+                placeholder="..."
+              />
             </div>
           </section>
         </motion.div>
@@ -302,72 +286,65 @@ export function AboutManager() {
 
         {/* IDENTITY PREVIEW */}
         <aside className="lg:col-span-1">
-          <div className="sticky top-10 space-y-10">
-             <div className="p-10 bg-zinc-900/40 border border-white/5 rounded-[4rem] space-y-10 overflow-hidden relative group backdrop-blur-xl ring-1 ring-white/5 shadow-2xl">
-                <div className="absolute top-0 right-0 w-48 h-48 bg-emerald-600/10 blur-[100px] group-hover:bg-emerald-600/20 transition-all duration-1000" />
-                <div className="space-y-8 relative z-10">
-                   <div className="aspect-square w-full rounded-[3rem] bg-black overflow-hidden relative ring-1 ring-white/10 group-hover:ring-emerald-500/50 transition-all duration-1000 shadow-inner">
+          <div className="sticky top-10 space-y-6">
+             <div className="p-8 bg-zinc-900/40 border border-white/5 rounded-3xl space-y-8 backdrop-blur-xl shadow-2xl">
+                <div className="space-y-6">
+                   <div className="aspect-square w-full rounded-2xl bg-black overflow-hidden relative ring-1 ring-white/10 group">
                       {form.profileImageUrl ? (
-                        <img src={form.profileImageUrl} className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-[2s] pointer-events-none" />
+                        <img src={form.profileImageUrl} className="w-full h-full object-cover transition-transform duration-700 pointer-events-none group-hover:scale-105" />
                       ) : (
-                        <div className="w-full h-full flex items-center justify-center text-zinc-900"><User size={80} strokeWidth={0.5} /></div>
+                        <div className="w-full h-full flex items-center justify-center text-zinc-900"><User size={48} strokeWidth={0.5} /></div>
                       )}
-                      <div className="absolute inset-0 bg-gradient-to-t from-black via-transparent to-transparent opacity-80" />
-                      <div className="absolute bottom-10 left-10 right-10">
-                         <h4 className="text-3xl font-black tracking-tighter uppercase leading-none italic mb-2">Thrithwaka P. Shakya</h4>
-                         <p className="text-[10px] font-mono text-emerald-500/80 uppercase tracking-widest">Active Identity Proxy</p>
+                      <div className="absolute inset-0 bg-gradient-to-t from-black via-transparent to-transparent opacity-60" />
+                      <div className="absolute bottom-6 left-6 right-6">
+                         <h4 className="text-xl font-bold uppercase tracking-tight leading-none italic text-white">Thrithwaka P. Shakya</h4>
+                         <p className="text-[9px] text-emerald-500/80 uppercase tracking-widest mt-1">Identity Proxy</p>
                       </div>
                    </div>
 
-                   <div className="space-y-6">
-                      <div className="flex items-center justify-between px-4">
-                        <Label className="text-zinc-600 uppercase tracking-[0.3em] text-[9px] font-black italic">Identity Cluster</Label>
-                        <button onClick={addTag} className="w-6 h-6 rounded-lg bg-zinc-800 flex items-center justify-center text-zinc-500 hover:bg-emerald-500 hover:text-black transition-all">
-                           <span className="text-lg">+</span>
+                   <div className="space-y-4">
+                      <div className="flex items-center justify-between px-2">
+                        <Label className="text-zinc-600 uppercase tracking-widest text-[9px] font-black">Identity Tags</Label>
+                        <button onClick={addTag} className="w-5 h-5 rounded bg-zinc-800 flex items-center justify-center text-zinc-500 hover:bg-emerald-500 hover:text-black transition-all">
+                           <span className="text-sm">+</span>
                         </button>
                       </div>
-                      <div className="flex flex-wrap gap-3 px-2">
+                      <div className="flex flex-wrap gap-2">
                          {form.identityTags.map((tag, i) => (
                            <motion.span 
                              key={tag+i} 
-                             initial={{ opacity: 0, scale: 0.8 }}
+                             initial={{ opacity: 0, scale: 0.9 }}
                              animate={{ opacity: 1, scale: 1 }}
-                             className="group/tag flex items-center gap-2 px-4 py-2 bg-white/5 border border-white/5 rounded-2xl text-[10px] font-black tracking-[0.2em] uppercase italic hover:bg-emerald-500/10 hover:border-emerald-500/20 transition-all cursor-default"
+                             className="flex items-center gap-2 px-3 py-1.5 bg-white/5 border border-white/5 rounded-lg text-[9px] font-bold uppercase tracking-widest text-zinc-400 hover:border-emerald-500/20 transition-all"
                            >
-                             <span className="text-white group-hover/tag:text-emerald-500">{tag}</span>
-                             <button onClick={() => removeTag(i)} className="opacity-0 group-hover/tag:opacity-100 transition-opacity hover:text-red-500"><X size={10} /></button>
+                             <span>{tag}</span>
+                             <button onClick={() => removeTag(i)} className="hover:text-red-500 transition-colors"><X size={10} /></button>
                            </motion.span>
                          ))}
-                         {form.identityTags.length === 0 && <p className="text-[9px] text-zinc-800 uppercase tracking-widest font-mono italic p-4">No tags active in current cluster...</p>}
                       </div>
                    </div>
 
-                   <div className="pt-10 border-t border-white/5 space-y-8">
-                      <div className="space-y-4">
-                         <div className="flex items-center justify-between px-2">
-                           <Label className="text-zinc-600 uppercase tracking-[0.3em] text-[9px] font-black">Visual Identity Proxy</Label>
-                           <ImageIcon size={12} className="text-zinc-800" />
-                         </div>
-                         <div className="p-6 bg-black rounded-3xl border border-white/5 group-hover:border-emerald-500/10 transition-colors">
-                            <FileUploader 
-                               onUploadComplete={(url) => setForm(f => ({ ...f, profileImageUrl: url }))}
-                               folder="about"
-                               label="Update Neural Fragment (Photo)"
-                            />
-                         </div>
+                   <div className="pt-6 border-t border-white/5 space-y-3">
+                      <Label className="text-zinc-600 uppercase tracking-widest text-[9px] font-black px-2">Profile Photo</Label>
+                      <div className="p-4 bg-black rounded-2xl border border-white/5">
+                          <FileUploader 
+                             onUploadComplete={(url) => setForm(f => ({ ...f, profileImageUrl: url }))}
+                             folder="about"
+                             label="Update Photo"
+                          />
                       </div>
                    </div>
                 </div>
              </div>
 
-             <div className="p-8 border border-white/[0.03] rounded-[3rem] bg-white/[0.01] backdrop-blur-xl group hover:border-white/10 transition-all">
-                <div className="flex items-start gap-6">
-                   <div className="w-12 h-12 rounded-[1.5rem] bg-emerald-600/5 flex items-center justify-center text-emerald-600 shrink-0 border border-emerald-600/10 group-hover:bg-emerald-600 group-hover:text-black transition-all duration-500">
-                      <Compass size={20} />
+             <div className="p-6 border border-white/5 rounded-3xl bg-white/[0.01] backdrop-blur-xl">
+                <div className="flex items-start gap-4">
+                   <div className="w-10 h-10 rounded-xl bg-emerald-600/5 flex items-center justify-center text-emerald-600 shrink-0 border border-emerald-600/10">
+                      <Compass size={18} />
                    </div>
-                   <div className="space-y-2">
-                      <p className="text-[11px] font-black uppercase tracking-[0.2em] group-hover:text-emerald-500 transition-colors">System Integrity Note</p>
-                      <p className="text-[11px] text-zinc-600 leading-relaxed font-medium">Your identity cluster is the metadata used for <span className="text-white">Smart Search Integration</span>. Ensure tags represent distinct professional pillars.</p>
+                   <div className="space-y-1">
+                      <p className="text-[10px] font-black uppercase tracking-widest text-emerald-500">System Note</p>
+                      <p className="text-[10px] text-zinc-500 leading-relaxed font-medium">Use specific identity tags for better search relevance.</p>
                    </div>
                 </div>
              </div>

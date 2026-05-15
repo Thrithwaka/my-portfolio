@@ -155,69 +155,59 @@ export function ProjectsManager() {
     <div className="space-y-16 max-w-7xl pb-32">
       {!isAdding ? (
         <>
-          <header className="flex flex-col lg:flex-row lg:items-center justify-between gap-8 bg-zinc-900/10 p-10 rounded-[3rem] border border-white/5 relative overflow-hidden group">
+          <header className="flex flex-col lg:flex-row lg:items-center justify-between gap-6 bg-zinc-900/40 p-8 rounded-3xl border border-white/5 relative overflow-hidden group">
              <div className="absolute top-0 right-0 w-64 h-64 bg-blue-600/5 blur-[100px]" />
-             <div className="relative z-10 space-y-4">
-                <div className="flex items-center gap-3">
-                   <div className="w-10 h-10 rounded-2xl bg-blue-500/10 flex items-center justify-center text-blue-500 border border-blue-500/20">
-                      <Layers size={20} />
+             <div className="relative z-10 space-y-2">
+                <div className="flex items-center gap-2">
+                   <div className="w-8 h-8 rounded-xl bg-blue-500/10 flex items-center justify-center text-blue-500 border border-blue-500/20">
+                      <Layers size={16} />
                    </div>
-                   <div className="flex flex-col">
-                      <h3 className="text-[10px] font-black uppercase tracking-[0.4em] text-blue-500 leading-none">Venture Portfolio</h3>
-                      <p className="text-[11px] font-mono text-zinc-600 uppercase tracking-widest mt-1">Status: {projects.length} Active Node(s)</p>
-                   </div>
+                   <h3 className="text-[10px] font-black uppercase tracking-[0.3em] text-blue-500 leading-none">Venture Portfolio</h3>
                 </div>
-                <h2 className="text-4xl md:text-5xl font-black tracking-tighter uppercase italic leading-none text-white">Innovation <span className="text-zinc-800">Ecosystem</span></h2>
-                <p className="text-zinc-500 text-sm max-w-xl font-medium leading-relaxed">Orchestrate and calibrate the high-impact projects that define your professional legacy.</p>
+                <h2 className="text-3xl font-black tracking-tight uppercase italic leading-none text-white">Innovation <span className="text-zinc-600">Ecosystem</span></h2>
+                <p className="text-zinc-400 text-xs max-w-xl font-medium">Manage and calibrate high-impact projects.</p>
              </div>
              <Button 
                onClick={() => { setIsAdding(true); setEditingId(null); setCurrentProject(defaultProject); setContributors([]); setGallery([]); }} 
-               className="relative z-10 h-16 px-12 bg-white text-black hover:bg-zinc-200 font-black rounded-3xl transition-all shadow-2xl hover:shadow-white/20 active:scale-95 group uppercase tracking-[0.2em] text-[11px]"
+               className="relative z-10 h-12 px-8 bg-white text-black hover:bg-zinc-200 font-bold rounded-xl transition-all shadow-xl active:scale-95 group uppercase tracking-widest text-[10px]"
              >
-               <Plus size={18} className="mr-3" /> Initiate New Venture
+               <Plus size={16} className="mr-2" /> Add Project
              </Button>
           </header>
 
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 text-white">
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 text-white">
             {projects.map((p) => (
               <motion.div 
                 layout
                 key={p.id} 
-                className="group relative bg-[#0D0D0D] border border-white/5 rounded-[3rem] overflow-hidden hover:border-blue-500/30 transition-all duration-500 hover:shadow-2xl hover:shadow-blue-500/5 flex flex-col"
+                className="group relative bg-[#0D0D0D] border border-white/5 rounded-2xl overflow-hidden hover:border-blue-500/30 transition-all duration-500 hover:shadow-2xl flex flex-col"
               >
-                <div className="aspect-[16/10] relative overflow-hidden">
+                <div className="aspect-[16/9] relative overflow-hidden">
                   {p.coverImageUrl ? (
-                    <img src={p.coverImageUrl} className="w-full h-full object-cover grayscale group-hover:grayscale-0 transition-all duration-1000 scale-105 group-hover:scale-100" />
+                    <img src={p.coverImageUrl} className="w-full h-full object-cover grayscale group-hover:grayscale-0 transition-all duration-700" />
                   ) : (
-                    <div className="w-full h-full bg-zinc-950 flex items-center justify-center text-zinc-900"><Box size={48} strokeWidth={0.5} /></div>
+                    <div className="w-full h-full bg-zinc-950 flex items-center justify-center text-zinc-800"><Box size={32} strokeWidth={0.5} /></div>
                   )}
-                  <div className="absolute inset-0 bg-gradient-to-t from-black via-transparent to-transparent opacity-60" />
-                  <div className="absolute top-6 left-6 flex gap-2">
-                     <span className="px-3 py-1 bg-black/40 backdrop-blur-md border border-white/10 rounded-full text-[9px] font-black uppercase tracking-widest text-blue-400">
-                        {p.category}
-                     </span>
-                  </div>
+                  <div className="absolute inset-0 bg-gradient-to-t from-black opacity-60" />
                 </div>
 
-                <div className="p-8 space-y-6 flex-1 flex flex-col">
-                  <div className="space-y-2">
-                    <h3 className="text-xl font-black tracking-tight uppercase leading-none group-hover:text-blue-500 transition-colors">{p.title}</h3>
-                    <p className="text-[11px] text-zinc-600 line-clamp-2 font-medium leading-relaxed">{p.shortDescription}</p>
+                <div className="p-6 space-y-4 flex-1 flex flex-col">
+                  <div>
+                    <h3 className="text-lg font-bold tracking-tight uppercase leading-none group-hover:text-blue-500 transition-colors">{p.title}</h3>
+                    <p className="text-[10px] text-zinc-500 line-clamp-2 mt-2 leading-relaxed">{p.shortDescription}</p>
                   </div>
                   
-                  <div className="flex flex-wrap gap-2">
+                  <div className="flex flex-wrap gap-1">
                     {p.techStack?.slice(0, 3).map(tech => (
-                      <span key={tech} className="text-[8px] font-mono text-zinc-800 uppercase border border-white/5 px-2 py-1 rounded-sm">{tech}</span>
+                      <span key={tech} className="text-[8px] font-mono text-zinc-700 uppercase border border-white/5 px-1.5 py-0.5 rounded-sm">{tech}</span>
                     ))}
                   </div>
 
-                  <div className="pt-6 mt-auto border-t border-white/5 flex items-center justify-between">
-                     <div className="flex -space-x-2">
-                        {[1,2,3].map(i => <div key={i} className="w-6 h-6 rounded-lg bg-zinc-900 border border-black" />)}
-                     </div>
-                     <div className="flex items-center gap-3">
-                        <Button variant="ghost" onClick={() => handleEdit(p)} className="h-10 px-4 bg-white/5 rounded-xl text-[9px] font-black uppercase tracking-widest hover:bg-blue-500 hover:text-black transition-all">Manage</Button>
-                        <button onClick={() => handleDelete(p.id)} className="text-zinc-800 hover:text-red-500 transition-colors"><Trash2 size={16} /></button>
+                  <div className="pt-4 mt-auto border-t border-white/5 flex items-center justify-between">
+                     <span className="text-[9px] font-black uppercase tracking-widest text-blue-500/50">{p.category}</span>
+                     <div className="flex items-center gap-2">
+                        <Button variant="ghost" onClick={() => handleEdit(p)} className="h-8 px-3 bg-white/5 rounded-lg text-[9px] font-black uppercase tracking-widest hover:bg-blue-500 hover:text-black transition-all">Edit</Button>
+                        <button onClick={() => handleDelete(p.id)} className="text-zinc-700 hover:text-red-500 transition-colors p-1"><Trash2 size={14} /></button>
                      </div>
                   </div>
                 </div>
@@ -226,162 +216,162 @@ export function ProjectsManager() {
           </div>
         </>
       ) : (
-        <div className="space-y-10 animate-in fade-in slide-in-from-bottom-8 duration-1000 max-w-6xl mx-auto text-white">
-          <header className="flex flex-col lg:flex-row lg:items-center justify-between gap-6 bg-zinc-900/10 p-8 rounded-[2.5rem] border border-white/5 backdrop-blur-sm">
-            <div className="flex items-center gap-6">
-              <button onClick={() => setIsAdding(false)} className="w-12 h-12 rounded-2xl bg-black border border-white/5 flex items-center justify-center text-zinc-500 hover:text-white transition-all text-white">
-                 <ArrowLeft size={20} />
+        <div className="space-y-8 animate-in fade-in slide-in-from-bottom-4 duration-700 max-w-6xl mx-auto text-white">
+          <header className="flex flex-col lg:flex-row lg:items-center justify-between gap-4 bg-zinc-900/40 p-6 rounded-2xl border border-white/5 backdrop-blur-sm">
+            <div className="flex items-center gap-4">
+              <button onClick={() => setIsAdding(false)} className="w-10 h-10 rounded-xl bg-black border border-white/10 flex items-center justify-center text-zinc-500 hover:text-white transition-all">
+                 <ArrowLeft size={18} />
               </button>
               <div>
-                <h1 className="text-2xl font-black tracking-tighter uppercase italic">{editingId ? 'Recalibrate Venture' : 'Initiate Prototype'}</h1>
-                <p className="text-[10px] font-mono text-zinc-600 uppercase tracking-widest mt-1">Reference: {currentProject.slug || 'NULL_BUFFER'}</p>
+                <h1 className="text-xl font-black tracking-tight uppercase italic">{editingId ? 'Edit Project' : 'New Project'}</h1>
+                <p className="text-[10px] font-mono text-zinc-600 uppercase tracking-widest leading-none">Slug: {currentProject.slug || 'N/A'}</p>
               </div>
             </div>
-            <div className="flex items-center gap-4">
-               <button onClick={() => setIsAdding(false)} className="text-[10px] font-black uppercase tracking-widest text-zinc-600 hover:text-white transition-colors px-6">Discard Stack</button>
-               <Button onClick={handleSave} disabled={isSaving} className="h-14 px-12 bg-blue-600 hover:bg-blue-700 text-white font-black rounded-2xl transition-all shadow-xl shadow-blue-600/20 active:scale-95 group">
-                 {isSaving ? <Loader2 className="animate-spin" /> : <Save size={18} className="mr-3" />}
-                 <span className="uppercase tracking-[0.2em] text-[10px]">{isSaving ? 'Synchronizing...' : 'Commit Venture'}</span>
+            <div className="flex items-center gap-3">
+               <Button variant="ghost" onClick={() => setIsAdding(false)} className="text-[10px] font-bold uppercase tracking-widest text-zinc-500 hover:text-white group">Cancel</Button>
+               <Button onClick={handleSave} disabled={isSaving} className="h-11 px-8 bg-blue-600 hover:bg-blue-500 text-white font-bold rounded-xl transition-all shadow-lg active:scale-95 group">
+                 {isSaving ? <Loader2 className="animate-spin mr-2" size={16} /> : <Save size={16} className="mr-2" />}
+                 <span className="uppercase tracking-widest text-[10px]">{isSaving ? 'Saving...' : 'Save Project'}</span>
                </Button>
             </div>
           </header>
 
-          <div className="grid grid-cols-1 lg:grid-cols-4 gap-12">
+          <div className="grid grid-cols-1 lg:grid-cols-4 gap-8">
             <aside className="lg:col-span-1">
-               <div className="p-6 bg-zinc-900/20 border border-white/5 rounded-[3rem] space-y-3 sticky top-10">
+               <div className="p-4 bg-zinc-900/40 border border-white/5 rounded-2xl space-y-1 sticky top-10">
                 {[
-                  { id: 'general', icon: Layout, label: 'Identity' },
+                  { id: 'general', icon: Layout, label: 'General' },
                   { id: 'technical', icon: Cpu, label: 'Technical' },
-                  { id: 'team', icon: Users, label: 'Consortium' },
-                  { id: 'media', icon: ImageIcon, label: 'Assets' },
+                  { id: 'team', icon: Users, label: 'Team' },
+                  { id: 'media', icon: ImageIcon, label: 'Media' },
                   { id: 'outcomes', icon: Target, label: 'Outcomes' },
-                  { id: 'preview', icon: Eye, label: 'Simulation' },
+                  { id: 'preview', icon: Eye, label: 'Preview' },
                 ].map(tab => (
                   <button
                     key={tab.id}
                     onClick={() => setActiveTab(tab.id as any)}
-                    className={`w-full flex items-center justify-between p-5 rounded-2xl transition-all duration-500 group ${activeTab === tab.id ? 'bg-white text-black' : 'text-zinc-600 hover:bg-white/5 hover:text-zinc-300'}`}
+                    className={`w-full flex items-center justify-between p-4 rounded-xl transition-all group ${activeTab === tab.id ? 'bg-blue-600 text-white' : 'text-zinc-500 hover:bg-white/5 hover:text-zinc-300'}`}
                   >
-                    <div className="flex items-center gap-4">
-                      <tab.icon size={18} className={activeTab === tab.id ? 'text-black' : 'group-hover:text-blue-500'} />
-                      <span className="text-[10px] font-black uppercase tracking-[0.2em]">{tab.label}</span>
+                    <div className="flex items-center gap-3">
+                      <tab.icon size={16} className={activeTab === tab.id ? 'text-white' : 'group-hover:text-blue-500'} />
+                      <span className="text-[10px] font-bold uppercase tracking-widest">{tab.label}</span>
                     </div>
-                    {activeTab === tab.id && <div className="w-1.5 h-1.5 bg-black rounded-full animate-pulse" />}
+                    {activeTab === tab.id && <div className="w-1 h-1 bg-white rounded-full" />}
                   </button>
                 ))}
               </div>
             </aside>
 
             <div className="lg:col-span-3">
-               <div className="p-12 bg-zinc-900/10 border border-white/5 rounded-[4rem] min-h-[700px] shadow-2xl relative overflow-hidden backdrop-blur-sm">
+               <div className="p-8 bg-zinc-900/20 border border-white/5 rounded-3xl min-h-[600px] shadow-xl relative overflow-hidden backdrop-blur-sm">
                   <div className="absolute top-0 right-0 w-64 h-64 bg-blue-600/[0.02] blur-[100px]" />
                   
                   {activeTab === 'general' && (
-                    <div className="space-y-12 animate-in fade-in slide-in-from-right-4 duration-700">
-                       <div className="grid grid-cols-1 md:grid-cols-2 gap-10">
-                          <div className="space-y-4">
-                            <Label className="text-[10px] font-black uppercase tracking-widest text-zinc-500 mx-4 italic">Venture Designation</Label>
-                            <Input value={currentProject.title} onChange={e => handleTitleChange(e.target.value)} className="bg-black border-white/5 h-20 text-2xl font-black rounded-3xl px-8 focus:border-blue-500/20" placeholder="e.g. PROJECT X" />
+                    <div className="space-y-8 animate-in fade-in slide-in-from-right-2 duration-500">
+                       <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+                          <div className="space-y-2">
+                            <Label className="text-[10px] font-bold uppercase tracking-widest text-zinc-500 mx-2">Project Title</Label>
+                            <Input value={currentProject.title} onChange={e => handleTitleChange(e.target.value)} className="bg-black border-white/10 h-14 text-lg font-bold rounded-xl px-6 focus:border-blue-500/50" placeholder="e.g. My Project" />
                           </div>
-                          <div className="space-y-4">
-                            <Label className="text-[10px] font-black uppercase tracking-widest text-zinc-500 mx-4 italic">Routing Proxy (Slug)</Label>
-                            <Input value={currentProject.slug} onChange={e => setCurrentProject({...currentProject, slug: e.target.value})} className="bg-black border-white/5 h-20 text-lg font-mono rounded-3xl px-8" placeholder="nexus-v1" />
+                          <div className="space-y-2">
+                            <Label className="text-[10px] font-bold uppercase tracking-widest text-zinc-500 mx-2">Slug</Label>
+                            <Input value={currentProject.slug} onChange={e => setCurrentProject({...currentProject, slug: e.target.value})} className="bg-black border-white/10 h-14 text-sm font-mono rounded-xl px-6" placeholder="project-slug" />
                           </div>
                        </div>
                        
-                       <div className="space-y-4">
+                       <div className="space-y-2">
                           <RichTextEditor 
-                            label="Strategic Abstract (Short)"
+                            label="Short Description"
                             value={currentProject.shortDescription || ''} 
                             onChange={val => setCurrentProject({...currentProject, shortDescription: val})} 
                           />
                        </div>
 
-                       <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
-                          <div className="space-y-4">
-                            <Label className="text-[10px] font-black uppercase tracking-widest text-zinc-500 mx-4 italic">Branch</Label>
-                            <select value={currentProject.category} onChange={e => setCurrentProject({...currentProject, category: e.target.value})} className="w-full bg-black border border-white/5 h-16 rounded-2xl px-6 text-[11px] font-black uppercase tracking-widest appearance-none focus:outline-none">
+                       <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
+                          <div className="space-y-2">
+                            <Label className="text-[10px] font-bold uppercase tracking-widest text-zinc-500 mx-2">Category</Label>
+                            <select value={currentProject.category} onChange={e => setCurrentProject({...currentProject, category: e.target.value})} className="w-full bg-black border border-white/10 h-12 rounded-xl px-4 text-[10px] font-bold uppercase tracking-widest appearance-none focus:outline-none focus:border-blue-500/50">
                                <option value="AI">AI / Neural Networks</option>
                                <option value="Blockchain">Web3 / Blockchain</option>
                                <option value="Security">Cyber Security</option>
                                <option value="Robotics">Robotics</option>
                             </select>
                           </div>
-                          <div className="space-y-4">
-                            <Label className="text-[10px] font-black uppercase tracking-widest text-zinc-500 mx-4 italic">State</Label>
-                            <select value={currentProject.status} onChange={e => setCurrentProject({...currentProject, status: e.target.value as any})} className="w-full bg-black border border-white/5 h-16 rounded-2xl px-6 text-[11px] font-black uppercase tracking-widest appearance-none focus:outline-none">
+                          <div className="space-y-2">
+                            <Label className="text-[10px] font-bold uppercase tracking-widest text-zinc-500 mx-2">State</Label>
+                            <select value={currentProject.status} onChange={e => setCurrentProject({...currentProject, status: e.target.value as any})} className="w-full bg-black border border-white/10 h-12 rounded-xl px-4 text-[10px] font-bold uppercase tracking-widest appearance-none focus:outline-none focus:border-blue-500/50">
                                <option value="Completed">Completed</option>
                                <option value="Ongoing">In Progress</option>
                                <option value="Experimental">Lab Experiment</option>
                             </select>
                           </div>
-                          <div className="space-y-4">
-                            <Label className="text-[10px] font-black uppercase tracking-widest text-zinc-500 mx-4 italic">Priority Node</Label>
-                            <Input type="number" value={currentProject.priority} onChange={e => setCurrentProject({...currentProject, priority: parseInt(e.target.value)})} className="bg-black border-white/5 h-16 rounded-2xl" />
+                          <div className="space-y-2">
+                            <Label className="text-[10px] font-bold uppercase tracking-widest text-zinc-500 mx-2">Priority</Label>
+                            <Input type="number" value={currentProject.priority} onChange={e => setCurrentProject({...currentProject, priority: parseInt(e.target.value)})} className="bg-black border-white/10 h-12 rounded-xl" />
                           </div>
                        </div>
 
-                       <div className="space-y-4">
+                       <div className="space-y-2">
                           <RichTextEditor 
-                            label="Executive Narrative (Deep Content)"
+                            label="Full Project Story"
                             value={currentProject.fullDescription || ''} 
                             onChange={val => setCurrentProject({...currentProject, fullDescription: val})} 
-                            placeholder="The comprehensive story..." 
+                            placeholder="Describe your journey..." 
                           />
                        </div>
                     </div>
                   )}
 
                   {activeTab === 'technical' && (
-                    <div className="space-y-12 animate-in fade-in slide-in-from-right-4 duration-700">
-                       <div className="grid grid-cols-1 md:grid-cols-2 gap-10">
-                          <div className="space-y-4 p-8 bg-black/40 rounded-[2.5rem] border border-white/5">
-                             <div className="flex items-center gap-3 mb-2">
-                                <Github size={18} className="text-zinc-600" />
-                                <Label className="text-[10px] font-black uppercase tracking-widest text-zinc-600 italic">Source Integration</Label>
+                    <div className="space-y-8 animate-in fade-in slide-in-from-right-2 duration-500">
+                       <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+                          <div className="space-y-3 p-6 bg-black/40 rounded-2xl border border-white/5">
+                             <div className="flex items-center gap-2 mb-1">
+                                <Github size={16} className="text-zinc-500" />
+                                <Label className="text-[10px] font-bold uppercase tracking-widest text-zinc-500">GitHub URL</Label>
                              </div>
-                             <Input value={currentProject.githubUrl} onChange={e => setCurrentProject({...currentProject, githubUrl: e.target.value})} className="bg-black border-white/5 h-12 rounded-xl" placeholder="https://github.com/..." />
+                             <Input value={currentProject.githubUrl} onChange={e => setCurrentProject({...currentProject, githubUrl: e.target.value})} className="bg-black border-white/10 h-10 rounded-lg text-sm" placeholder="https://github.com/..." />
                           </div>
-                          <div className="space-y-4 p-8 bg-black/40 rounded-[2.5rem] border border-white/5">
-                             <div className="flex items-center gap-3 mb-2">
-                                <ExternalLink size={18} className="text-zinc-600" />
-                                <Label className="text-[10px] font-black uppercase tracking-widest text-zinc-600 italic">Live Deployment</Label>
+                          <div className="space-y-3 p-6 bg-black/40 rounded-2xl border border-white/5">
+                             <div className="flex items-center gap-2 mb-1">
+                                <ExternalLink size={16} className="text-zinc-500" />
+                                <Label className="text-[10px] font-bold uppercase tracking-widest text-zinc-500">Live Demo URL</Label>
                              </div>
-                             <Input value={currentProject.demoUrl} onChange={e => setCurrentProject({...currentProject, demoUrl: e.target.value})} className="bg-black border-white/5 h-12 rounded-xl" placeholder="https://demo.com/..." />
+                             <Input value={currentProject.demoUrl} onChange={e => setCurrentProject({...currentProject, demoUrl: e.target.value})} className="bg-black border-white/10 h-10 rounded-lg text-sm" placeholder="https://..." />
                           </div>
                        </div>
 
-                       <div className="grid grid-cols-1 md:grid-cols-2 gap-10">
+                       <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
                           <RichTextEditor 
-                            label="The Mission Core (Objective)"
+                            label="Project Objective"
                             value={currentProject.objective || ''} 
                             onChange={val => setCurrentProject({...currentProject, objective: val})} 
-                            placeholder="What goal was this engineered to solve?" 
+                            placeholder="Goal of the project" 
                           />
                           <RichTextEditor 
-                            label="Individual Agency (Role)"
+                            label="Your Role"
                             value={currentProject.myRole || ''} 
                             onChange={val => setCurrentProject({...currentProject, myRole: val})} 
-                            placeholder="Define your specific impact..." 
+                            placeholder="What did you do?" 
                           />
                        </div>
                     </div>
                   )}
 
                   {activeTab === 'team' && (
-                    <div className="space-y-12 animate-in fade-in slide-in-from-right-4 duration-700">
+                    <div className="space-y-8 animate-in fade-in slide-in-from-right-2 duration-500">
                         <header className="flex justify-between items-center">
-                           <div className="space-y-1 px-4 text-white">
-                              <h3 className="text-[10px] font-black uppercase tracking-[0.3em] text-blue-500">Collaborative Consortium</h3>
-                              <p className="text-[9px] text-zinc-600 uppercase tracking-widest font-bold font-mono">Index contributors and strategic partners</p>
+                           <div className="space-y-0.5">
+                              <h3 className="text-[10px] font-black uppercase tracking-widest text-blue-500">Contributors</h3>
+                              <p className="text-[9px] text-zinc-600 uppercase tracking-widest font-bold">Manage team members</p>
                            </div>
-                           <Button onClick={() => setContributors([...contributors, { name: '', role: '', priority: contributors.length }])} size="sm" className="bg-white/5 hover:bg-white hover:text-black rounded-xl text-[9px] font-black uppercase"><Plus size={14} className="mr-2" /> Add Partner</Button>
+                           <Button onClick={() => setContributors([...contributors, { name: '', role: '', priority: contributors.length }])} size="sm" className="bg-blue-600 hover:bg-blue-500 text-white rounded-lg text-[9px] font-bold uppercase h-8 px-4"><Plus size={14} className="mr-2" /> Add Partner</Button>
                         </header>
                         
-                        <div className="space-y-4">
+                        <div className="space-y-3">
                            {contributors.map((c, idx) => (
-                              <div key={idx} className="p-6 bg-black rounded-2xl border border-white/5 flex gap-6 items-center">
-                                 <div className="w-12 h-12 bg-white/5 rounded-xl flex items-center justify-center text-zinc-800 shrink-0">{idx + 1}</div>
+                              <div key={idx} className="p-4 bg-black rounded-xl border border-white/5 flex gap-4 items-center">
+                                 <div className="w-8 h-8 bg-zinc-900 rounded-lg flex items-center justify-center text-zinc-600 text-[10px] font-bold grow-0 shrink-0">{idx + 1}</div>
                                  <Input 
                                    value={c.name} 
                                    onChange={e => {
@@ -389,8 +379,8 @@ export function ProjectsManager() {
                                       newC[idx].name = e.target.value;
                                       setContributors(newC);
                                    }} 
-                                   placeholder="Full Name" 
-                                   className="bg-zinc-950 border-white/5 h-12 rounded-xl text-sm" 
+                                   placeholder="Name" 
+                                   className="bg-zinc-950 border-white/10 h-10 rounded-lg text-sm" 
                                  />
                                  <Input 
                                    value={c.role} 
@@ -399,10 +389,10 @@ export function ProjectsManager() {
                                       newC[idx].role = e.target.value;
                                       setContributors(newC);
                                    }} 
-                                   placeholder="Role / Title" 
-                                   className="bg-zinc-950 border-white/5 h-12 rounded-xl text-sm" 
+                                   placeholder="Role" 
+                                   className="bg-zinc-950 border-white/10 h-10 rounded-lg text-sm" 
                                  />
-                                 <button onClick={() => setContributors(contributors.filter((_, i) => i !== idx))} className="text-zinc-800 hover:text-red-500 transition-colors"><Trash2 size={16}/></button>
+                                 <button onClick={() => setContributors(contributors.filter((_, i) => i !== idx))} className="text-zinc-700 hover:text-red-500 transition-colors p-2"><Trash2 size={16}/></button>
                               </div>
                            ))}
                         </div>
@@ -410,48 +400,48 @@ export function ProjectsManager() {
                   )}
 
                   {activeTab === 'media' && (
-                    <div className="space-y-12 animate-in fade-in slide-in-from-right-4 duration-700">
-                        <div className="space-y-6">
-                           <Label className="text-[10px] font-black uppercase tracking-widest text-zinc-500 mx-4 italic">Primary Visual Signal (Cover)</Label>
-                           <div className="grid grid-cols-1 lg:grid-cols-2 gap-10">
-                              <div className="p-8 bg-black rounded-[3rem] border border-white/5 space-y-8">
+                    <div className="space-y-10 animate-in fade-in slide-in-from-right-2 duration-500">
+                        <div className="space-y-4">
+                           <Label className="text-[10px] font-bold uppercase tracking-widest text-zinc-500 mx-2">Cover Image</Label>
+                           <div className="grid grid-cols-1 lg:grid-cols-2 gap-8">
+                              <div className="p-6 bg-black rounded-2xl border border-white/10 space-y-6">
                                  <FileUploader 
                                    onUploadComplete={(url) => setCurrentProject({...currentProject, coverImageUrl: url})}
                                    folder={`projects/${currentProject.slug || 'temp'}`}
-                                   label="Inject Cover Asset"
+                                   label="Upload Cover Image"
                                  />
                                  <Input 
                                    value={currentProject.coverImageUrl} 
                                    onChange={e => setCurrentProject({...currentProject, coverImageUrl: e.target.value})} 
-                                   placeholder="Direct URL Overlay..."
-                                   className="bg-zinc-900 border-white/5 h-12 text-[10px] font-mono rounded-xl px-4"
+                                   placeholder="Image URL..."
+                                   className="bg-zinc-900 border-white/10 h-10 text-[10px] font-mono rounded-lg px-4"
                                  />
                               </div>
-                              <div className="aspect-video bg-black rounded-[3rem] border border-white/5 overflow-hidden group/prev relative">
+                              <div className="aspect-video bg-black rounded-2xl border border-white/10 overflow-hidden relative">
                                  {currentProject.coverImageUrl ? (
-                                    <img src={currentProject.coverImageUrl} className="w-full h-full object-cover group-hover/prev:scale-110 transition-transform duration-[3s]" />
+                                    <img src={currentProject.coverImageUrl} className="w-full h-full object-cover" />
                                  ) : (
-                                    <div className="w-full h-full flex flex-col items-center justify-center text-zinc-900 gap-4">
-                                       <ImageIcon size={48} strokeWidth={0.5} />
-                                       <span className="text-[9px] font-black uppercase tracking-widest italic opacity-20">No active signal detected</span>
+                                    <div className="w-full h-full flex flex-col items-center justify-center text-zinc-800 gap-2">
+                                       <ImageIcon size={32} strokeWidth={0.5} />
+                                       <span className="text-[8px] font-bold uppercase tracking-widest opacity-20">No Cover</span>
                                     </div>
                                  )}
                               </div>
                            </div>
                         </div>
 
-                        <div className="space-y-8 pt-12 border-t border-white/5">
-                            <header className="flex justify-between items-center px-4">
-                               <div className="space-y-1">
-                                  <h3 className="text-[10px] font-black uppercase tracking-[0.3em] text-zinc-500">Asset Gallery</h3>
-                                  <p className="text-[9px] text-zinc-700 uppercase tracking-widest font-bold">Secondary Visual Data</p>
+                        <div className="space-y-6 pt-10 border-t border-white/5">
+                            <header className="flex justify-between items-center px-2">
+                               <div className="space-y-0.5">
+                                  <h3 className="text-[10px] font-black uppercase tracking-widest text-zinc-500">Gallery Assets</h3>
+                                  <p className="text-[9px] text-zinc-700 uppercase tracking-widest font-bold">Additional screenshots/videos</p>
                                </div>
-                               <Button onClick={() => setGallery([...gallery, { url: '', caption: '', priority: gallery.length }])} size="sm" className="bg-white/5 hover:bg-white hover:text-black rounded-xl text-[9px] font-black uppercase"><Plus size={14} className="mr-2" /> Add Asset</Button>
+                               <Button onClick={() => setGallery([...gallery, { url: '', caption: '', priority: gallery.length }])} size="sm" className="bg-blue-600/10 hover:bg-blue-600 text-blue-500 hover:text-white rounded-lg text-[9px] font-bold uppercase h-8 px-4 transition-all">Add Image</Button>
                             </header>
 
-                            <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
+                            <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
                                {gallery.map((g, idx) => (
-                                  <div key={idx} className="p-8 bg-black rounded-[2.5rem] border border-white/5 space-y-6">
+                                  <div key={idx} className="p-6 bg-black rounded-2xl border border-white/10 space-y-4">
                                      <FileUploader 
                                         onUploadComplete={(url) => {
                                            const newG = [...gallery];
@@ -468,12 +458,11 @@ export function ProjectsManager() {
                                            newG[idx].caption = e.target.value;
                                            setGallery(newG);
                                         }} 
-                                        placeholder="Caption / Metadata" 
-                                        className="bg-zinc-950 border-white/5 h-12 rounded-xl text-[10px]" 
+                                        placeholder="Caption" 
+                                        className="bg-zinc-950 border-white/10 h-10 rounded-lg text-[10px]" 
                                      />
-                                     <div className="flex justify-between items-center pt-2">
-                                        <div className="text-[8px] font-mono text-zinc-700 uppercase tracking-widest leading-none">Status: Ready</div>
-                                        <button onClick={() => setGallery(gallery.filter((_, i) => i !== idx))} className="text-zinc-800 hover:text-red-500 transition-colors"><Trash2 size={16}/></button>
+                                     <div className="flex justify-end pt-1">
+                                        <button onClick={() => setGallery(gallery.filter((_, i) => i !== idx))} className="text-zinc-700 hover:text-red-500 transition-colors p-1"><Trash2 size={16}/></button>
                                      </div>
                                   </div>
                                ))}

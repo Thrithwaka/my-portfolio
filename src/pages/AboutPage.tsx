@@ -104,43 +104,43 @@ export function AboutPage() {
   });
 
   // Hero Transitions
-  const heroOpacity = useTransform(smoothProgress, [0, 0.1, 0.18], [1, 1, 0]);
-  const heroScale = useTransform(smoothProgress, [0, 0.12, 0.2], [1, 1, 0.8]);
-  const heroY = useTransform(smoothProgress, [0, 0.12, 0.2], [0, 0, -100]);
+  const heroOpacity = useTransform(smoothProgress, [0, 0.1, 0.22], [1, 1, 0]);
+  const heroScale = useTransform(smoothProgress, [0, 0.12, 0.25], [1, 1, 0.8]);
+  const heroY = useTransform(smoothProgress, [0, 0.12, 0.25], [0, 0, -100]);
 
   // Horizontal movement for hero words
   const isMobileSize = typeof window !== 'undefined' ? window.innerWidth < 768 : false;
   const xOffset = isMobileSize ? 150 : 400;
   
-  const word1X = useTransform(smoothProgress, [0, 0.12, 0.2], [0, 0, xOffset]);
-  const word2X = useTransform(smoothProgress, [0, 0.12, 0.2], [0, 0, -xOffset]);
-  const word3X = useTransform(smoothProgress, [0, 0.12, 0.2], [0, 0, xOffset]);
+  const word1X = useTransform(smoothProgress, [0, 0.12, 0.25], [0, 0, xOffset]);
+  const word2X = useTransform(smoothProgress, [0, 0.12, 0.25], [0, 0, -xOffset]);
+  const word3X = useTransform(smoothProgress, [0, 0.12, 0.25], [0, 0, xOffset]);
 
-  const subTitleY = useTransform(smoothProgress, [0, 0.08], [0, 50]);
-  const subTitleOpacity = useTransform(smoothProgress, [0, 0.06], [1, 0]);
+  const subTitleY = useTransform(smoothProgress, [0, 0.1], [0, 50]);
+  const subTitleOpacity = useTransform(smoothProgress, [0, 0.08], [1, 0]);
 
   // Section Transitions
-  const introScale = useTransform(smoothProgress, [0.15, 0.2, 0.4, 0.45], [0.8, 1, 1, 0.8]);
-  const introOpacity = useTransform(smoothProgress, [0.15, 0.18, 0.42, 0.45], [0, 1, 1, 0]);
-  const introY = useTransform(smoothProgress, [0.15, 0.2], [100, 0]);
-  const introImageX = useTransform(smoothProgress, [0.15, 0.2], [-200, 0]);
-  const introTextX = useTransform(smoothProgress, [0.15, 0.2], [200, 0]);
+  const introScale = useTransform(smoothProgress, [0.15, 0.22, 0.4, 0.45], [0.8, 1, 1, 0.8]);
+  const introOpacity = useTransform(smoothProgress, [0.15, 0.2, 0.42, 0.45], [0, 1, 1, 0]);
+  const introY = useTransform(smoothProgress, [0.15, 0.25], [100, 0]);
+  const introImageX = useTransform(smoothProgress, [0.15, 0.25], [-200, 0]);
+  const introTextX = useTransform(smoothProgress, [0.15, 0.25], [200, 0]);
 
   // Educational Foundations Transitions
-  const eduScale = useTransform(smoothProgress, [0.4, 0.45, 0.65, 0.7], [0.8, 1, 1, 0.8]);
-  const eduOpacity = useTransform(smoothProgress, [0.4, 0.42, 0.68, 0.7], [0, 1, 1, 0]);
-  const eduY = useTransform(smoothProgress, [0.4, 0.45], [100, 0]);
-  const lineDraw = useTransform(smoothProgress, [0.42, 0.6], [0, 1]);
+  const eduScale = useTransform(smoothProgress, [0.42, 0.48, 0.65, 0.7], [0.8, 1, 1, 0.8]);
+  const eduOpacity = useTransform(smoothProgress, [0.42, 0.46, 0.68, 0.7], [0, 1, 1, 0]);
+  const eduY = useTransform(smoothProgress, [0.42, 0.52], [100, 0]);
+  const lineDraw = useTransform(smoothProgress, [0.45, 0.65], [0, 1]);
 
   // Certifications Transitions
-  const certSectionScale = useTransform(smoothProgress, [0.65, 0.7, 0.88, 0.92], [0.8, 1, 1, 0.8]);
-  const certSectionOpacity = useTransform(smoothProgress, [0.65, 0.68, 0.88, 0.92], [0, 1, 1, 0]);
-  const certSectionY = useTransform(smoothProgress, [0.65, 0.7], [100, 0]);
+  const certSectionScale = useTransform(smoothProgress, [0.68, 0.74, 0.88, 0.92], [0.8, 1, 1, 0.8]);
+  const certSectionOpacity = useTransform(smoothProgress, [0.68, 0.72, 0.9, 0.92], [0, 1, 1, 0]);
+  const certSectionY = useTransform(smoothProgress, [0.68, 0.75], [100, 0]);
 
   // Research Transitions
-  const resScale = useTransform(smoothProgress, [0.88, 0.92, 0.98, 1], [0.8, 1, 1, 1]);
-  const resOpacity = useTransform(smoothProgress, [0.88, 0.9, 1, 1], [0, 1, 1, 1]);
-  const resY = useTransform(smoothProgress, [0.88, 0.92], [100, 0]);
+  const resScale = useTransform(smoothProgress, [0.9, 0.94, 0.98, 1], [0.8, 1, 1, 0.8]);
+  const resOpacity = useTransform(smoothProgress, [0.9, 0.92, 0.98, 1], [0, 1, 1, 0]);
+  const resY = useTransform(smoothProgress, [0.9, 0.95, 0.98, 1], [100, 0, 0, -50]);
   const resPointerEvents = useTransform(resOpacity, (o) => o > 0.5 ? "auto" : "none");
 
   const certPointerEvents = useTransform(certSectionOpacity, (o) => o > 0.5 ? "auto" : "none");
@@ -149,7 +149,7 @@ export function AboutPage() {
 
   return (
     <div className="bg-white dark:bg-black text-black dark:text-white selection:bg-blue-600 selection:text-white transition-colors duration-1000">
-      <div ref={containerRef} className="relative h-[350vh]">
+      <div ref={containerRef} className="relative h-[450vh]">
         {aboutLoading ? (
           <div className="h-screen w-full flex items-center justify-center bg-white fixed inset-0 z-[100]">
             <motion.div 
@@ -160,7 +160,7 @@ export function AboutPage() {
           </div>
         ) : (
           <>
-            <section className="sticky top-0 h-screen w-full flex flex-col items-center justify-center overflow-hidden z-0 px-6 bg-black">
+            <section className="sticky top-0 h-screen w-full flex flex-col items-center justify-center overflow-hidden z-0 px-6 bg-white dark:bg-black">
             {/* Cinematic Background Asset */}
             <motion.div 
               style={{ opacity: heroOpacity }}
