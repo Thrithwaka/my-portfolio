@@ -167,31 +167,33 @@ export function AboutPage() {
               style={{ opacity: heroOpacity }}
               className="absolute inset-0 pointer-events-none z-0"
             >
-              {aboutData?.heroVideoUrl && aboutData.heroVideoUrl !== aboutData.profileImageUrl ? (
-                <div className="relative w-full h-full opacity-30">
-                  {aboutData.heroVideoUrl.match(/\.(mp4|webm|ogg)$/i) || 
-                   aboutData.heroVideoUrl.includes('drive.google.com') || 
-                   (aboutData.heroVideoUrl.includes('res.cloudinary.com') && aboutData.heroVideoUrl.includes('/video/')) ? (
-                    <video 
-                      src={getDirectLink(aboutData.heroVideoUrl)} 
-                      className="w-full h-full object-cover" 
-                      autoPlay 
-                      loop 
-                      muted 
-                      playsInline 
-                    />
-                  ) : (
-                    <img 
-                      src={getDirectLink(aboutData.heroVideoUrl)} 
-                      className="w-full h-full object-cover" 
-                      alt="Background"
-                    />
-                  )}
-                  <div className="absolute inset-0 bg-gradient-to-b from-black/0 via-black/50 to-black" />
-                </div>
-              ) : (
-                <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[120vw] h-[120vw] bg-zinc-50 dark:bg-white/[0.02] rounded-full blur-[120px]" />
-              )}
+              {(() => {
+                const isVideo = aboutData?.heroVideoUrl && (
+                  aboutData.heroVideoUrl.match(/\.(mp4|webm|ogg)$/i) || 
+                  aboutData.heroVideoUrl.includes('drive.google.com') || 
+                  (aboutData.heroVideoUrl.includes('res.cloudinary.com') && aboutData.heroVideoUrl.includes('/video/'))
+                );
+
+                if (isVideo) {
+                  return (
+                    <div className="relative w-full h-full opacity-30">
+                      <video 
+                        src={getDirectLink(aboutData.heroVideoUrl)} 
+                        className="w-full h-full object-cover" 
+                        autoPlay 
+                        loop 
+                        muted 
+                        playsInline 
+                      />
+                      <div className="absolute inset-0 bg-gradient-to-b from-black/0 via-black/50 to-black" />
+                    </div>
+                  );
+                }
+                
+                return (
+                  <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[120vw] h-[120vw] bg-zinc-50 dark:bg-white/[0.02] rounded-full blur-[120px]" />
+                );
+              })()}
             </motion.div>
 
             <motion.div 
@@ -239,13 +241,12 @@ export function AboutPage() {
                 style={{ x: introImageX }}
                 className="lg:col-span-5 relative group order-1"
               >
-                <div className="relative aspect-[4/5] rounded-[2rem] md:rounded-[4rem] overflow-hidden border-4 md:border-8 border-white dark:border-zinc-900 shadow-2xl max-h-[45vh] md:max-h-none">
+                <div className="relative aspect-[3/4] rounded-[2rem] md:rounded-[4rem] overflow-hidden border-4 md:border-8 border-white dark:border-zinc-900 shadow-2xl">
                   <img 
                     src={getDirectLink(aboutData?.deepIntroImage || aboutData?.profileImageUrl) || "https://images.unsplash.com/photo-1544256718-3bcf237f3974"} 
                     alt="Profile" 
                     className="w-full h-full object-cover transition-all duration-1000 group-hover:scale-105" 
                   />
-                  <div className="absolute inset-0 bg-blue-600/5 group-hover:bg-transparent transition-colors" />
                 </div>
               </motion.div>
 
