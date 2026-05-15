@@ -41,32 +41,35 @@ export function CinematicPortfolio({ isAdmin }: { isAdmin?: boolean }) {
   });
 
   // Hero Animations
-  const heroOpacity = useTransform(smoothProgress, [0, 0.1, 0.22], [1, 1, 0]);
-  const heroScale = useTransform(smoothProgress, [0, 0.12, 0.25], [1, 1, 0.8]);
+  const heroOpacity = useTransform(smoothProgress, [0, 0.15, 0.22], [1, 1, 0]);
+  const heroScale = useTransform(smoothProgress, [0, 0.15, 0.25], [1, 1, 0.9]);
   
   // Responsive transformation values
   const isMobile = typeof window !== 'undefined' ? window.innerWidth < 768 : false;
   const xOffset = isMobile ? 200 : 500;
 
-  const name1X = useTransform(smoothProgress, [0, 0.1, 0.25], [0, 0, xOffset]);
-  const name2X = useTransform(smoothProgress, [0, 0.1, 0.25], [0, 0, -xOffset]);
-  const name3X = useTransform(smoothProgress, [0, 0.1, 0.25], [0, 0, xOffset]);
+  const name1X = useTransform(smoothProgress, [0, 0.15, 0.25], [0, 0, xOffset]);
+  const name2X = useTransform(smoothProgress, [0, 0.15, 0.3], [0, 0, -xOffset]);
+  const name3X = useTransform(smoothProgress, [0, 0.15, 0.35], [0, 0, xOffset]);
 
   const subTitleY = useTransform(smoothProgress, [0, 0.1], [0, 50]);
   const subTitleOpacity = useTransform(smoothProgress, [0, 0.08], [1, 0]);
 
   // Section Transitions
-  const aboutScale = useTransform(smoothProgress, [0.15, 0.22, 0.42, 0.48], [0.8, 1, 1, 0.8]);
-  const aboutOpacity = useTransform(smoothProgress, [0.15, 0.2, 0.45, 0.48], [0, 1, 1, 0]);
-  const aboutY = useTransform(smoothProgress, [0.15, 0.25, 0.38, 0.48], [100, 0, 0, -50]);
+  // Beat 2: About Me (0.22 - 0.48)
+  const aboutScale = useTransform(smoothProgress, [0.22, 0.3, 0.45, 0.52], [0.8, 1, 1, 0.8]);
+  const aboutOpacity = useTransform(smoothProgress, [0.22, 0.28, 0.48, 0.52], [0, 1, 1, 0]);
+  const aboutY = useTransform(smoothProgress, [0.22, 0.35, 0.48, 0.52], [100, 0, 0, -50]);
 
-  const recScale = useTransform(smoothProgress, [0.42, 0.48, 0.68, 0.74], [0.8, 1, 1, 0.8]);
-  const recOpacity = useTransform(smoothProgress, [0.42, 0.46, 0.7, 0.74], [0, 1, 1, 0]);
-  const recY = useTransform(smoothProgress, [0.42, 0.5, 0.65, 0.74], [50, 0, 0, -50]);
+  // Beat 3: Recommendations (0.5 - 0.75)
+  const recScale = useTransform(smoothProgress, [0.48, 0.55, 0.7, 0.78], [0.8, 1, 1, 0.8]);
+  const recOpacity = useTransform(smoothProgress, [0.48, 0.53, 0.72, 0.78], [0, 1, 1, 0]);
+  const recY = useTransform(smoothProgress, [0.48, 0.6, 0.72, 0.78], [50, 0, 0, -50]);
 
-  const skillScale = useTransform(smoothProgress, [0.68, 0.74, 0.9, 0.95], [0.8, 1, 1, 0.8]);
-  const skillOpacity = useTransform(smoothProgress, [0.68, 0.72, 0.92, 0.95], [0, 1, 1, 0]);
-  const skillY = useTransform(smoothProgress, [0.68, 0.76, 0.88, 0.95], [50, 0, 0, -100]);
+  // Beat 4: Skills (0.75 - 0.98)
+  const skillScale = useTransform(smoothProgress, [0.75, 0.82, 0.95, 0.98], [0.8, 1, 1, 0.9]);
+  const skillOpacity = useTransform(smoothProgress, [0.75, 0.8, 0.95, 0.98], [0, 1, 1, 0]);
+  const skillY = useTransform(smoothProgress, [0.75, 0.85, 0.95, 0.98], [50, 0, 0, -50]);
 
   const aboutPointerEvents = useTransform(aboutOpacity, (o) => o > 0.5 ? "auto" : "none");
   const recPointerEvents = useTransform(recOpacity, (o) => o > 0.5 ? "auto" : "none");
@@ -74,7 +77,7 @@ export function CinematicPortfolio({ isAdmin }: { isAdmin?: boolean }) {
 
   return (
     <>
-      <div ref={containerRef} className="relative h-[450vh] bg-white dark:bg-black selection:bg-blue-600 selection:text-white transition-colors duration-1000">
+      <div ref={containerRef} className="relative h-[550vh] bg-white dark:bg-black selection:bg-blue-600 selection:text-white transition-colors duration-1000">
       
       {/* 1. HERO - PINNED */}
       <VisualEditorWrapper isAdmin={isAdmin} onEdit={() => setActiveEditor('hero')} label="Edit Hero Section">
@@ -114,29 +117,40 @@ export function CinematicPortfolio({ isAdmin }: { isAdmin?: boolean }) {
             </motion.div>
 
             {isAdmin ? (
-              <EditableText
-                isAdmin={isAdmin}
-                initialValue={heroData?.title || "Thrithwaka Preethi Shakya"}
-                onSave={(val) => updateHero({ title: val })}
-                className="text-4xl md:text-[8vw] font-black leading-[0.85] tracking-tighter text-black dark:text-white uppercase text-center"
-              />
-            ) : heroData?.title ? (
-              <div className="flex flex-col items-center text-center w-full">
-                {heroData.title.split(' ').map((word: string, i: number) => (
-                  <motion.h1 
-                    key={i}
-                    style={{ x: i % 2 === 0 ? name1X : name2X }}
-                    className="text-[15vw] md:text-[8vw] lg:text-[10vw] font-black leading-[0.85] tracking-[calc(-0.05em)] md:tracking-tighter text-black dark:text-white uppercase"
-                  >
-                    {word}
-                  </motion.h1>
-                ))}
+              <div className="flex flex-col items-center text-center w-full uppercase">
+                <EditableText
+                  isAdmin={isAdmin}
+                  initialValue={heroData?.title1 || "Thrithwaka"}
+                  onSave={(val) => updateHero({ title1: val })}
+                  className="text-[12vw] md:text-[8vw] font-black leading-[0.85] tracking-tighter text-black dark:text-white uppercase"
+                  style={{ x: name1X } as any}
+                />
+                <EditableText
+                  isAdmin={isAdmin}
+                  initialValue={heroData?.title2 || "Preethi"}
+                  onSave={(val) => updateHero({ title2: val })}
+                  className="text-[12vw] md:text-[8vw] font-black leading-[0.85] tracking-tighter text-black dark:text-white uppercase"
+                  style={{ x: name2X } as any}
+                />
+                <EditableText
+                  isAdmin={isAdmin}
+                  initialValue={heroData?.title3 || "Shakya"}
+                  onSave={(val) => updateHero({ title3: val })}
+                  className="text-[12vw] md:text-[8vw] font-black leading-[0.85] tracking-tighter text-black dark:text-white uppercase"
+                  style={{ x: name3X } as any}
+                />
+              </div>
+            ) : heroData?.title1 ? (
+              <div className="flex flex-col items-center text-center w-full uppercase">
+                <motion.h1 style={{ x: name1X }} className="text-[12vw] md:text-[8vw] font-black leading-[0.85] tracking-tighter text-black dark:text-white uppercase">{heroData.title1}</motion.h1>
+                <motion.h1 style={{ x: name2X }} className="text-[12vw] md:text-[8vw] font-black leading-[0.85] tracking-tighter text-black dark:text-white uppercase">{heroData.title2}</motion.h1>
+                <motion.h1 style={{ x: name3X }} className="text-[12vw] md:text-[8vw] font-black leading-[0.85] tracking-tighter text-black dark:text-white uppercase">{heroData.title3}</motion.h1>
               </div>
             ) : (
-              <div className="flex flex-col items-center text-center w-full">
-                <motion.h1 style={{ x: name1X }} className="text-[15vw] md:text-[10vw] font-black leading-[0.85] tracking-tighter text-black dark:text-white uppercase">Thrithwaka</motion.h1>
-                <motion.h1 style={{ x: name2X }} className="text-[15vw] md:text-[10vw] font-black leading-[0.85] tracking-tighter text-black dark:text-white uppercase">Preethi</motion.h1>
-                <motion.h1 style={{ x: name3X }} className="text-[15vw] md:text-[10vw] font-black leading-[0.85] tracking-tighter text-black dark:text-white uppercase">Shakya</motion.h1>
+              <div className="flex flex-col items-center text-center w-full uppercase">
+                <motion.h1 style={{ x: name1X }} className="text-[12vw] md:text-[8vw] font-black leading-[0.85] tracking-tighter text-black dark:text-white uppercase">Thrithwaka</motion.h1>
+                <motion.h1 style={{ x: name2X }} className="text-[12vw] md:text-[8vw] font-black leading-[0.85] tracking-tighter text-black dark:text-white uppercase">Preethi</motion.h1>
+                <motion.h1 style={{ x: name3X }} className="text-[12vw] md:text-[8vw] font-black leading-[0.85] tracking-tighter text-black dark:text-white uppercase">Shakya</motion.h1>
               </div>
             )}
 
@@ -182,14 +196,14 @@ export function CinematicPortfolio({ isAdmin }: { isAdmin?: boolean }) {
                 isAdmin={isAdmin}
                 initialValue={aboutData?.vision || "Pioneer AI. Human Focus."}
                 onSave={(val) => updateAbout({ vision: val })}
-                className="text-3xl md:text-7xl font-bold leading-[1] tracking-tight text-black dark:text-white italic font-serif"
+                className="text-4xl md:text-8xl font-black leading-[0.9] tracking-tighter text-black dark:text-white"
               />
               <EditableText
                 isAdmin={isAdmin}
                 multiline
                 initialValue={aboutData?.missionStatement || "I am a visionary AI Engineer dedicated to crafting systems that not only solve complex problems but redefine how we interact with technology..."}
                 onSave={(val) => updateAbout({ missionStatement: val })}
-                className="text-sm md:text-xl text-zinc-500 dark:text-zinc-400 leading-relaxed max-w-xl"
+                className="text-base md:text-2xl text-zinc-400 dark:text-zinc-500 leading-tight max-w-2xl font-medium tracking-tight"
               />
               <Link to="/about" className="inline-flex items-center text-[10px] md:text-sm font-bold uppercase tracking-widest h-10 md:h-14 px-6 md:px-10 bg-black dark:bg-white text-white dark:text-black rounded-full hover:scale-105 transition-transform">
                 Digital Identity <ChevronRight size={16} className="ml-2" />
@@ -206,20 +220,26 @@ export function CinematicPortfolio({ isAdmin }: { isAdmin?: boolean }) {
           </motion.div>
         </motion.section>
       </VisualEditorWrapper>
-
-      {/* 3. RECOMMENDATIONS - MARQUEE BELT */}
+      {/* 3. RECOMMENDATIONS - CINEMATIC PINNED */}
       <VisualEditorWrapper isAdmin={isAdmin} onEdit={() => setActiveEditor('endorsements')} label="Manage Testimonials">
         <motion.section 
           style={{ opacity: recOpacity, pointerEvents: recPointerEvents as any }}
           className="sticky top-0 h-screen w-full flex flex-col items-center justify-center overflow-hidden bg-white dark:bg-black z-20"
         >
+          {/* Decoration Layer */}
+          <DecorationLayer 
+            isAdmin={isAdmin}
+            decorations={aboutData?.decorations || []}
+            onUpdate={(decs) => updateAbout({ decorations: decs })}
+          />
+
           <motion.div 
             style={{ scale: recScale, y: recY }}
-            className="w-full space-y-12 md:space-y-20 flex flex-col items-center"
+            className="w-full space-y-8 md:space-y-16 flex flex-col items-center"
           >
-            <div className="text-center space-y-4 md:space-y-6 px-6">
+            <div className="text-center space-y-2 md:space-y-4 px-6">
               <h2 className="text-xs md:text-sm font-mono uppercase tracking-[0.3em] text-blue-600">Strategic Validation</h2>
-              <h3 className="text-4xl md:text-8xl font-bold tracking-tighter text-black dark:text-white">Professional Trust.</h3>
+              <h3 className="text-4xl md:text-7xl font-bold tracking-tighter text-black dark:text-white">Professional Trust.</h3>
             </div>
 
             <div className="relative w-full overflow-hidden py-10">
@@ -282,72 +302,91 @@ export function CinematicPortfolio({ isAdmin }: { isAdmin?: boolean }) {
         </motion.section>
       </VisualEditorWrapper>
 
-      {/* 4. SKILLS - FINAL PINNED */}
+      {/* 4. SKILLS - CINEMATIC PINNED */}
       <VisualEditorWrapper isAdmin={isAdmin} onEdit={() => setActiveEditor('toolkit')} label="Manage Toolkit">
         <motion.section 
           style={{ opacity: skillOpacity, pointerEvents: skillPointerEvents as any }}
-          className="sticky top-0 h-screen w-full flex flex-col items-center justify-start md:justify-center z-30 bg-white dark:bg-black pt-20 md:pt-0"
+          className="sticky top-0 h-screen w-full flex flex-col items-center justify-center bg-white dark:bg-black z-30"
         >
+          {/* Decoration Layer */}
+          <DecorationLayer 
+            isAdmin={isAdmin}
+            decorations={aboutData?.decorations || []}
+            onUpdate={(decs) => updateAbout({ decorations: decs })}
+          />
+
           <motion.div 
             style={{ scale: skillScale, y: skillY }}
-            className="relative z-10 max-w-7xl mx-auto w-full px-6 space-y-4 md:space-y-24 pointer-events-auto"
+            className="relative z-10 max-w-7xl mx-auto w-full px-6 space-y-8 md:space-y-12 max-h-[90vh] overflow-y-auto no-scrollbar pointer-events-auto"
           >
-            <div className="flex flex-col md:flex-row justify-between items-start md:items-end gap-3 md:gap-12 border-b border-zinc-100 dark:border-white/5 pb-2 md:pb-12">
-              <div className="space-y-1 md:space-y-4">
-                <h2 className="text-[10px] md:text-sm font-mono uppercase tracking-[0.3em] text-blue-600 dark:text-blue-400">Toolkit Mastery</h2>
-                <h3 className="text-3xl md:text-6xl lg:text-8xl font-bold tracking-tighter text-black dark:text-white leading-none">Capabilities.</h3>
+            <div className="flex flex-col md:flex-row justify-between items-start md:items-center gap-6 md:gap-16 border-b border-zinc-100 dark:border-white/5 pb-6 md:pb-10">
+              <div className="space-y-2 md:space-y-4">
+                <h2 className="text-[10px] md:text-xs font-mono uppercase tracking-[0.4em] text-blue-600 dark:text-blue-400 font-black">Toolkit Mastery</h2>
+                <h3 className="text-4xl md:text-7xl font-black tracking-tighter text-black dark:text-white leading-[0.85]">Capabilities.</h3>
               </div>
-              <p className="text-zinc-500 max-w-sm text-[8px] md:text-sm uppercase tracking-[0.1em] md:tracking-[0.2em] leading-relaxed">
-                Categorized intelligence systems driving global transformation.
+              <p className="text-zinc-400 dark:text-zinc-500 max-w-md text-xs md:text-lg font-medium leading-tight tracking-tight">
+                Categorized intelligence systems and strategic frameworks driving global transformation through AI-led innovation.
               </p>
             </div>
 
-              <div className="grid grid-cols-1 lg:grid-cols-2 gap-6 md:gap-16 pr-2">
-                <div className="space-y-6 md:space-y-10">
-                  <h4 className="text-lg md:text-xl font-bold flex items-center gap-3 md:gap-4 text-black dark:text-white uppercase tracking-tighter">
-                    <div className="w-8 h-8 md:w-10 md:h-10 bg-blue-600/20 rounded-lg flex items-center justify-center"><Cpu size={16} className="text-blue-500" /></div> technical_systems
-                  </h4>
-                  <div className="grid grid-cols-1 sm:grid-cols-2 gap-3 md:gap-4">
-                    {(skills?.filter((s:any) => s.category === 'technical_systems').length > 0 
-                      ? skills.filter((s:any) => s.category === 'technical_systems')
-                      : [
-                          { name: 'Artificial Intelligence' }, 
-                          { name: 'Machine Learning' }, 
-                          { name: 'NLP' }, 
-                          { name: 'Cloud Engineering' }, 
-                          { name: 'Full-Stack' }, 
-                          { name: 'Cybersecurity' }
-                        ]
-                    ).map((s: any) => (
-                      <div key={s.name} className="p-3 md:p-6 border border-zinc-100 dark:border-white/10 rounded-xl md:rounded-2xl bg-zinc-50/50 dark:bg-white/[0.03] flex items-center gap-3 md:gap-4 hover:bg-zinc-100 dark:hover:bg-white/[0.08] transition-all">
-                        <span className="text-[9px] md:text-xs font-bold tracking-[0.1em] md:tracking-widest uppercase text-zinc-800 dark:text-zinc-100">{s.name}</span>
+            <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 md:gap-16">
+              <div className="space-y-6 md:space-y-10">
+                <h4 className="text-xl md:text-3xl font-black flex items-center gap-4 text-black dark:text-white uppercase tracking-tighter">
+                  <span className="text-blue-600/30 font-mono text-sm md:text-lg">01</span> technical_systems
+                </h4>
+                <div className="grid grid-cols-1 sm:grid-cols-2 gap-3 md:gap-4">
+                  {(skills?.filter((s:any) => s.category === 'technical_systems').length > 0 
+                    ? skills.filter((s:any) => s.category === 'technical_systems')
+                    : [
+                        { name: 'Artificial Intelligence' }, 
+                        { name: 'Machine Learning' }, 
+                        { name: 'NLP' }, 
+                        { name: 'Cloud Engineering' }, 
+                        { name: 'Full-Stack' }, 
+                        { name: 'Cybersecurity' }
+                      ]
+                  ).map((s: any) => (
+                    <motion.div 
+                      key={s.name} 
+                      whileHover={{ y: -5 }}
+                      className="group relative"
+                    >
+                      <div className="p-6 md:p-8 border border-zinc-100 dark:border-white/5 rounded-[2rem] bg-zinc-50/30 dark:bg-white/[0.01] hover:bg-white dark:hover:bg-white/[0.03] hover:shadow-2xl hover:shadow-blue-600/5 transition-all duration-500">
+                        <span className="text-xs md:text-base font-black tracking-widest uppercase text-zinc-900 dark:text-zinc-100">{s.name}</span>
                       </div>
-                    ))}
-                  </div>
-                </div>
-
-                <div className="space-y-6 md:space-y-10">
-                  <h4 className="text-lg md:text-xl font-bold flex items-center gap-3 md:gap-4 text-black dark:text-white uppercase tracking-tighter">
-                    <div className="w-8 h-8 md:w-10 md:h-10 bg-green-600/20 rounded-lg flex items-center justify-center"><Users size={16} className="text-green-500" /></div> strategic_impact
-                  </h4>
-                  <div className="grid grid-cols-1 sm:grid-cols-2 gap-3 md:gap-4">
-                    {(skills?.filter((s:any) => s.category === 'strategic_impact').length > 0 
-                      ? skills.filter((s:any) => s.category === 'strategic_impact')
-                      : [
-                          { name: 'Leadership' }, 
-                          { name: 'Communication' }, 
-                          { name: 'Creativity' }, 
-                          { name: 'Strategy' }, 
-                          { name: 'Collaboration' }
-                        ]
-                    ).map((s: any) => (
-                      <div key={s.name} className="p-3 md:p-6 border border-zinc-100 dark:border-white/10 rounded-xl md:rounded-2xl bg-zinc-50/50 dark:bg-white/[0.03] flex items-center gap-3 md:gap-4 hover:bg-zinc-100 dark:hover:bg-white/[0.08] transition-all">
-                        <span className="text-[9px] md:text-xs font-bold tracking-[0.1em] md:tracking-widest uppercase text-zinc-800 dark:text-zinc-100">{s.name}</span>
-                      </div>
-                    ))}
-                  </div>
+                    </motion.div>
+                  ))}
                 </div>
               </div>
+
+              <div className="space-y-6 md:space-y-10">
+                <h4 className="text-xl md:text-3xl font-black flex items-center gap-4 text-black dark:text-white uppercase tracking-tighter">
+                  <span className="text-green-600/30 font-mono text-sm md:text-lg">02</span> strategic_impact
+                </h4>
+                <div className="grid grid-cols-1 sm:grid-cols-2 gap-3 md:gap-4">
+                  {(skills?.filter((s:any) => s.category === 'strategic_impact').length > 0 
+                    ? skills.filter((s:any) => s.category === 'strategic_impact')
+                    : [
+                        { name: 'Leadership' }, 
+                        { name: 'Communication' }, 
+                        { name: 'Creativity' }, 
+                        { name: 'Strategy' }, 
+                        { name: 'Collaboration' }
+                      ]
+                  ).map((s: any) => (
+                    <motion.div 
+                      key={s.name} 
+                      whileHover={{ y: -5 }}
+                      className="group relative"
+                    >
+                      <div className="p-6 md:p-8 border border-zinc-100 dark:border-white/5 rounded-[2rem] bg-zinc-50/30 dark:bg-white/[0.01] hover:bg-white dark:hover:bg-white/[0.03] hover:shadow-2xl hover:shadow-green-600/5 transition-all duration-500">
+                        <span className="text-xs md:text-base font-black tracking-widest uppercase text-zinc-900 dark:text-zinc-100">{s.name}</span>
+                      </div>
+                    </motion.div>
+                  ))}
+                </div>
+              </div>
+            </div>
           </motion.div>
         </motion.section>
       </VisualEditorWrapper>
