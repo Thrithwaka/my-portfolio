@@ -121,65 +121,79 @@ export function ProjectDetailPage({ isAdmin }: { isAdmin?: boolean }) {
       <motion.div className="fixed top-0 left-0 right-0 h-1 bg-blue-600 origin-left z-[100]" style={{ scaleX }} />
 
       {/* Refined Hero Design */}
-      <section className="relative h-[70vh] w-full overflow-hidden flex flex-col justify-end pb-20">
+      <section className="relative h-[80vh] w-full overflow-hidden flex flex-col justify-end pt-32 pb-24">
         <motion.div 
-          initial={{ scale: 1.1 }}
-          animate={{ scale: 1 }}
-          transition={{ duration: 2, ease: "easeOut" }}
+          initial={{ scale: 1.15, opacity: 0 }}
+          animate={{ scale: 1, opacity: 1 }}
+          transition={{ duration: 1.8, ease: "easeOut" }}
           className="absolute inset-0 z-0"
         >
           {project.coverImageUrl ? (
             <img 
               src={getDirectLink(project.coverImageUrl)} 
               alt={project.title} 
-              className="w-full h-full object-cover filter brightness-[0.4] contrast-110"
+              className="w-full h-full object-cover filter brightness-[0.35] contrast-125 saturate-[0.8]"
             />
           ) : (
-            <div className="w-full h-full bg-zinc-900" />
+            <div className="w-full h-full bg-zinc-950" />
           )}
-          <div className="absolute inset-0 bg-gradient-to-t from-white dark:from-black via-transparent to-transparent opacity-80" />
-          <div className="absolute inset-0 bg-gradient-to-b from-black/60 via-transparent to-transparent opacity-40" />
+          {/* Layered Overlays for depth */}
+          <div className="absolute inset-0 bg-gradient-to-t from-white dark:from-black via-black/20 to-transparent" />
+          <div className="absolute inset-0 bg-black/40 mix-blend-overlay" />
+          <div className="absolute inset-0 bg-gradient-to-r from-black/80 via-transparent to-transparent opacity-60" />
         </motion.div>
         
         <div className="absolute top-32 left-6 md:left-12 z-20">
           <button 
             onClick={() => navigate('/projects')}
-            className="flex items-center gap-3 px-6 py-3 bg-white/10 dark:bg-black/40 backdrop-blur-2xl rounded-full border border-white/10 text-[9px] font-black uppercase tracking-[0.2em] text-white hover:bg-white hover:text-black transition-all"
+            className="group flex items-center gap-3 px-6 py-2.5 bg-white/5 hover:bg-white/10 dark:bg-black/20 dark:hover:bg-blue-600 backdrop-blur-xl rounded-full border border-white/10 text-[9px] font-black uppercase tracking-[0.25em] text-white transition-all duration-300"
           >
-            <ArrowLeft size={14} /> Back to Archive
+            <ArrowLeft size={14} className="group-hover:-translate-x-1 transition-transform" /> 
+            <span>Back to archive</span>
           </button>
         </div>
 
-        <div className="max-w-7xl mx-auto px-6 md:px-12 w-full relative z-10 space-y-6 text-zinc-900 dark:text-white">
+        <div className="max-w-7xl mx-auto px-6 md:px-12 w-full relative z-10 space-y-10">
+           <div className="space-y-6">
+              <motion.div 
+                initial={{ opacity: 0, y: 20 }}
+                animate={{ opacity: 1, y: 0 }}
+                transition={{ delay: 0.2 }}
+                className="flex flex-wrap items-center gap-3"
+              >
+                  <div className="px-5 py-1.5 bg-blue-600 text-white rounded-full text-[9px] font-black uppercase tracking-widest shadow-[0_0_20px_rgba(37,99,235,0.4)]">
+                    {project.category || 'Portfolio Project'}
+                  </div>
+                  <div className="px-5 py-1.5 bg-white/5 backdrop-blur-md border border-white/10 text-white/60 rounded-full text-[9px] font-black uppercase tracking-widest">
+                    {project.status || 'Archived'}
+                  </div>
+              </motion.div>
+
+              <motion.h1 
+                initial={{ opacity: 0, y: 30 }}
+                animate={{ opacity: 1, y: 0 }}
+                transition={{ delay: 0.3, duration: 0.8 }}
+                className="text-4xl md:text-7xl lg:text-9xl font-black tracking-tighter uppercase leading-[0.9] md:leading-[0.85] max-w-5xl text-white drop-shadow-2xl"
+              >
+                {project.title}
+              </motion.h1>
+           </div>
+
            <motion.div 
-             initial={{ opacity: 0, y: 20 }}
-             animate={{ opacity: 1, y: 0 }}
-             className="flex flex-wrap items-center gap-3"
+             initial={{ opacity: 0 }}
+             animate={{ opacity: 1 }}
+             transition={{ delay: 0.5 }}
+             className="flex flex-wrap items-center gap-12 text-white/40 font-mono text-[10px] uppercase tracking-[0.3em] border-t border-white/10 pt-8"
            >
-              <div className="px-4 py-1.5 bg-blue-600 text-white rounded-full text-[9px] font-black uppercase tracking-widest">
-                {project.category || 'Portfolio Project'}
+              <div className="flex items-center gap-3">
+                <Calendar size={14} className="text-blue-500" />
+                <span className="text-white/80">{project.startDate} <span className="mx-2 text-white/20">—</span> {project.endDate || 'Ongoing'}</span>
               </div>
-              <div className="px-4 py-1.5 bg-zinc-100 dark:bg-zinc-800 border border-zinc-200 dark:border-white/5 text-zinc-600 dark:text-zinc-400 rounded-full text-[9px] font-black uppercase tracking-widest">
-                {project.status || 'Archived'}
+              <div className="flex items-center gap-3">
+                <Users size={14} className="text-blue-500" />
+                <span className="text-white/80">{contributors.length} CONTRIBUTORS</span>
               </div>
            </motion.div>
-
-           <motion.h1 
-             initial={{ opacity: 0, x: -20 }}
-             animate={{ opacity: 1, x: 0 }}
-             className="text-5xl md:text-7xl lg:text-8xl font-black tracking-tighter uppercase leading-[0.9] max-w-5xl"
-           >
-             {project.title}
-           </motion.h1>
-
-           <div className="flex flex-wrap items-center gap-8 text-zinc-500 dark:text-zinc-500 font-mono text-[10px] uppercase tracking-[0.2em]">
-              <div className="flex items-center gap-2">
-                <Calendar size={14} className="text-blue-500" /> {project.startDate} — {project.endDate || 'Ongoing'}
-              </div>
-              <div className="flex items-center gap-2">
-                <Users size={14} className="text-blue-500" /> {contributors.length} Contributors
-              </div>
-           </div>
         </div>
       </section>
 
