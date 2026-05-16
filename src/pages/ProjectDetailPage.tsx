@@ -120,8 +120,8 @@ export function ProjectDetailPage({ isAdmin }: { isAdmin?: boolean }) {
 
       <motion.div className="fixed top-0 left-0 right-0 h-1 bg-blue-600 origin-left z-[100]" style={{ scaleX }} />
 
-      {/* Experimental Hero Design */}
-      <section className="relative h-[85vh] w-full overflow-hidden flex flex-col justify-end pb-32">
+      {/* Refined Hero Design */}
+      <section className="relative h-[70vh] w-full overflow-hidden flex flex-col justify-end pb-20">
         <motion.div 
           initial={{ scale: 1.1 }}
           animate={{ scale: 1 }}
@@ -132,77 +132,73 @@ export function ProjectDetailPage({ isAdmin }: { isAdmin?: boolean }) {
             <img 
               src={getDirectLink(project.coverImageUrl)} 
               alt={project.title} 
-              className="w-full h-full object-cover filter brightness-50 contrast-125"
+              className="w-full h-full object-cover filter brightness-[0.4] contrast-110"
             />
           ) : (
             <div className="w-full h-full bg-zinc-900" />
           )}
-          <div className="absolute inset-0 bg-gradient-to-b from-black/20 via-black/40 to-black dark:to-black" />
-          <div className="absolute inset-0 bg-gradient-to-t from-white dark:from-black via-transparent to-transparent opacity-60" />
+          <div className="absolute inset-0 bg-gradient-to-t from-white dark:from-black via-transparent to-transparent opacity-80" />
+          <div className="absolute inset-0 bg-gradient-to-b from-black/60 via-transparent to-transparent opacity-40" />
         </motion.div>
         
         <div className="absolute top-32 left-6 md:left-12 z-20">
           <button 
             onClick={() => navigate('/projects')}
-            className="flex items-center gap-3 px-6 py-3 bg-white/10 dark:bg-black/40 backdrop-blur-2xl rounded-full border border-white/10 text-[10px] font-black uppercase tracking-[0.2em] hover:bg-white dark:hover:bg-white hover:text-black transition-all"
+            className="flex items-center gap-3 px-6 py-3 bg-white/10 dark:bg-black/40 backdrop-blur-2xl rounded-full border border-white/10 text-[9px] font-black uppercase tracking-[0.2em] text-white hover:bg-white hover:text-black transition-all"
           >
-            <ArrowLeft size={16} /> Reverse to Archive
+            <ArrowLeft size={14} /> Back to Archive
           </button>
         </div>
 
-        <div className="max-w-7xl mx-auto px-6 md:px-12 w-full relative z-10 space-y-8 text-white">
+        <div className="max-w-7xl mx-auto px-6 md:px-12 w-full relative z-10 space-y-6 text-zinc-900 dark:text-white">
            <motion.div 
              initial={{ opacity: 0, y: 20 }}
              animate={{ opacity: 1, y: 0 }}
-             className="flex flex-wrap items-center gap-4"
+             className="flex flex-wrap items-center gap-3"
            >
-              <div className="px-5 py-2 bg-blue-600 rounded-full text-[10px] font-black uppercase tracking-[0.2em]">
-                {project.category || 'System Protocol'}
+              <div className="px-4 py-1.5 bg-blue-600 text-white rounded-full text-[9px] font-black uppercase tracking-widest">
+                {project.category || 'Portfolio Project'}
               </div>
-              <div className="px-5 py-2 bg-white/10 backdrop-blur-md border border-white/10 text-white rounded-full text-[10px] font-black uppercase tracking-[0.2em]">
-                {project.status || 'Active Node'}
+              <div className="px-4 py-1.5 bg-zinc-100 dark:bg-zinc-800 border border-zinc-200 dark:border-white/5 text-zinc-600 dark:text-zinc-400 rounded-full text-[9px] font-black uppercase tracking-widest">
+                {project.status || 'Archived'}
               </div>
            </motion.div>
 
            <motion.h1 
              initial={{ opacity: 0, x: -20 }}
              animate={{ opacity: 1, x: 0 }}
-             className="text-7xl md:text-9xl lg:text-[12rem] font-black tracking-tighter uppercase leading-[0.75] text-white"
+             className="text-5xl md:text-7xl lg:text-8xl font-black tracking-tighter uppercase leading-[0.9] max-w-5xl"
            >
-             {(project.title || '').split(' ').map((word: string, i: number) => (
-               <span key={i} className={i % 2 === 1 ? 'text-transparent stroke-text-white' : ''}>{word} </span>
-             ))}
+             {project.title}
            </motion.h1>
 
-           <div className="flex flex-wrap items-center gap-10 text-white/40 font-mono text-xs uppercase tracking-[0.3em]">
-              <div className="flex items-center gap-3">
-                <div className="w-8 h-px bg-white/20" />
+           <div className="flex flex-wrap items-center gap-8 text-zinc-500 dark:text-zinc-500 font-mono text-[10px] uppercase tracking-[0.2em]">
+              <div className="flex items-center gap-2">
                 <Calendar size={14} className="text-blue-500" /> {project.startDate} — {project.endDate || 'Ongoing'}
               </div>
-              <div className="flex items-center gap-3">
-                <div className="w-8 h-px bg-white/20" />
-                <Users size={14} className="text-blue-500" /> {contributors.length} Collaborative Agents
+              <div className="flex items-center gap-2">
+                <Users size={14} className="text-blue-500" /> {contributors.length} Contributors
               </div>
            </div>
         </div>
       </section>
 
       {/* Main Content Layout */}
-      <div className="max-w-7xl mx-auto px-6 md:px-12 py-24 relative z-10">
-        <div className="grid grid-cols-1 lg:grid-cols-12 gap-20">
+      <div className="max-w-7xl mx-auto px-6 md:px-12 py-16 relative z-10">
+        <div className="grid grid-cols-1 lg:grid-cols-12 gap-16">
           
           {/* Left Column: Deep Dive */}
-          <div className="lg:col-span-8 space-y-24">
-            <section className="space-y-10">
-               <div className="flex items-center gap-4">
-                 <div className="w-12 h-1 bg-blue-600 rounded-full" />
-                 <h2 className="text-xs font-black uppercase tracking-[0.4em] text-zinc-500 dark:text-zinc-500">Executive Summary</h2>
+          <div className="lg:col-span-8 space-y-20">
+            <section className="space-y-8">
+               <div className="flex items-center gap-3">
+                 <div className="w-10 h-1 bg-blue-600 rounded-full" />
+                 <h2 className="text-[10px] font-black uppercase tracking-[0.3em] text-zinc-400">Project Overview</h2>
                </div>
                
                <div className="space-y-8">
                  <RichTextRenderer 
                    content={project.shortDescription} 
-                   className="text-3xl md:text-5xl font-bold tracking-tight leading-[1.1] text-zinc-900 dark:text-white"
+                   className="text-2xl md:text-3xl font-bold tracking-tight leading-relaxed text-zinc-800 dark:text-zinc-100"
                  />
                  <RichTextRenderer 
                    content={project.fullDescription} 
@@ -215,24 +211,25 @@ export function ProjectDetailPage({ isAdmin }: { isAdmin?: boolean }) {
             {/* Strategic Outcomes Bento */}
             <section className="grid grid-cols-1 md:grid-cols-2 gap-6">
               {project.objective && (
-                <div className="col-span-1 p-10 bg-zinc-50 dark:bg-zinc-900/40 rounded-[3rem] border border-zinc-100 dark:border-white/5 group hover:bg-zinc-100 dark:hover:bg-zinc-900 transition-colors duration-500">
-                  <div className="w-14 h-14 bg-blue-600/10 rounded-2xl flex items-center justify-center text-blue-600 mb-8 border border-blue-600/20 group-hover:scale-110 transition-transform">
-                    <Target size={24} />
+                <div className="col-span-1 p-8 bg-zinc-50 dark:bg-zinc-900/40 rounded-3xl border border-zinc-100 dark:border-white/5 group hover:bg-zinc-100 dark:hover:bg-zinc-900 transition-colors duration-500">
+                  <div className="w-12 h-12 bg-blue-600/10 rounded-xl flex items-center justify-center text-blue-600 mb-6 border border-blue-600/20">
+                    <Target size={20} />
                   </div>
-                  <h3 className="text-2xl font-black uppercase tracking-tight mb-4 text-zinc-900 dark:text-white">Core Objective</h3>
+                  <h3 className="text-xl font-bold uppercase tracking-tight mb-4">Core Objective</h3>
                   <RichTextRenderer content={project.objective} className="text-zinc-500 dark:text-zinc-400 leading-relaxed text-sm font-medium" />
                 </div>
               )}
               {project.problemSolved && (
-                <div className="col-span-1 p-10 bg-zinc-50 dark:bg-zinc-900/40 rounded-[3rem] border border-zinc-100 dark:border-white/5 group hover:bg-zinc-100 dark:hover:bg-zinc-900 transition-colors duration-500">
-                  <div className="w-14 h-14 bg-purple-600/10 rounded-2xl flex items-center justify-center text-purple-600 mb-8 border border-purple-600/20 group-hover:scale-110 transition-transform">
-                    <Cpu size={24} />
+                <div className="col-span-1 p-8 bg-zinc-50 dark:bg-zinc-900/40 rounded-3xl border border-zinc-100 dark:border-white/5 group hover:bg-zinc-100 dark:hover:bg-zinc-900 transition-colors duration-500">
+                  <div className="w-12 h-12 bg-purple-600/10 rounded-xl flex items-center justify-center text-purple-600 mb-6 border border-purple-600/20">
+                    <Cpu size={20} />
                   </div>
-                  <h3 className="text-2xl font-black uppercase tracking-tight mb-4 text-zinc-900 dark:text-white">Paradigm Shift</h3>
+                  <h3 className="text-xl font-bold uppercase tracking-tight mb-4">Challenge Solved</h3>
                   <RichTextRenderer content={project.problemSolved} className="text-zinc-500 dark:text-zinc-400 leading-relaxed text-sm font-medium" />
                 </div>
               )}
             </section>
+
 
             {/* Media Canvas */}
             {gallery.length > 0 && (
@@ -298,66 +295,68 @@ export function ProjectDetailPage({ isAdmin }: { isAdmin?: boolean }) {
           </div>
 
           {/* Right Column: Sidebar Tech/Control Panel */}
-          <aside className="lg:col-span-4 space-y-12">
+          <aside className="lg:col-span-4 space-y-10">
             
             {/* Tech Matrix Card */}
-            <div className="sticky top-32 space-y-10">
-              <div className="p-10 bg-zinc-50 dark:bg-zinc-900 border border-zinc-100 dark:border-white/5 rounded-[3rem] space-y-12 shadow-sm">
+            <div className="sticky top-32 space-y-8">
+              <div className="p-8 bg-zinc-50 dark:bg-zinc-900 border border-zinc-100 dark:border-white/5 rounded-3xl space-y-10 shadow-sm">
                 <div className="space-y-6">
                    <div className="flex items-center gap-3">
                      <Cpu size={16} className="text-blue-600" />
-                     <h3 className="text-xs font-black uppercase tracking-[0.3em] text-zinc-400">Technical Arsenal</h3>
+                     <h3 className="text-[10px] font-black uppercase tracking-[0.2em] text-zinc-400">Technical Arsenal</h3>
                    </div>
                    <div className="flex flex-wrap gap-2">
                      {project.techStack?.map((tech: string) => (
-                       <span key={tech} className="px-4 py-2 bg-zinc-100 dark:bg-white/5 rounded-xl text-[10px] font-black uppercase tracking-widest border border-zinc-200 dark:border-white/5 text-zinc-800 dark:text-zinc-200">
+                       <span key={tech} className="px-3 py-1.5 bg-zinc-100 dark:bg-white/5 rounded-lg text-[9px] font-black uppercase tracking-widest border border-zinc-200 dark:border-white/5 text-zinc-800 dark:text-zinc-200">
                          {tech}
                        </span>
                      ))}
                    </div>
                 </div>
 
-                <div className="space-y-6">
+                <div className="space-y-4">
                    <div className="flex items-center gap-3">
                      <Target size={16} className="text-blue-600" />
-                     <h3 className="text-xs font-black uppercase tracking-[0.3em] text-zinc-400">Tactical Capacity</h3>
+                     <h3 className="text-[10px] font-black uppercase tracking-[0.2em] text-zinc-400">Tactical Capacity</h3>
                    </div>
-                   <div className="space-y-2">
-                     <p className="text-2xl font-black uppercase tracking-tighter text-zinc-900 dark:text-white">{project.myRole || 'Architect'}</p>
-                     <p className="text-zinc-500 dark:text-zinc-500 text-xs font-medium tracking-tight bg-zinc-100 dark:bg-white/5 inline-block px-3 py-1 rounded-lg">
-                       {project.teamStructure || 'Lone Node Integration'}
+                   <div className="space-y-3">
+                     <div className="text-lg font-bold tracking-tight text-zinc-900 dark:text-white">
+                        <RichTextRenderer content={project.myRole || 'Project Architect'} className="leading-tight" />
+                     </div>
+                     <p className="text-zinc-500 dark:text-zinc-500 text-[10px] font-semibold tracking-wider uppercase bg-zinc-100 dark:bg-white/5 inline-block px-3 py-1 rounded-md">
+                       {project.teamStructure || 'Independent Integration'}
                      </p>
                    </div>
                 </div>
 
                 <div className="space-y-6 pt-6 border-t border-zinc-100 dark:border-white/5">
-                  <h3 className="text-xs font-black uppercase tracking-[0.3em] text-zinc-400">Access Protocols</h3>
-                  <div className="space-y-3">
+                  <h3 className="text-[10px] font-black uppercase tracking-[0.2em] text-zinc-400">Access Protocols</h3>
+                  <div className="space-y-2">
                     {project.githubUrl && (
-                      <a href={project.githubUrl} target="_blank" rel="noopener noreferrer" className="flex items-center justify-between p-5 bg-white dark:bg-zinc-950 border border-zinc-100 dark:border-white/5 rounded-[1.5rem] hover:bg-zinc-100 dark:hover:bg-blue-600 dark:hover:text-white transition-all group">
-                         <div className="flex items-center gap-4 text-zinc-900 dark:text-white group-hover:text-white">
-                           <Github size={20} />
-                           <span className="text-[10px] font-black uppercase tracking-widest">Git Repository</span>
+                      <a href={project.githubUrl} target="_blank" rel="noopener noreferrer" className="flex items-center justify-between p-4 bg-white dark:bg-zinc-950 border border-zinc-100 dark:border-white/5 rounded-2xl hover:bg-zinc-50 dark:hover:bg-blue-600 group transition-all">
+                         <div className="flex items-center gap-3 text-zinc-900 dark:text-white group-hover:dark:text-white">
+                           <Github size={18} />
+                           <span className="text-[10px] font-black uppercase tracking-widest">Source Protocol</span>
                          </div>
-                         <ArrowRight size={16} className="group-hover:translate-x-1 transition-transform opacity-40 group-hover:opacity-100 dark:text-white" />
+                         <ArrowRight size={14} className="group-hover:translate-x-1 transition-transform opacity-30 group-hover:opacity-100" />
                       </a>
                     )}
                     {project.demoUrl && (
-                      <a href={project.demoUrl} target="_blank" rel="noopener noreferrer" className="flex items-center justify-between p-5 bg-white dark:bg-zinc-950 border border-zinc-100 dark:border-white/5 rounded-[1.5rem] hover:bg-zinc-100 dark:hover:bg-blue-600 dark:hover:text-white transition-all group">
-                         <div className="flex items-center gap-4 text-zinc-900 dark:text-white group-hover:text-white">
-                           <ExternalLink size={20} />
-                           <span className="text-[10px] font-black uppercase tracking-widest">Interactive Node</span>
+                      <a href={project.demoUrl} target="_blank" rel="noopener noreferrer" className="flex items-center justify-between p-4 bg-white dark:bg-zinc-950 border border-zinc-100 dark:border-white/5 rounded-2xl hover:bg-zinc-50 dark:hover:bg-blue-600 group transition-all">
+                         <div className="flex items-center gap-3 text-zinc-900 dark:text-white group-hover:dark:text-white">
+                           <ExternalLink size={18} />
+                           <span className="text-[10px] font-black uppercase tracking-widest">Live Deployment</span>
                          </div>
-                         <ArrowRight size={16} className="group-hover:translate-x-1 transition-transform opacity-40 group-hover:opacity-100 dark:text-white" />
+                         <ArrowRight size={14} className="group-hover:translate-x-1 transition-transform opacity-30 group-hover:opacity-100" />
                       </a>
                     )}
                     {project.researchPaperUrl && (
-                      <a href={project.researchPaperUrl} target="_blank" rel="noopener noreferrer" className="flex items-center justify-between p-5 bg-white dark:bg-zinc-950 border border-zinc-100 dark:border-white/5 rounded-[1.5rem] hover:bg-zinc-100 dark:hover:bg-blue-600 dark:hover:text-white transition-all group">
-                         <div className="flex items-center gap-4 text-zinc-900 dark:text-white group-hover:text-white">
-                           <FileText size={20} />
+                      <a href={project.researchPaperUrl} target="_blank" rel="noopener noreferrer" className="flex items-center justify-between p-4 bg-white dark:bg-zinc-950 border border-zinc-100 dark:border-white/5 rounded-2xl hover:bg-zinc-50 dark:hover:bg-blue-600 group transition-all">
+                         <div className="flex items-center gap-3 text-zinc-900 dark:text-white group-hover:dark:text-white">
+                           <FileText size={18} />
                            <span className="text-[10px] font-black uppercase tracking-widest">White Paper</span>
                          </div>
-                         <ArrowRight size={16} className="group-hover:translate-x-1 transition-transform opacity-40 group-hover:opacity-100 dark:text-white" />
+                         <ArrowRight size={14} className="group-hover:translate-x-1 transition-transform opacity-30 group-hover:opacity-100" />
                       </a>
                     )}
                   </div>
@@ -366,10 +365,10 @@ export function ProjectDetailPage({ isAdmin }: { isAdmin?: boolean }) {
 
               {/* Personnel Array */}
               {contributors.length > 0 && (
-                <div className="p-8 space-y-8">
+                <div className="px-6 space-y-6">
                   <div className="flex items-center gap-3">
                     <Users size={16} className="text-blue-600" />
-                    <h3 className="text-xs font-black uppercase tracking-[0.3em] text-zinc-400">Personnel Array</h3>
+                    <h3 className="text-[10px] font-black uppercase tracking-[0.2em] text-zinc-400">Personnel Array</h3>
                   </div>
                   <div className="space-y-4">
                     {contributors.map(c => {
@@ -377,25 +376,25 @@ export function ProjectDetailPage({ isAdmin }: { isAdmin?: boolean }) {
                       const img = c.imageUrl || c.avatarUrl;
                       
                       return (
-                        <div key={c.id} className="flex items-center justify-between group p-2 hover:bg-zinc-50 dark:hover:bg-white/5 rounded-2xl transition-colors">
-                          <div className="flex items-center gap-4">
-                            <div className="w-12 h-12 rounded-xl overflow-hidden bg-zinc-200 dark:bg-zinc-800 border border-black/5 dark:border-white/5 shrink-0 transition-transform group-hover:scale-95">
+                        <div key={c.id} className="flex items-center justify-between group p-1.5 hover:bg-zinc-50 dark:hover:bg-white/5 rounded-2xl transition-colors">
+                          <div className="flex items-center gap-3">
+                            <div className="w-10 h-10 rounded-xl overflow-hidden bg-zinc-200 dark:bg-zinc-800 border border-black/5 dark:border-white/5 shrink-0">
                                {img ? (
                                  <img src={getDirectLink(img)} alt={c.name} className="w-full h-full object-cover" />
                                ) : (
-                                 <div className="w-full h-full flex items-center justify-center text-zinc-400 font-black text-xs">
+                                 <div className="w-full h-full flex items-center justify-center text-zinc-400 font-bold text-[10px]">
                                     {c.name.charAt(0)}
                                  </div>
                                )}
                             </div>
                             <div className="min-w-0">
-                              <p className="font-black text-xs uppercase tracking-tight text-zinc-900 dark:text-white truncate">{c.name}</p>
-                              <p className="text-[9px] text-zinc-500 font-mono uppercase tracking-[0.1em] mt-1 truncate">{c.role}</p>
+                              <p className="font-bold text-xs uppercase tracking-tight text-zinc-900 dark:text-white truncate">{c.name}</p>
+                              <p className="text-[9px] text-zinc-500 font-mono uppercase tracking-[0.1em] mt-0.5 truncate">{c.role}</p>
                             </div>
                           </div>
                           {url && (
-                            <a href={url} target="_blank" rel="noreferrer" className="w-10 h-10 flex items-center justify-center bg-zinc-100 dark:bg-white/5 hover:bg-blue-600 rounded-xl text-zinc-400 hover:text-white transition-all scale-75 group-hover:scale-100 opacity-0 group-hover:opacity-100">
-                              <Share2 size={14} />
+                            <a href={url} target="_blank" rel="noreferrer" className="w-8 h-8 flex items-center justify-center bg-zinc-100 dark:bg-white/5 hover:bg-blue-600 rounded-lg text-zinc-400 hover:text-white transition-all opacity-0 group-hover:opacity-100">
+                              <Share2 size={12} />
                             </a>
                           )}
                         </div>
