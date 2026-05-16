@@ -389,8 +389,14 @@ export function ProjectDetailPage({ isAdmin }: { isAdmin?: boolean }) {
                       const img = c.imageUrl || c.avatarUrl;
                       
                       return (
-                        <div key={c.id} className="flex items-center justify-between group p-1.5 hover:bg-zinc-50 dark:hover:bg-white/5 rounded-2xl transition-colors">
-                          <div className="flex items-center gap-3">
+                        <a 
+                          key={c.id}
+                          href={url}
+                          target="_blank"
+                          rel="noreferrer"
+                          className={`flex items-center justify-between group p-1.5 hover:bg-zinc-50 dark:hover:bg-white/5 rounded-2xl transition-colors ${url ? 'cursor-pointer' : 'pointer-events-none'}`}
+                        >
+                          <div className="flex items-center gap-3 min-w-0">
                             <div className="w-10 h-10 rounded-xl overflow-hidden bg-zinc-200 dark:bg-zinc-800 border border-black/5 dark:border-white/5 shrink-0">
                                {img ? (
                                  <img src={getDirectLink(img)} alt={c.name} className="w-full h-full object-cover" />
@@ -401,16 +407,16 @@ export function ProjectDetailPage({ isAdmin }: { isAdmin?: boolean }) {
                                )}
                             </div>
                             <div className="min-w-0">
-                              <p className="font-bold text-xs uppercase tracking-tight text-zinc-900 dark:text-white truncate">{c.name}</p>
+                              <p className="font-bold text-xs uppercase tracking-tight text-zinc-900 dark:text-white truncate group-hover:text-blue-600 transition-colors">{c.name}</p>
                               <p className="text-[9px] text-zinc-500 font-mono uppercase tracking-[0.1em] mt-0.5 truncate">{c.role}</p>
                             </div>
                           </div>
                           {url && (
-                            <a href={url} target="_blank" rel="noreferrer" className="w-8 h-8 flex items-center justify-center bg-zinc-100 dark:bg-white/5 hover:bg-blue-600 rounded-lg text-zinc-400 hover:text-white transition-all opacity-0 group-hover:opacity-100">
+                            <div className="w-8 h-8 flex items-center justify-center bg-zinc-100 dark:bg-white/5 group-hover:bg-blue-600 rounded-lg text-zinc-400 group-hover:text-white transition-all opacity-0 group-hover:opacity-100 shrink-0">
                               <Share2 size={12} />
-                            </a>
+                            </div>
                           )}
-                        </div>
+                        </a>
                       );
                     })}
                   </div>
