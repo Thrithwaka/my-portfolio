@@ -310,22 +310,35 @@ export function ProjectDetailPage({ isAdmin }: { isAdmin?: boolean }) {
                 <div className="space-y-8">
                   <h3 className="text-sm font-mono font-bold uppercase tracking-[0.4em] text-zinc-400">The Brain Trust</h3>
                   <div className="space-y-6">
-                    {contributors.map(c => (
-                      <div key={c.id} className="flex items-center justify-between group">
-                        <div className="flex items-center gap-4">
-                          <img src={getDirectLink(c.avatarUrl)} alt={c.name} className="w-12 h-12 rounded-2xl object-cover bg-zinc-100" />
-                          <div>
-                            <p className="font-bold text-sm uppercase tracking-tight">{c.name}</p>
-                            <p className="text-[10px] text-zinc-500 font-mono uppercase tracking-widest">{c.role}</p>
+                    {contributors.map(c => {
+                      const url = c.linkedInUrl ? (c.linkedInUrl.startsWith('http') ? c.linkedInUrl : `https://${c.linkedInUrl}`) : undefined;
+                      const img = c.imageUrl || c.avatarUrl;
+                      
+                      return (
+                        <div key={c.id} className="flex items-center justify-between group">
+                          <div className="flex items-center gap-4">
+                            <div className="w-12 h-12 rounded-2xl overflow-hidden bg-zinc-100 dark:bg-zinc-900 border border-zinc-100 dark:border-white/5 shrink-0">
+                               {img ? (
+                                 <img src={getDirectLink(img)} alt={c.name} className="w-full h-full object-cover" />
+                               ) : (
+                                 <div className="w-full h-full flex items-center justify-center text-zinc-300 dark:text-zinc-700">
+                                    <Users size={20} />
+                                 </div>
+                               )}
+                            </div>
+                            <div>
+                              <p className="font-bold text-sm uppercase tracking-tight text-zinc-800 dark:text-white">{c.name}</p>
+                              <p className="text-[10px] text-zinc-500 font-mono uppercase tracking-widest leading-none mt-1">{c.role}</p>
+                            </div>
                           </div>
+                          {url && (
+                            <a href={url} target="_blank" rel="noreferrer" className="p-2.5 bg-blue-600/5 hover:bg-blue-600 rounded-xl text-blue-500 hover:text-white transition-all">
+                              <Share2 size={14} />
+                            </a>
+                          )}
                         </div>
-                        {c.linkedInUrl && (
-                          <a href={c.linkedInUrl} target="_blank" rel="noreferrer" className="p-2 text-zinc-300 hover:text-blue-600 transition-colors">
-                            <Share2 size={16} />
-                          </a>
-                        )}
-                      </div>
-                    ))}
+                      );
+                    })}
                   </div>
                 </div>
               )}

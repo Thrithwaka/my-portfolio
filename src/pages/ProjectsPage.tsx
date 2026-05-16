@@ -94,8 +94,8 @@ export function ProjectsPage({ isAdmin }: { isAdmin?: boolean }) {
           problemSolved: "Traditional logistics rely on centralized dispatchers which create bottlenecks and single points of failure.",
           updatedAt: serverTimestamp(),
           contributors: [
-            { name: "Dr. Aris Thorne", role: "AI Research Lead", linkedInUrl: "https://linkedin.com", avatarUrl: "https://api.dicebear.com/7.x/avataaars/svg?seed=Aris", priority: 0 },
-            { name: "Sarah Jenkins", role: "Systems Engineer", linkedInUrl: "https://linkedin.com", avatarUrl: "https://api.dicebear.com/7.x/avataaars/svg?seed=Sarah", priority: 1 }
+            { name: "Dr. Aris Thorne", role: "AI Research Lead", linkedInUrl: "https://linkedin.com", imageUrl: "https://api.dicebear.com/7.x/avataaars/svg?seed=Aris", priority: 0 },
+            { name: "Sarah Jenkins", role: "Systems Engineer", linkedInUrl: "https://linkedin.com", imageUrl: "https://api.dicebear.com/7.x/avataaars/svg?seed=Sarah", priority: 1 }
           ],
           gallery: [
             { url: "https://images.unsplash.com/photo-1485827404703-89b55fcc595e?auto=format&fit=crop&q=80&w=800", type: "image", caption: "Simulated Mesh Network Architecture", priority: 0 }

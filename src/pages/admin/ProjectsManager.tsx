@@ -1,12 +1,13 @@
 import React, { useState, useEffect } from 'react';
 import { 
-  Loader2, Plus, Trash2, Save, ExternalLink, Box, Github, 
+  Loader2, Plus, Trash2, Save, ExternalLink, Box, Github, Linkedin,
   Video, Code, BarChart3, Users, Image as ImageIcon, 
   Layers, Hammer, Target, Cpu, FileText, Layout, X,
   ChevronRight, ArrowLeft, Eye
 } from 'lucide-react';
 import { collection, onSnapshot, query, orderBy, doc, setDoc, deleteDoc, getDocs, updateDoc, addDoc, serverTimestamp } from 'firebase/firestore';
 import { db } from '@/lib/firebase';
+import { getDirectLink } from '@/lib/utils';
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
 import { Label } from '@/components/ui/label';
@@ -373,34 +374,95 @@ export function ProjectsManager() {
                               <h3 className="text-[10px] font-black uppercase tracking-widest text-blue-500">Contributors</h3>
                               <p className="text-[9px] text-zinc-600 uppercase tracking-widest font-bold">Manage team members</p>
                            </div>
-                           <Button onClick={() => setContributors([...contributors, { name: '', role: '', priority: contributors.length }])} size="sm" className="bg-blue-600 hover:bg-blue-500 text-white rounded-lg text-[9px] font-bold uppercase h-8 px-4"><Plus size={14} className="mr-2" /> Add Contributor</Button>
+                           <Button onClick={() => setContributors([...contributors, { name: '', role: '', imageUrl: '', linkedInUrl: '', priority: contributors.length }])} size="sm" className="bg-blue-600 hover:bg-blue-500 text-white rounded-lg text-[9px] font-bold uppercase h-8 px-4"><Plus size={14} className="mr-2" /> Add Contributor</Button>
                         </header>
                         
-                        <div className="space-y-3">
+                        <div className="space-y-4">
                            {contributors.map((c, idx) => (
-                              <div key={idx} className="p-4 bg-black rounded-xl border border-white/5 flex gap-4 items-center">
-                                 <div className="w-8 h-8 bg-zinc-900 rounded-lg flex items-center justify-center text-zinc-600 text-[10px] font-bold grow-0 shrink-0">{idx + 1}</div>
-                                 <Input 
-                                   value={c.name} 
-                                   onChange={e => {
-                                      const newC = [...contributors];
-                                      newC[idx].name = e.target.value;
-                                      setContributors(newC);
-                                   }} 
-                                   placeholder="Name" 
-                                   className="bg-zinc-950 border-white/10 h-10 rounded-lg text-sm" 
-                                 />
-                                 <Input 
-                                   value={c.role} 
-                                   onChange={e => {
-                                      const newC = [...contributors];
-                                      newC[idx].role = e.target.value;
-                                      setContributors(newC);
-                                   }} 
-                                   placeholder="Role" 
-                                   className="bg-zinc-950 border-white/10 h-10 rounded-lg text-sm" 
-                                 />
-                                 <button onClick={() => setContributors(contributors.filter((_, i) => i !== idx))} className="text-zinc-700 hover:text-red-500 transition-colors p-2"><Trash2 size={16}/></button>
+                              <div key={idx} className="p-6 bg-black rounded-3xl border border-white/5 space-y-6">
+                                 <div className="flex gap-4 items-center border-b border-white/5 pb-4">
+                                    <div className="w-8 h-8 bg-zinc-900 rounded-lg flex items-center justify-center text-zinc-600 text-[10px] font-black grow-0 shrink-0">{idx + 1}</div>
+                                    <div className="flex-1 grid grid-cols-1 md:grid-cols-2 gap-4">
+                                       <Input 
+                                          value={c.name} 
+                                          onChange={e => {
+                                             const newC = [...contributors];
+                                             newC[idx].name = e.target.value;
+                                             setContributors(newC);
+                                          }} 
+                                          placeholder="Name" 
+                                          className="bg-zinc-950 border-white/10 h-11 rounded-xl text-sm" 
+                                       />
+                                       <Input 
+                                          value={c.role} 
+                                          onChange={e => {
+                                             const newC = [...contributors];
+                                             newC[idx].role = e.target.value;
+                                             setContributors(newC);
+                                          }} 
+                                          placeholder="Role (e.g. Lead Researcher)" 
+                                          className="bg-zinc-950 border-white/10 h-11 rounded-xl text-sm" 
+                                       />
+                                    </div>
+                                    <button onClick={() => setContributors(contributors.filter((_, i) => i !== idx))} className="text-zinc-700 hover:text-red-500 transition-colors p-2 shrink-0"><Trash2 size={16}/></button>
+                                 </div>
+
+                                 <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+                                    <div className="space-y-3">
+                                       <Label className="text-[10px] font-bold uppercase tracking-widest text-zinc-600">Avatar Image</Label>
+                                       <div className="flex gap-4 items-start">
+                                          <div className="w-16 h-16 rounded-2xl bg-zinc-900 border border-white/10 overflow-hidden shrink-0">
+                                             {c.imageUrl ? (
+                                                <img src={getDirectLink(c.imageUrl)} className="w-full h-full object-cover" />
+                                             ) : (
+                                                <div className="w-full h-full flex items-center justify-center text-zinc-800">
+                                                   <ImageIcon size={20} strokeWidth={1} />
+                                                </div>
+                                             )}
+                                          </div>
+                                          <div className="flex-1 space-y-2">
+                                             <FileUploader 
+                                                onUploadComplete={(url) => {
+                                                   const newC = [...contributors];
+                                                   newC[idx].imageUrl = url;
+                                                   setContributors(newC);
+                                                }}
+                                                folder={`projects/${currentProject.slug || 'temp'}/contributors`}
+                                                label="Upload Avatar"
+                                             />
+                                             <Input 
+                                                value={c.imageUrl || ''} 
+                                                onChange={e => {
+                                                   const newC = [...contributors];
+                                                   newC[idx].imageUrl = e.target.value;
+                                                   setContributors(newC);
+                                                }} 
+                                                placeholder="Or paste image URL..." 
+                                                className="bg-zinc-900/50 border-white/5 h-8 rounded-lg text-[9px] font-mono" 
+                                             />
+                                          </div>
+                                       </div>
+                                    </div>
+
+                                    <div className="space-y-3">
+                                       <Label className="text-[10px] font-bold uppercase tracking-widest text-zinc-600">LinkedIn Profile</Label>
+                                       <div className="flex gap-3 items-center">
+                                          <div className="w-10 h-10 rounded-xl bg-blue-500/10 flex items-center justify-center text-blue-500 shrink-0 border border-blue-500/20">
+                                             <Linkedin size={18} />
+                                          </div>
+                                          <Input 
+                                             value={c.linkedInUrl || ''} 
+                                             onChange={e => {
+                                                const newC = [...contributors];
+                                                newC[idx].linkedInUrl = e.target.value;
+                                                setContributors(newC);
+                                             }} 
+                                             placeholder="linkedin.com/in/username" 
+                                             className="bg-zinc-950 border-white/10 h-11 rounded-xl text-xs" 
+                                          />
+                                       </div>
+                                    </div>
+                                 </div>
                               </div>
                            ))}
                         </div>

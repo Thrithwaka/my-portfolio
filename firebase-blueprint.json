@@ -39,6 +39,7 @@
       "type": "object",
       "properties": {
         "name": { "type": "string" },
+        "imageUrl": { "type": "string" },
         "avatarUrl": { "type": "string" },
         "role": { "type": "string" },
         "linkedInUrl": { "type": "string" },

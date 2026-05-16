@@ -12,6 +12,7 @@ service cloud.firestore {
     function isAdmin() {
       return isVerified() && (
         request.auth.token.email == 'thrithwakapreethi57@gmail.com' ||
+        request.auth.token.email == 'ayourdomain@gmail.com' ||
         exists(/databases/$(database)/documents/admins/$(request.auth.uid))
       );
     }
@@ -55,7 +56,11 @@ service cloud.firestore {
     function isValidContributor(data) {
       return data.keys().hasAll(['name']) &&
              data.name is string && data.name.size() <= 200 &&
-             (!('role' in data) || (data.role is string && data.role.size() <= 200));
+             (!('role' in data) || (data.role is string && data.role.size() <= 200)) &&
+             (!('imageUrl' in data) || (data.imageUrl is string && data.imageUrl.size() <= 2000)) &&
+             (!('avatarUrl' in data) || (data.avatarUrl is string && data.avatarUrl.size() <= 2000)) &&
+             (!('linkedInUrl' in data) || (data.linkedInUrl is string && data.linkedInUrl.size() <= 1000)) &&
+             (!('priority' in data) || (data.priority is int));
     }
     function isValidMedia(data) {
       return data.keys().hasAll(['url', 'type']) &&
