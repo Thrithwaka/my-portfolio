@@ -3,7 +3,7 @@ import { useContent } from '@/src/hooks/useContent';
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
 import { Label } from '@/components/ui/label';
-import { Loader2, Save, Globe, Mail, Phone, Github, Linkedin, GraduationCap, MapPin, Share2, Link as LinkIcon, FileText, CheckCircle2 } from 'lucide-react';
+import { Loader2, Save, Globe, Mail, Phone, Github, Linkedin, GraduationCap, MapPin, Share2, Link as LinkIcon, FileText, CheckCircle2, Layers } from 'lucide-react';
 import { motion, AnimatePresence } from 'motion/react';
 
 interface GlobalSettings {
@@ -12,11 +12,11 @@ interface GlobalSettings {
   linkedinUrl: string;
   githubUrl: string;
   scholarUrl: string;
-  orcidUrl?: string;
-  researchGateUrl?: string;
-  mediumUrl?: string;
-  cvUrl?: string;
-  location?: string;
+  orcidUrl: string;
+  researchGateUrl: string;
+  mediumUrl: string;
+  cvUrl: string;
+  location: string;
 }
 
 export function SettingsManager() {
@@ -26,18 +26,40 @@ export function SettingsManager() {
   const [showSuccess, setShowSuccess] = useState(false);
 
   React.useEffect(() => {
-    if (data && !form) setForm(data);
-  }, [data]);
+    if (data && !form) {
+      setForm(data);
+    } else if (!data && !loading && !form) {
+      setForm({
+        email: '',
+        phone: '',
+        linkedinUrl: '',
+        githubUrl: '',
+        scholarUrl: '',
+        orcidUrl: '',
+        researchGateUrl: '',
+        location: '',
+        mediumUrl: '',
+        cvUrl: ''
+      } as GlobalSettings);
+    }
+  }, [data, loading, form]);
 
   if (loading) return <div className="h-64 flex items-center justify-center"><Loader2 className="animate-spin text-white" /></div>;
 
   const handleSave = async () => {
     if (form) {
       setIsSaving(true);
-      await update(form);
-      setIsSaving(false);
-      setShowSuccess(true);
-      setTimeout(() => setShowSuccess(false), 3000);
+      try {
+        await update(form);
+        setIsSaving(false);
+        setShowSuccess(true);
+        alert('Settings synchronized successfully.');
+        setTimeout(() => setShowSuccess(false), 3000);
+      } catch (err: any) {
+        setIsSaving(false);
+        console.error(err);
+        alert(`Synchronization failed: ${err.message || 'Check your permissions.'}`);
+      }
     }
   };
 
@@ -204,6 +226,33 @@ export function SettingsManager() {
                     onChange={e => setForm(f => f ? {...f, scholarUrl: e.target.value} : null)}
                     className="bg-black border-white/5 h-14 pl-12 rounded-2xl text-xs font-mono"
                     placeholder="Scholar URL"
+                  />
+                </div>
+              </div>
+            </div>
+
+            <div className="grid grid-cols-2 gap-6">
+              <div className="space-y-3">
+                <Label className="text-zinc-600 uppercase tracking-widest text-[9px] font-black px-4">ORCID Node</Label>
+                <div className="relative group/input">
+                  <LinkIcon size={14} className="absolute left-5 top-1/2 -translate-y-1/2 text-zinc-800 group-focus-within/input:text-purple-500" />
+                  <Input 
+                    value={form?.orcidUrl || ''} 
+                    onChange={e => setForm(f => f ? {...f, orcidUrl: e.target.value} : null)}
+                    className="bg-black border-white/5 h-14 pl-12 rounded-2xl text-xs font-mono"
+                    placeholder="URL"
+                  />
+                </div>
+              </div>
+              <div className="space-y-3">
+                <Label className="text-zinc-600 uppercase tracking-widest text-[9px] font-black px-4">ResearchGate Node</Label>
+                <div className="relative group/input">
+                  <Layers size={14} className="absolute left-5 top-1/2 -translate-y-1/2 text-zinc-800 group-focus-within/input:text-purple-500" />
+                  <Input 
+                    value={form?.researchGateUrl || ''} 
+                    onChange={e => setForm(f => f ? {...f, researchGateUrl: e.target.value} : null)}
+                    className="bg-black border-white/5 h-14 pl-12 rounded-2xl text-xs font-mono"
+                    placeholder="URL"
                   />
                 </div>
               </div>

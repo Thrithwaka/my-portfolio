@@ -245,7 +245,11 @@
         "cvUrl": { "type": "string" },
         "linkedinUrl": { "type": "string" },
         "githubUrl": { "type": "string" },
-        "email": { "type": "string" }
+        "email": { "type": "string" },
+        "phone": { "type": "string" },
+        "location": { "type": "string" },
+        "orcidUrl": { "type": "string" },
+        "researchGateUrl": { "type": "string" }
       }
     }
   },

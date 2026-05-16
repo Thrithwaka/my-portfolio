@@ -26,7 +26,8 @@ import {
   Activity,
   User as UserIcon,
   Play,
-  Phone
+  Phone,
+  Link as LinkIcon
 } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import { Link } from 'react-router-dom';
@@ -376,7 +377,7 @@ export function AboutPage({ isAdmin }: { isAdmin?: boolean }) {
                   style={{ scale: certSectionScale, y: certSectionY }}
                   className="max-w-7xl mx-auto px-6 w-full flex flex-col items-center"
                 >
-                  <div className="text-center mb-12 md:mb-16 space-y-4">
+                  <div className="text-center mb-8 md:mb-10 space-y-3">
                     <motion.span 
                       className="text-[10px] md:text-sm font-mono uppercase tracking-[0.4em] text-blue-600 font-bold block"
                     >
@@ -391,7 +392,7 @@ export function AboutPage({ isAdmin }: { isAdmin?: boolean }) {
                   </div>
 
                   {/* Category Navigation */}
-                  <div className="w-full flex justify-center mb-8 md:mb-12">
+                  <div className="w-full flex justify-center mb-4 md:mb-6">
                     <div className="flex flex-wrap justify-center gap-2 md:gap-4 p-1 bg-zinc-100 dark:bg-zinc-900 rounded-full border border-zinc-200 dark:border-white/5 shadow-inner">
                       {(['Certificates', 'Badges', 'Achievements'] as const).map((tab) => (
                         <button
@@ -409,7 +410,7 @@ export function AboutPage({ isAdmin }: { isAdmin?: boolean }) {
                     </div>
                   </div>
 
-                  <div className="relative w-full max-h-[65vh] overflow-y-auto no-scrollbar p-2 pointer-events-auto">
+                  <div className="relative w-full max-h-[70vh] overflow-y-auto custom-scrollbar p-2 pointer-events-auto">
                     <AnimatePresence mode="popLayout">
                       {(() => {
                         const filteredCerts = certs
@@ -440,8 +441,13 @@ export function AboutPage({ isAdmin }: { isAdmin?: boolean }) {
                           );
                         }
 
+                        // Use a denser grid for Badges and Achievements
+                        const gridCols = activeTab === 'Certificates' 
+                          ? "grid-cols-1 md:grid-cols-2 lg:grid-cols-3" 
+                          : "grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5";
+
                         return (
-                          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6 md:gap-8 w-full">
+                          <div className={`grid ${gridCols} gap-4 md:gap-6 w-full pb-12`}>
                             {filteredCerts.map((cert, idx) => (
                               <motion.div
                                 layout
@@ -450,10 +456,10 @@ export function AboutPage({ isAdmin }: { isAdmin?: boolean }) {
                                 animate={{ opacity: 1, y: 0, scale: 1 }}
                                 exit={{ opacity: 0, scale: 0.95, y: 20 }}
                                 transition={{ duration: 0.5, ease: [0.23, 1, 0.32, 1] }}
-                                className="group relative bg-zinc-50 dark:bg-white/[0.01] border border-zinc-100 dark:border-white/5 rounded-3xl p-6 md:p-8 hover:bg-white dark:hover:bg-zinc-900 hover:shadow-2xl hover:scale-[1.02] transition-all duration-700 h-full flex flex-col"
+                                className={`group relative bg-zinc-50 dark:bg-white/[0.01] border border-zinc-100 dark:border-white/5 rounded-2xl md:rounded-3xl p-4 md:p-6 hover:bg-white dark:hover:bg-zinc-900 hover:shadow-2xl hover:scale-[1.02] transition-all duration-700 h-full flex flex-col ${activeTab !== 'Certificates' ? 'text-center items-center' : ''}`}
                               >
-                                <div className="flex items-start justify-between mb-6">
-                                  <div className="w-12 h-12 md:w-16 md:h-16 bg-white dark:bg-zinc-800 rounded-2xl shadow-sm border border-zinc-100 dark:border-zinc-700 p-2 overflow-hidden flex items-center justify-center relative group-hover:after:content-[''] group-hover:after:absolute group-hover:after:inset-0 group-hover:after:bg-gradient-to-r group-hover:after:from-transparent group-hover:after:via-white/20 group-hover:after:to-transparent group-hover:after:-translate-x-full group-hover:after:animate-[shimmer_2s_infinite]">
+                                <div className={`flex items-start justify-between mb-4 w-full ${activeTab !== 'Certificates' ? 'flex-col items-center gap-4' : ''}`}>
+                                  <div className={`${activeTab === 'Certificates' ? 'w-12 h-12 md:w-16 md:h-16' : 'w-16 h-16 md:w-20 md:h-20'} bg-white dark:bg-zinc-800 rounded-xl md:rounded-2xl shadow-sm border border-zinc-100 dark:border-zinc-700 p-2 overflow-hidden flex items-center justify-center relative group-hover:after:content-[''] group-hover:after:absolute group-hover:after:inset-0 group-hover:after:bg-gradient-to-r group-hover:after:from-transparent group-hover:after:via-white/20 group-hover:after:to-transparent group-hover:after:-translate-x-full group-hover:after:animate-[shimmer_2s_infinite]`}>
                                   <img 
                                     src={getDirectLink(cert.imageUrl) || "https://images.unsplash.com/photo-1633356122544-f134324a6cee"} 
                                     alt={cert.issuer} 
@@ -463,21 +469,21 @@ export function AboutPage({ isAdmin }: { isAdmin?: boolean }) {
                                   />
                                 </div>
                                   {cert.isFeatured && (
-                                    <div className="px-3 py-1 rounded-full bg-blue-50 dark:bg-blue-900/20 text-blue-600 dark:text-blue-400 text-[8px] font-bold uppercase tracking-widest">
+                                    <div className="px-2 py-0.5 rounded-full bg-blue-50 dark:bg-blue-900/20 text-blue-600 dark:text-blue-400 text-[8px] font-bold uppercase tracking-widest">
                                       Featured
                                     </div>
                                   )}
                                 </div>
 
-                                <div className="space-y-4 flex-grow">
+                                <div className="space-y-3 flex-grow w-full">
                                   <div>
-                                    <p className="text-[8px] md:text-[9px] font-mono font-bold text-zinc-400 uppercase tracking-widest mb-1">{cert.issuer} // {cert.date}</p>
-                                    <h4 className="text-base md:text-xl font-black uppercase tracking-tight text-black dark:text-white leading-tight group-hover:text-blue-600 transition-colors duration-500">
+                                    <p className="text-[7px] md:text-[8px] font-mono font-bold text-zinc-400 uppercase tracking-widest mb-1">{cert.issuer} // {cert.date}</p>
+                                    <h4 className={`${activeTab === 'Certificates' ? 'text-sm md:text-lg' : 'text-xs md:text-sm'} font-black uppercase tracking-tight text-black dark:text-white leading-tight group-hover:text-blue-600 transition-colors duration-500`}>
                                       {cert.title}
                                     </h4>
                                   </div>
 
-                                  {cert.description && (
+                                  {activeTab === 'Certificates' && cert.description && (
                                     <RichTextRenderer 
                                       content={cert.description} 
                                       className="text-xs text-zinc-500 dark:text-zinc-500 line-clamp-2 leading-relaxed" 
@@ -485,9 +491,9 @@ export function AboutPage({ isAdmin }: { isAdmin?: boolean }) {
                                   )}
 
                                   {cert.skills && cert.skills.length > 0 && (
-                                    <div className="flex flex-wrap gap-2 pt-2">
-                                      {cert.skills.slice(0, 3).map((skill, sIdx) => (
-                                        <span key={sIdx} className="text-[8px] font-mono text-zinc-400 border border-zinc-200 dark:border-white/5 px-2 py-0.5 rounded-full uppercase">
+                                    <div className={`flex flex-wrap gap-1 pt-1 ${activeTab !== 'Certificates' ? 'justify-center' : ''}`}>
+                                      {cert.skills.slice(0, activeTab === 'Certificates' ? 3 : 2).map((skill, sIdx) => (
+                                        <span key={sIdx} className="text-[7px] font-mono text-zinc-400 border border-zinc-200 dark:border-white/5 px-2 py-0.5 rounded-full uppercase">
                                           {skill}
                                         </span>
                                       ))}
@@ -495,17 +501,17 @@ export function AboutPage({ isAdmin }: { isAdmin?: boolean }) {
                                   )}
                                 </div>
 
-                                <div className="pt-6 mt-6 border-t border-zinc-100 dark:border-white/5 flex items-center justify-between">
+                                <div className={`pt-4 mt-4 border-t border-zinc-100 dark:border-white/5 flex items-center w-full ${activeTab !== 'Certificates' ? 'justify-center' : 'justify-between'}`}>
                                   <a 
                                     href={cert.verificationUrl} 
                                     target="_blank" 
                                     rel="noopener noreferrer"
-                                    className="inline-flex items-center text-[10px] font-bold uppercase tracking-widest text-zinc-400 hover:text-blue-600 transition-colors"
+                                    className="inline-flex items-center text-[8px] font-bold uppercase tracking-widest text-zinc-400 hover:text-blue-600 transition-colors"
                                   >
-                                    Verify <ArrowRight size={14} className="ml-2" />
+                                    Verify <ArrowRight size={12} className="ml-1" />
                                   </a>
-                                  {cert.credentialId && (
-                                    <span className="text-[8px] font-mono text-zinc-300 dark:text-zinc-700 uppercase">{cert.credentialId}</span>
+                                  {activeTab === 'Certificates' && cert.credentialId && (
+                                    <span className="text-[7px] font-mono text-zinc-300 dark:text-zinc-700 uppercase">{cert.credentialId}</span>
                                   )}
                                 </div>
                               </motion.div>
@@ -622,6 +628,18 @@ export function AboutPage({ isAdmin }: { isAdmin?: boolean }) {
                         <GraduationCap size={16} className="text-zinc-400 group-hover:text-green-600 transition-colors" />
                         <span className="text-[10px] font-mono uppercase tracking-widest text-zinc-500 group-hover:text-zinc-900 dark:group-hover:text-white transition-colors">Scholar</span>
                       </a>
+                      {settings?.orcidUrl && (
+                        <a href={settings.orcidUrl} target="_blank" rel="noreferrer" className="flex items-center gap-2 px-4 py-2 bg-zinc-50 dark:bg-white/[0.03] border border-zinc-100 dark:border-white/5 rounded-full hover:bg-zinc-100 dark:hover:bg-white/[0.08] transition-all group">
+                          <LinkIcon size={16} className="text-zinc-400 group-hover:text-green-500 transition-colors" />
+                          <span className="text-[10px] font-mono uppercase tracking-widest text-zinc-500 group-hover:text-zinc-900 dark:group-hover:text-white transition-colors">ORCID</span>
+                        </a>
+                      )}
+                      {settings?.researchGateUrl && (
+                        <a href={settings.researchGateUrl} target="_blank" rel="noreferrer" className="flex items-center gap-2 px-4 py-2 bg-zinc-50 dark:bg-white/[0.03] border border-zinc-100 dark:border-white/5 rounded-full hover:bg-zinc-100 dark:hover:bg-white/[0.08] transition-all group">
+                          <Layers size={16} className="text-zinc-400 group-hover:text-blue-400 transition-colors" />
+                          <span className="text-[10px] font-mono uppercase tracking-widest text-zinc-500 group-hover:text-zinc-900 dark:group-hover:text-white transition-colors">ResearchGate</span>
+                        </a>
+                      )}
                     </div>
                   </div>
                 </div>

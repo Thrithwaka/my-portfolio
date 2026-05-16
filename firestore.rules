@@ -88,8 +88,18 @@ service cloud.firestore {
              data.degree is string && data.degree.size() <= 200;
     }
     function isValidSiteSettings(data) {
-      return (!('accentColor' in data) || (data.accentColor is string)) &&
-             (!('email' in data) || (data.email is string));
+      return (!('email' in data) || (data.email is string && data.email.size() <= 200)) &&
+             (!('phone' in data) || (data.phone is string && data.phone.size() <= 50)) &&
+             (!('location' in data) || (data.location is string && data.location.size() <= 200)) &&
+             (!('linkedinUrl' in data) || (data.linkedinUrl is string && data.linkedinUrl.size() <= 1000)) &&
+             (!('githubUrl' in data) || (data.githubUrl is string && data.githubUrl.size() <= 1000)) &&
+             (!('scholarUrl' in data) || (data.scholarUrl is string && data.scholarUrl.size() <= 1000)) &&
+             (!('mediumUrl' in data) || (data.mediumUrl is string && data.mediumUrl.size() <= 1000)) &&
+             (!('cvUrl' in data) || (data.cvUrl is string && data.cvUrl.size() <= 1000)) &&
+             (!('accentColor' in data) || (data.accentColor is string && data.accentColor.size() <= 50)) &&
+             (!('orcidUrl' in data) || (data.orcidUrl is string && data.orcidUrl.size() <= 1000)) &&
+             (!('researchGateUrl' in data) || (data.researchGateUrl is string && data.researchGateUrl.size() <= 1000)) &&
+             (!('updatedAt' in data) || (data.updatedAt is timestamp));
     }
 
     // --- Collection Rules ---
@@ -144,7 +154,7 @@ service cloud.firestore {
     }
     match /settings/global {
       allow read: if true;
-      allow write: if isAdmin();
+      allow write: if isAdmin() && isValidSiteSettings(incoming());
     }
     match /admins/{adminId} {
       allow read: if isSignedIn() && (request.auth.uid == adminId || isAdmin());
