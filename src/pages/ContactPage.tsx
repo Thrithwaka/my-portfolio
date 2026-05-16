@@ -31,10 +31,30 @@ export function ContactPage({ isAdmin }: { isAdmin?: boolean }) {
 
           <div className="space-y-6">
             {[
-              { label: 'Primary Contact', val: 'thrithwakapreethi57@gmail.com', icon: Mail, link: 'mailto:thrithwakapreethi57@gmail.com' },
-              { label: 'LinkedIn Professional', val: 'LinkedIn Profile', icon: Linkedin, link: '#' },
-              { label: 'Identity Repository', val: 'Github Source', icon: Github, link: '#' },
-              { label: 'Executive Portfolio', val: 'Download Resume', icon: FileText, link: '#' },
+              {
+                label: 'Primary Contact',
+                val: 'thrithwakapreethi57@gmail.com',
+                icon: Mail,
+                link: 'mailto:thrithwakapreethi57@gmail.com'
+              },
+              {
+                label: 'LinkedIn Professional',
+                val: 'LinkedIn Profile',
+                icon: Linkedin,
+                link: 'https://www.linkedin.com/in/thrithwaka-preethi-7100ab295/'
+              },
+              {
+                label: 'Identity Repository',
+                val: 'GitHub Source',
+                icon: Github,
+                link: 'https://github.com/Thrithwaka'
+              },
+              {
+                label: 'Thought Leadership',
+                val: 'Medium Profile',
+                icon: FileText,
+                link: 'https://medium.com/@thrithwakapreethi57'
+              },
             ].map(item => (
               <a 
                 key={item.label}
