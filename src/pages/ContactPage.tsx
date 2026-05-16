@@ -49,12 +49,7 @@ export function ContactPage({ isAdmin }: { isAdmin?: boolean }) {
                 icon: Github,
                 link: 'https://github.com/Thrithwaka'
               },
-              {
-                label: 'Thought Leadership',
-                val: 'Medium Profile',
-                icon: FileText,
-                link: 'https://medium.com/@thrithwakapreethi57'
-              },
+              { label: 'Executive Portfolio', val: 'Download Resume', icon: FileText, link: '#' },
             ].map(item => (
               <a 
                 key={item.label}
