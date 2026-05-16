@@ -121,7 +121,7 @@ export function ProjectDetailPage({ isAdmin }: { isAdmin?: boolean }) {
       <motion.div className="fixed top-0 left-0 right-0 h-1 bg-blue-600 origin-left z-[100]" style={{ scaleX }} />
 
       {/* Refined Hero Design */}
-      <section className="relative min-h-[70vh] md:h-[85vh] w-full overflow-hidden flex flex-col justify-center py-32 md:py-0">
+      <section className="relative min-h-[60vh] md:h-[75vh] w-full overflow-hidden flex flex-col justify-end pb-16 md:pb-24">
         <motion.div 
           initial={{ scale: 1.1, opacity: 0 }}
           animate={{ scale: 1, opacity: 1 }}
@@ -132,14 +132,14 @@ export function ProjectDetailPage({ isAdmin }: { isAdmin?: boolean }) {
             <img 
               src={getDirectLink(project.coverImageUrl)} 
               alt={project.title} 
-              className="w-full h-full object-cover filter brightness-[0.25] contrast-[1.1] saturate-[0.7]"
+              className="w-full h-full object-cover filter brightness-[0.3] contrast-[1.1] saturate-[0.6]"
             />
           ) : (
             <div className="w-full h-full bg-zinc-950" />
           )}
-          {/* Advanced multi-layer gradient for maximum legibility */}
-          <div className="absolute inset-0 bg-gradient-to-b from-black/80 via-black/20 to-black dark:to-black" />
-          <div className="absolute inset-0 bg-gradient-to-t from-white dark:from-black via-transparent to-transparent opacity-90" />
+          {/* Professional multi-layer gradient for legibility */}
+          <div className="absolute inset-0 bg-gradient-to-t from-white dark:from-black via-black/40 to-transparent" />
+          <div className="absolute inset-0 bg-black/20" />
         </motion.div>
         
         <div className="absolute top-24 md:top-32 left-6 md:left-12 z-20">
@@ -152,15 +152,15 @@ export function ProjectDetailPage({ isAdmin }: { isAdmin?: boolean }) {
           </button>
         </div>
 
-        <div className="max-w-7xl mx-auto px-6 md:px-12 w-full relative z-10 space-y-10">
-           <div className="max-w-4xl space-y-8">
+        <div className="max-w-7xl mx-auto px-6 md:px-12 w-full relative z-10 space-y-8">
+           <div className="max-w-5xl space-y-6">
               <motion.div 
                 initial={{ opacity: 0, x: -20 }}
                 animate={{ opacity: 1, x: 0 }}
                 transition={{ delay: 0.2 }}
                 className="flex flex-wrap items-center gap-3"
               >
-                  <div className="px-5 py-1.5 bg-blue-600 text-white rounded-full text-[9px] font-black uppercase tracking-widest shadow-[0_0_30px_rgba(37,99,235,0.3)]">
+                  <div className="px-5 py-1.5 bg-blue-600 text-white rounded-full text-[9px] font-black uppercase tracking-widest shadow-[0_0_30px_rgba(37,99,235,0.2)]">
                     {project.category || 'Portfolio Project'}
                   </div>
                   <div className="px-5 py-1.5 bg-white/10 backdrop-blur-md border border-white/10 text-white/70 rounded-full text-[9px] font-black uppercase tracking-widest">
@@ -169,10 +169,10 @@ export function ProjectDetailPage({ isAdmin }: { isAdmin?: boolean }) {
               </motion.div>
 
               <motion.h1 
-                initial={{ opacity: 0, y: 30 }}
+                initial={{ opacity: 0, y: 20 }}
                 animate={{ opacity: 1, y: 0 }}
-                transition={{ delay: 0.3, duration: 1 }}
-                className="text-5xl md:text-8xl lg:text-9xl font-black tracking-tighter uppercase leading-[0.95] md:leading-[0.8] text-white"
+                transition={{ delay: 0.3, duration: 0.8 }}
+                className="text-4xl md:text-6xl lg:text-7xl font-black tracking-tighter uppercase leading-[1.1] text-white max-w-4xl [text-wrap:balance]"
               >
                 {project.title}
               </motion.h1>
@@ -181,7 +181,7 @@ export function ProjectDetailPage({ isAdmin }: { isAdmin?: boolean }) {
                 initial={{ opacity: 0 }}
                 animate={{ opacity: 1 }}
                 transition={{ delay: 0.6 }}
-                className="flex flex-wrap items-center gap-10 text-zinc-400 font-mono text-[10px] uppercase tracking-[0.3em] pt-4"
+                className="flex flex-wrap items-center gap-8 text-zinc-400 font-mono text-[9px] uppercase tracking-[0.3em] pt-4 border-t border-white/10 w-fit"
               >
                 <div className="flex items-center gap-3">
                   <Calendar size={14} className="text-blue-500" />
