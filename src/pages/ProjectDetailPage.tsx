@@ -6,8 +6,7 @@ import { ArrowLeft, Github, ExternalLink, Calendar, Users,
   Cpu, Layout, FileText, Share2, MessageSquare, X, ArrowRight
 } from 'lucide-react';
 import { AnimatePresence } from 'motion/react';
-import { collection, query, where, getDocs, limit, doc, onSnapshot, orderBy } from 'firebase/firestore';
-import { db } from '@/lib/firebase';
+import { handleFirestoreError, OperationType } from '@/lib/firebase';
 import { getDirectLink } from '@/lib/utils';
 import { ContributorAvatars } from '@/src/components/projects/ContributorAvatars';
 import { RichTextRenderer } from '@/src/components/RichTextRenderer';
@@ -19,6 +18,7 @@ export function ProjectDetailPage({ isAdmin }: { isAdmin?: boolean }) {
   const [contributors, setContributors] = useState<any[]>([]);
   const [gallery, setGallery] = useState<any[]>([]);
   const [sections, setSections] = useState<any[]>([]);
+  const [loading, setLoading] = useState(true);
   // State for image zoom/preview
   const [selectedImage, setSelectedImage] = useState<string | null>(null);
 
@@ -33,29 +33,51 @@ export function ProjectDetailPage({ isAdmin }: { isAdmin?: boolean }) {
     if (!slug) return;
 
     const fetchProject = async () => {
-      const q = query(collection(db, 'projects'), where('slug', '==', slug), limit(1));
-      const snap = await getDocs(q);
-      
-      if (snap.empty) {
+      try {
+        setLoading(true);
+        const res = await fetch('/api/data/projects');
+        if (!res.ok) throw new Error('Failed to fetch projects');
+        const projects = await res.json();
+        
+        const found = Array.isArray(projects) ? projects.find((p: any) => p.slug === slug) : null;
+        
+        if (!found) {
+          setLoading(false);
+          return;
+        }
+
+        setProject(found);
+
+        // Fetch Subcollections
+        try {
+          const contribRes = await fetch(`/api/data/projects/${found.id}/contributors`);
+          if (contribRes.ok) {
+            const cData = await contribRes.json();
+            setContributors(Array.isArray(cData) ? cData.sort((a, b) => (a.priority || 0) - (b.priority || 0)) : []);
+          }
+        } catch (e) { console.error("Contributors fetch failed", e); }
+
+        try {
+          const galleryRes = await fetch(`/api/data/projects/${found.id}/gallery`);
+          if (galleryRes.ok) {
+            const gData = await galleryRes.json();
+            setGallery(Array.isArray(gData) ? gData.sort((a, b) => (a.priority || 0) - (b.priority || 0)) : []);
+          }
+        } catch (e) { console.error("Gallery fetch failed", e); }
+
+        try {
+          const sectionsRes = await fetch(`/api/data/projects/${found.id}/sections`);
+          if (sectionsRes.ok) {
+            const sData = await sectionsRes.json();
+            setSections(Array.isArray(sData) ? sData.sort((a, b) => (a.priority || 0) - (b.priority || 0)) : []);
+          }
+        } catch (e) { console.error("Sections fetch failed", e); }
+
+      } catch (err: any) {
+        handleFirestoreError(err, OperationType.GET, `projects/${slug}`);
+      } finally {
         setLoading(false);
-        return;
       }
-
-      const pDoc = snap.docs[0];
-      const pData = { id: pDoc.id, ...pDoc.data() };
-      setProject(pData);
-
-      // Fetch Subcollections
-      const contribSnap = await getDocs(query(collection(db, `projects/${pDoc.id}/contributors`), orderBy('priority', 'asc')));
-      setContributors(contribSnap.docs.map(d => ({ id: d.id, ...d.data() })));
-
-      const gallerySnap = await getDocs(query(collection(db, `projects/${pDoc.id}/gallery`), orderBy('priority', 'asc')));
-      setGallery(gallerySnap.docs.map(d => ({ id: d.id, ...d.data() })));
-
-      const sectionsSnap = await getDocs(query(collection(db, `projects/${pDoc.id}/sections`), orderBy('priority', 'asc')));
-      setSections(sectionsSnap.docs.map(d => ({ id: d.id, ...d.data() })));
-
-      setLoading(false);
     };
 
     fetchProject();
