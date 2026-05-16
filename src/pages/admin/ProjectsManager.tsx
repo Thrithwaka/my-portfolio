@@ -95,8 +95,11 @@ export function ProjectsManager() {
     if (!currentProject.title || !currentProject.slug) return;
     setIsSaving(true);
     
+    // Create a safe copy without the 'id' field for Firestore
+    const { id, ...dataToSave } = currentProject;
+    
     const data = {
-      ...currentProject,
+      ...dataToSave,
       updatedAt: serverTimestamp(),
       priority: Number(currentProject.priority || 0),
     };
@@ -106,7 +109,10 @@ export function ProjectsManager() {
       if (editingId) {
         await updateDoc(doc(db, 'projects', editingId), data);
       } else {
-        const docRef = await addDoc(collection(db, 'projects'), { ...data, createdAt: serverTimestamp() });
+        const docRef = await addDoc(collection(db, 'projects'), { 
+          ...data, 
+          createdAt: serverTimestamp() 
+        });
         projectId = docRef.id;
         setEditingId(projectId);
       }
@@ -116,7 +122,7 @@ export function ProjectsManager() {
         const cSnap = await getDocs(collection(db, `projects/${projectId}/contributors`));
         for (const d of cSnap.docs) await deleteDoc(d.ref);
         for (const c of contributors) {
-           const { id, ...cData } = c;
+           const { id: cId, ...cData } = c;
            await addDoc(collection(db, `projects/${projectId}/contributors`), cData);
         }
         
@@ -124,14 +130,16 @@ export function ProjectsManager() {
         const gSnap = await getDocs(collection(db, `projects/${projectId}/gallery`));
         for (const d of gSnap.docs) await deleteDoc(d.ref);
         for (const g of gallery) {
-           const { id, ...gData } = g;
+           const { id: gId, ...gData } = g;
            await addDoc(collection(db, `projects/${projectId}/gallery`), gData);
         }
       }
 
       setIsAdding(false);
-    } catch (err) {
-      console.error(err);
+      // Optional: Add success toast or notification
+    } catch (err: any) {
+      console.error('Project save error:', err);
+      alert(`Save failed: ${err.message || 'Check firestore rules and your internet connection.'}`);
     } finally {
       setIsSaving(false);
     }
@@ -156,7 +164,7 @@ export function ProjectsManager() {
       {!isAdding ? (
         <>
           <header className="flex flex-col lg:flex-row lg:items-center justify-between gap-6 bg-zinc-900/40 p-8 rounded-3xl border border-white/5 relative overflow-hidden group">
-             <div className="absolute top-0 right-0 w-64 h-64 bg-blue-600/5 blur-[100px]" />
+             <div className="absolute top-0 right-0 w-64 h-64 bg-blue-600/5 blur-[100px] pointer-events-none" />
              <div className="relative z-10 space-y-2">
                 <div className="flex items-center gap-2">
                    <div className="w-8 h-8 rounded-xl bg-blue-500/10 flex items-center justify-center text-blue-500 border border-blue-500/20">
@@ -264,7 +272,7 @@ export function ProjectsManager() {
 
             <div className="lg:col-span-3">
                <div className="p-8 bg-zinc-900/20 border border-white/5 rounded-3xl min-h-[600px] shadow-xl relative overflow-hidden backdrop-blur-sm">
-                  <div className="absolute top-0 right-0 w-64 h-64 bg-blue-600/[0.02] blur-[100px]" />
+                  <div className="absolute top-0 right-0 w-64 h-64 bg-blue-600/[0.02] blur-[100px] pointer-events-none" />
                   
                   {activeTab === 'general' && (
                     <div className="space-y-8 animate-in fade-in slide-in-from-right-2 duration-500">
@@ -365,7 +373,7 @@ export function ProjectsManager() {
                               <h3 className="text-[10px] font-black uppercase tracking-widest text-blue-500">Contributors</h3>
                               <p className="text-[9px] text-zinc-600 uppercase tracking-widest font-bold">Manage team members</p>
                            </div>
-                           <Button onClick={() => setContributors([...contributors, { name: '', role: '', priority: contributors.length }])} size="sm" className="bg-blue-600 hover:bg-blue-500 text-white rounded-lg text-[9px] font-bold uppercase h-8 px-4"><Plus size={14} className="mr-2" /> Add Partner</Button>
+                           <Button onClick={() => setContributors([...contributors, { name: '', role: '', priority: contributors.length }])} size="sm" className="bg-blue-600 hover:bg-blue-500 text-white rounded-lg text-[9px] font-bold uppercase h-8 px-4"><Plus size={14} className="mr-2" /> Add Contributor</Button>
                         </header>
                         
                         <div className="space-y-3">
