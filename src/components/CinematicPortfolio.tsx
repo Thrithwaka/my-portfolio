@@ -122,35 +122,35 @@ export function CinematicPortfolio({ isAdmin }: { isAdmin?: boolean }) {
                   isAdmin={isAdmin}
                   initialValue={heroData?.title1 || "Thrithwaka"}
                   onSave={(val) => updateHero({ title1: val })}
-                  className="text-[12vw] md:text-[8vw] font-black leading-[0.85] tracking-tighter text-black dark:text-white uppercase"
+                  className="text-[14vw] sm:text-[12vw] md:text-[9vw] lg:text-[8vw] font-black leading-[0.9] md:leading-[0.85] tracking-tighter text-black dark:text-white uppercase [text-wrap:balance]"
                   style={{ x: name1X } as any}
                 />
                 <EditableText
                   isAdmin={isAdmin}
                   initialValue={heroData?.title2 || "Preethi"}
                   onSave={(val) => updateHero({ title2: val })}
-                  className="text-[12vw] md:text-[8vw] font-black leading-[0.85] tracking-tighter text-black dark:text-white uppercase"
+                  className="text-[14vw] sm:text-[12vw] md:text-[9vw] lg:text-[8vw] font-black leading-[0.9] md:leading-[0.85] tracking-tighter text-black dark:text-white uppercase [text-wrap:balance]"
                   style={{ x: name2X } as any}
                 />
                 <EditableText
                   isAdmin={isAdmin}
                   initialValue={heroData?.title3 || "Shakya"}
                   onSave={(val) => updateHero({ title3: val })}
-                  className="text-[12vw] md:text-[8vw] font-black leading-[0.85] tracking-tighter text-black dark:text-white uppercase"
+                  className="text-[14vw] sm:text-[12vw] md:text-[9vw] lg:text-[8vw] font-black leading-[0.9] md:leading-[0.85] tracking-tighter text-black dark:text-white uppercase [text-wrap:balance]"
                   style={{ x: name3X } as any}
                 />
               </div>
             ) : heroData?.title1 ? (
               <div className="flex flex-col items-center text-center w-full uppercase">
-                <motion.h1 style={{ x: name1X }} className="text-[12vw] md:text-[8vw] font-black leading-[0.85] tracking-tighter text-black dark:text-white uppercase">{heroData.title1}</motion.h1>
-                <motion.h1 style={{ x: name2X }} className="text-[12vw] md:text-[8vw] font-black leading-[0.85] tracking-tighter text-black dark:text-white uppercase">{heroData.title2}</motion.h1>
-                <motion.h1 style={{ x: name3X }} className="text-[12vw] md:text-[8vw] font-black leading-[0.85] tracking-tighter text-black dark:text-white uppercase">{heroData.title3}</motion.h1>
+                <motion.h1 style={{ x: name1X }} className="text-[14vw] sm:text-[12vw] md:text-[9vw] lg:text-[8vw] font-black leading-[0.9] md:leading-[0.85] tracking-tighter text-black dark:text-white uppercase [text-wrap:balance]">{heroData.title1}</motion.h1>
+                <motion.h1 style={{ x: name2X }} className="text-[14vw] sm:text-[12vw] md:text-[9vw] lg:text-[8vw] font-black leading-[0.9] md:leading-[0.85] tracking-tighter text-black dark:text-white uppercase [text-wrap:balance]">{heroData.title2}</motion.h1>
+                <motion.h1 style={{ x: name3X }} className="text-[14vw] sm:text-[12vw] md:text-[9vw] lg:text-[8vw] font-black leading-[0.9] md:leading-[0.85] tracking-tighter text-black dark:text-white uppercase [text-wrap:balance]">{heroData.title3}</motion.h1>
               </div>
             ) : (
               <div className="flex flex-col items-center text-center w-full uppercase">
-                <motion.h1 style={{ x: name1X }} className="text-[12vw] md:text-[8vw] font-black leading-[0.85] tracking-tighter text-black dark:text-white uppercase">Thrithwaka</motion.h1>
-                <motion.h1 style={{ x: name2X }} className="text-[12vw] md:text-[8vw] font-black leading-[0.85] tracking-tighter text-black dark:text-white uppercase">Preethi</motion.h1>
-                <motion.h1 style={{ x: name3X }} className="text-[12vw] md:text-[8vw] font-black leading-[0.85] tracking-tighter text-black dark:text-white uppercase">Shakya</motion.h1>
+                <motion.h1 style={{ x: name1X }} className="text-[14vw] sm:text-[12vw] md:text-[9vw] lg:text-[8vw] font-black leading-[0.9] md:leading-[0.85] tracking-tighter text-black dark:text-white uppercase [text-wrap:balance]">Thrithwaka</motion.h1>
+                <motion.h1 style={{ x: name2X }} className="text-[14vw] sm:text-[12vw] md:text-[9vw] lg:text-[8vw] font-black leading-[0.9] md:leading-[0.85] tracking-tighter text-black dark:text-white uppercase [text-wrap:balance]">Preethi</motion.h1>
+                <motion.h1 style={{ x: name3X }} className="text-[14vw] sm:text-[12vw] md:text-[9vw] lg:text-[8vw] font-black leading-[0.9] md:leading-[0.85] tracking-tighter text-black dark:text-white uppercase [text-wrap:balance]">Shakya</motion.h1>
               </div>
             )}
 
@@ -188,31 +188,31 @@ export function CinematicPortfolio({ isAdmin }: { isAdmin?: boolean }) {
 
           <motion.div 
             style={{ scale: aboutScale, y: aboutY }}
-            className="max-w-7xl mx-auto px-6 grid grid-cols-1 lg:grid-cols-2 gap-8 md:gap-24 items-center pointer-events-auto max-h-[85vh] lg:max-h-none overflow-y-auto no-scrollbar"
+            className="max-w-7xl mx-auto px-6 grid grid-cols-1 lg:grid-cols-2 gap-8 md:gap-16 lg:gap-24 items-center pointer-events-auto max-h-[85vh] lg:max-h-none overflow-y-auto lg:overflow-visible no-scrollbar pb-12 lg:pb-0"
           >
-            <div className="space-y-4 md:space-y-10">
+            <div className="space-y-6 md:space-y-10 order-2 lg:order-1">
               <h2 className="text-[10px] md:text-sm font-mono uppercase tracking-[0.3em] text-blue-600">The Mission</h2>
               <EditableText
                 isAdmin={isAdmin}
                 initialValue={aboutData?.vision || "Pioneer AI. Human Focus."}
                 onSave={(val) => updateAbout({ vision: val })}
-                className="text-4xl md:text-8xl font-black leading-[0.9] tracking-tighter text-black dark:text-white"
+                className="text-4xl sm:text-5xl md:text-6xl lg:text-8xl font-black leading-[1.0] lg:leading-[0.9] tracking-tighter text-black dark:text-white [text-wrap:balance]"
               />
               <EditableText
                 isAdmin={isAdmin}
                 multiline
                 initialValue={aboutData?.missionStatement || "I am a visionary AI Engineer dedicated to crafting systems that not only solve complex problems but redefine how we interact with technology..."}
                 onSave={(val) => updateAbout({ missionStatement: val })}
-                className="text-base md:text-2xl text-zinc-400 dark:text-zinc-500 leading-tight max-w-2xl font-medium tracking-tight"
+                className="text-sm sm:text-base md:text-xl lg:text-2xl text-zinc-400 dark:text-zinc-500 leading-snug lg:leading-tight max-w-2xl font-medium tracking-tight"
               />
-              <Link to="/about" className="inline-flex items-center text-[10px] md:text-sm font-bold uppercase tracking-widest h-10 md:h-14 px-6 md:px-10 bg-black dark:bg-white text-white dark:text-black rounded-full hover:scale-105 transition-transform">
+              <Link to="/about" className="inline-flex items-center text-[10px] md:text-xs lg:text-sm font-bold uppercase tracking-widest h-12 md:h-14 px-8 md:px-10 bg-black dark:bg-white text-white dark:text-black rounded-full hover:scale-105 transition-transform">
                 Digital Identity <ChevronRight size={16} className="ml-2" />
               </Link>
             </div>
             
-            <div className="relative aspect-square rounded-2xl md:rounded-3xl overflow-hidden bg-zinc-100 dark:bg-zinc-900 shadow-2xl max-w-sm mx-auto md:ml-auto">
+            <div className="relative aspect-square rounded-2xl md:rounded-[3rem] overflow-hidden bg-zinc-100 dark:bg-zinc-900 shadow-2xl max-w-sm lg:max-w-none mx-auto md:ml-auto order-1 lg:order-2">
               {aboutData?.profileImageUrl ? (
-                <img src={getDirectLink(aboutData.profileImageUrl)} alt="Portrait" className="w-full h-full object-cover transition-all duration-1000 saturate-100" />
+                <img src={getDirectLink(aboutData.profileImageUrl)} alt="Portrait" className="w-full h-full object-cover transition-all duration-1000 saturate-100 scale-100 group-hover:scale-105" />
               ) : (
                 <div className="w-full h-full flex items-center justify-center text-zinc-300 dark:text-zinc-800 font-mono text-sm md:text-xl uppercase">Signal_Offline_</div>
               )}
@@ -337,10 +337,10 @@ export function CinematicPortfolio({ isAdmin }: { isAdmin?: boolean }) {
               </p>
             </div>
 
-            <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 md:gap-16">
+            <div className="grid grid-cols-1 lg:grid-cols-2 gap-10 md:gap-16">
               <div className="space-y-6 md:space-y-10">
                 <h4 className="text-xl md:text-3xl font-black flex items-center gap-4 text-black dark:text-white uppercase tracking-tighter">
-                  <span className="text-blue-600/30 font-mono text-sm md:text-lg">01</span> technical_systems
+                  <span className="text-blue-600/40 font-mono text-sm md:text-lg">01</span> Technical Mastery
                 </h4>
                 <div className="grid grid-cols-1 sm:grid-cols-2 gap-3 md:gap-4">
                   {(skills?.filter((s:any) => s.category === 'technical_systems').length > 0 
@@ -359,8 +359,8 @@ export function CinematicPortfolio({ isAdmin }: { isAdmin?: boolean }) {
                       whileHover={{ y: -5 }}
                       className="group relative"
                     >
-                      <div className="p-6 md:p-8 border border-zinc-100 dark:border-white/5 rounded-[2rem] bg-zinc-50/30 dark:bg-white/[0.01] hover:bg-white dark:hover:bg-white/[0.03] hover:shadow-2xl hover:shadow-blue-600/5 transition-all duration-500">
-                        <span className="text-xs md:text-base font-black tracking-widest uppercase text-zinc-900 dark:text-zinc-100">{s.name}</span>
+                      <div className="p-4 md:p-8 border border-zinc-100 dark:border-white/5 rounded-2xl md:rounded-[2rem] bg-zinc-50/50 dark:bg-white/[0.02] hover:bg-white dark:hover:bg-white/[0.05] hover:shadow-2xl hover:shadow-blue-600/5 transition-all duration-500">
+                        <span className="text-xs md:text-lg font-black tracking-widest uppercase text-zinc-900 dark:text-zinc-100">{s.name}</span>
                       </div>
                     </motion.div>
                   ))}
@@ -369,7 +369,7 @@ export function CinematicPortfolio({ isAdmin }: { isAdmin?: boolean }) {
 
               <div className="space-y-6 md:space-y-10">
                 <h4 className="text-xl md:text-3xl font-black flex items-center gap-4 text-black dark:text-white uppercase tracking-tighter">
-                  <span className="text-green-600/30 font-mono text-sm md:text-lg">02</span> strategic_impact
+                  <span className="text-green-600/40 font-mono text-sm md:text-lg">02</span> Soft Skills & Leadership
                 </h4>
                 <div className="grid grid-cols-1 sm:grid-cols-2 gap-3 md:gap-4">
                   {(skills?.filter((s:any) => s.category === 'strategic_impact').length > 0 
@@ -387,8 +387,8 @@ export function CinematicPortfolio({ isAdmin }: { isAdmin?: boolean }) {
                       whileHover={{ y: -5 }}
                       className="group relative"
                     >
-                      <div className="p-6 md:p-8 border border-zinc-100 dark:border-white/5 rounded-[2rem] bg-zinc-50/30 dark:bg-white/[0.01] hover:bg-white dark:hover:bg-white/[0.03] hover:shadow-2xl hover:shadow-green-600/5 transition-all duration-500">
-                        <span className="text-xs md:text-base font-black tracking-widest uppercase text-zinc-900 dark:text-zinc-100">{s.name}</span>
+                      <div className="p-4 md:p-8 border border-zinc-100 dark:border-white/5 rounded-2xl md:rounded-[2rem] bg-zinc-50/50 dark:bg-white/[0.02] hover:bg-white dark:hover:bg-white/[0.05] hover:shadow-2xl hover:shadow-green-600/5 transition-all duration-500">
+                        <span className="text-xs md:text-lg font-black tracking-widest uppercase text-zinc-900 dark:text-zinc-100">{s.name}</span>
                       </div>
                     </motion.div>
                   ))}

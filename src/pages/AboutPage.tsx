@@ -107,38 +107,38 @@ export function AboutPage({ isAdmin }: { isAdmin?: boolean }) {
   });
 
   // Hero Transitions
-  const heroOpacity = useTransform(smoothProgress, [0, 0.1, 0.22], [1, 1, 0]);
-  const heroScale = useTransform(smoothProgress, [0, 0.12, 0.25], [1, 1, 0.8]);
-  const heroY = useTransform(smoothProgress, [0, 0.12, 0.25], [0, 0, -100]);
+  const heroOpacity = useTransform(smoothProgress, [0, 0.08, 0.15], [1, 1, 0]);
+  const heroScale = useTransform(smoothProgress, [0, 0.1, 0.2], [1, 1, 0.9]);
+  const heroY = useTransform(smoothProgress, [0, 0.1, 0.2], [0, 0, -30]);
 
   // Horizontal movement for hero words
   const isMobileSize = typeof window !== 'undefined' ? window.innerWidth < 768 : false;
-  const xOffset = isMobileSize ? 150 : 400;
+  const xOffset = isMobileSize ? 30 : 400;
   
-  const word1X = useTransform(smoothProgress, [0, 0.12, 0.25], [0, 0, xOffset]);
-  const word2X = useTransform(smoothProgress, [0, 0.12, 0.25], [0, 0, -xOffset]);
-  const word3X = useTransform(smoothProgress, [0, 0.12, 0.25], [0, 0, xOffset]);
+  const word1X = useTransform(smoothProgress, [0, 0.1, 0.2], [0, 0, xOffset]);
+  const word2X = useTransform(smoothProgress, [0, 0.1, 0.2], [0, 0, -xOffset]);
+  const word3X = useTransform(smoothProgress, [0, 0.1, 0.2], [0, 0, xOffset]);
 
-  const subTitleY = useTransform(smoothProgress, [0, 0.1], [0, 50]);
-  const subTitleOpacity = useTransform(smoothProgress, [0, 0.08], [1, 0]);
+  const subTitleY = useTransform(smoothProgress, [0, 0.05], [0, 20]);
+  const subTitleOpacity = useTransform(smoothProgress, [0, 0.05], [1, 0]);
 
-  // Section Transitions
-  const introScale = useTransform(smoothProgress, [0.15, 0.22, 0.4, 0.45], [0.8, 1, 1, 0.8]);
-  const introOpacity = useTransform(smoothProgress, [0.15, 0.2, 0.42, 0.45], [0, 1, 1, 0]);
-  const introY = useTransform(smoothProgress, [0.15, 0.25], [100, 0]);
-  const introImageX = useTransform(smoothProgress, [0.15, 0.25], [-200, 0]);
-  const introTextX = useTransform(smoothProgress, [0.15, 0.25], [200, 0]);
+  // Section Transitions - More generous for mobile
+  const introScale = useTransform(smoothProgress, [0.12, 0.18, 0.38, 0.44], [0.95, 1, 1, 0.95]);
+  const introOpacity = useTransform(smoothProgress, [0.1, 0.15, 0.4, 0.46], [0, 1, 1, 0]);
+  const introY = useTransform(smoothProgress, [0.1, 0.18], [30, 0]);
+  const introImageX = useTransform(smoothProgress, [0.1, 0.2], [isMobileSize ? 0 : -100, 0]);
+  const introTextX = useTransform(smoothProgress, [0.1, 0.2], [isMobileSize ? 0 : 100, 0]);
 
   // Educational Foundations Transitions
-  const eduScale = useTransform(smoothProgress, [0.42, 0.48, 0.65, 0.7], [0.8, 1, 1, 0.8]);
-  const eduOpacity = useTransform(smoothProgress, [0.42, 0.46, 0.68, 0.7], [0, 1, 1, 0]);
-  const eduY = useTransform(smoothProgress, [0.42, 0.52], [100, 0]);
+  const eduScale = useTransform(smoothProgress, [0.42, 0.48, 0.68, 0.74], [0.95, 1, 1, 0.95]);
+  const eduOpacity = useTransform(smoothProgress, [0.4, 0.46, 0.7, 0.76], [0, 1, 1, 0]);
+  const eduY = useTransform(smoothProgress, [0.42, 0.52], [30, 0]);
   const lineDraw = useTransform(smoothProgress, [0.45, 0.65], [0, 1]);
 
   // Certifications Transitions
-  const certSectionScale = useTransform(smoothProgress, [0.68, 0.74, 0.95, 1.0], [0.8, 1, 1, 1]);
-  const certSectionOpacity = useTransform(smoothProgress, [0.68, 0.72, 0.95, 1.0], [0, 1, 1, 1]);
-  const certSectionY = useTransform(smoothProgress, [0.68, 0.75, 0.95, 1.0], [100, 0, 0, 0]);
+  const certSectionScale = useTransform(smoothProgress, [0.72, 0.78, 1.0], [0.95, 1, 1]);
+  const certSectionOpacity = useTransform(smoothProgress, [0.7, 0.75, 1.0], [0, 1, 1]);
+  const certSectionY = useTransform(smoothProgress, [0.72, 0.82, 1.0], [30, 0, 0]);
 
   const certPointerEvents = useTransform(certSectionOpacity, (o) => o > 0.5 ? "auto" : "none");
   const eduPointerEvents = useTransform(eduOpacity, (o) => o > 0.5 ? "auto" : "none");
@@ -187,29 +187,29 @@ export function AboutPage({ isAdmin }: { isAdmin?: boolean }) {
                   />
                 </motion.div>
 
-                <div className="flex flex-col items-center text-center w-full uppercase">
+                <div className="flex flex-col items-center text-center w-full uppercase px-6">
                   {isAdmin ? (
                     <EditableText
                       isAdmin={isAdmin}
                       initialValue={aboutData?.heroTitle || "Designing Tomorrow's Intelligence"}
                       onSave={(val) => updateAbout({ heroTitle: val })}
-                      className="text-4xl md:text-[8vw] font-black tracking-tight leading-[0.8] text-black dark:text-white uppercase text-center"
+                      className="text-4xl sm:text-6xl md:text-[8vw] font-black tracking-tighter leading-[1.0] md:leading-[0.8] text-black dark:text-white uppercase text-center max-w-[95vw] mx-auto balance"
                     />
                   ) : aboutData?.heroTitle ? (
                     aboutData.heroTitle.split(' ').map((word: string, i: number) => (
                       <motion.h1 
                         key={i}
                         style={{ x: i % 2 === 0 ? word1X : word2X }}
-                        className="text-[12vw] md:text-[8vw] font-black tracking-tight leading-[0.8] text-black dark:text-white"
+                        className="text-[12vw] sm:text-[10vw] md:text-[8vw] font-black tracking-tighter leading-[0.9] md:leading-[0.8] text-black dark:text-white balance"
                       >
                         {word}
                       </motion.h1>
                     ))
                   ) : (
                     <>
-                      <motion.h1 style={{ x: word1X }} className="text-[12vw] md:text-[8vw] font-black tracking-tight leading-[0.8] text-black dark:text-white">Designing</motion.h1>
-                      <motion.h1 style={{ x: word2X }} className="text-[12vw] md:text-[8vw] font-black tracking-tight leading-[0.8] text-black dark:text-white">Tomorrow's</motion.h1>
-                      <motion.h1 style={{ x: word3X }} className="text-[12vw] md:text-[8vw] font-black tracking-tight leading-[0.8] text-black dark:text-white">Intelligence</motion.h1>
+                      <motion.h1 style={{ x: word1X }} className="text-[12vw] sm:text-[10vw] md:text-[8vw] font-black tracking-tighter leading-[0.9] md:leading-[0.8] text-black dark:text-white">Designing</motion.h1>
+                      <motion.h1 style={{ x: word2X }} className="text-[12vw] sm:text-[10vw] md:text-[8vw] font-black tracking-tighter leading-[0.9] md:leading-[0.8] text-black dark:text-white">Tomorrow's</motion.h1>
+                      <motion.h1 style={{ x: word3X }} className="text-[12vw] sm:text-[10vw] md:text-[8vw] font-black tracking-tighter leading-[0.9] md:leading-[0.8] text-black dark:text-white">Intelligence</motion.h1>
                     </>
                   )}
                 </div>
@@ -221,7 +221,7 @@ export function AboutPage({ isAdmin }: { isAdmin?: boolean }) {
             <VisualEditorWrapper isAdmin={isAdmin} onEdit={() => setActiveEditor('about')} label="Edit Introduction">
               <motion.section 
                 style={{ opacity: introOpacity, pointerEvents: introPointerEvents as any }}
-                className="md:sticky md:top-0 min-h-screen md:h-screen w-full flex items-center justify-center bg-white dark:bg-black z-10 md:overflow-hidden py-16 md:py-0"
+                className="sticky top-0 h-screen w-full flex items-center justify-center bg-white dark:bg-black z-10 overflow-hidden"
               >
                 {/* Decoration Layer */}
                 <DecorationLayer 
@@ -231,14 +231,14 @@ export function AboutPage({ isAdmin }: { isAdmin?: boolean }) {
                 />
                 
                 <motion.div 
-                  style={{ scale: introScale, y: introY }}
-                  className="max-w-7xl mx-auto px-6 grid grid-cols-1 lg:grid-cols-12 gap-8 md:gap-24 items-center w-full pt-12 md:pt-0"
+                   style={{ scale: introScale, y: introY }}
+                   className="max-w-7xl mx-auto px-6 grid grid-cols-1 lg:grid-cols-12 gap-8 md:gap-16 lg:gap-24 items-center w-full max-h-[92vh] md:max-h-[85vh] overflow-y-auto md:no-scrollbar py-10 md:py-6"
                 >
                   <motion.div 
                     style={{ x: introImageX }}
-                    className="lg:col-span-5 relative group order-1"
+                    className="lg:col-span-5 relative group order-1 flex justify-center"
                   >
-                    <div className="relative aspect-square rounded-[2rem] md:rounded-[4rem] overflow-hidden border-4 md:border-8 border-white dark:border-zinc-900 shadow-2xl">
+                    <div className="relative aspect-square w-full max-w-[300px] md:max-w-none rounded-[2rem] md:rounded-[4rem] overflow-hidden border-4 md:border-8 border-white dark:border-zinc-900 shadow-2xl">
                       <img 
                         src={getDirectLink(aboutData?.deepIntroImage || aboutData?.profileImageUrl) || "https://images.unsplash.com/photo-1544256718-3bcf237f3974"} 
                         alt="Profile" 
@@ -251,7 +251,7 @@ export function AboutPage({ isAdmin }: { isAdmin?: boolean }) {
                       style={{ x: introTextX }}
                       className="lg:col-span-7 space-y-6 md:space-y-12 py-4 lg:py-0 order-2"
                     >
-                      <div className="space-y-3 md:space-y-6">
+                      <div className="space-y-4 md:space-y-6">
                         <div className="flex items-center gap-3">
                           <span className="text-[10px] md:text-sm font-black uppercase tracking-[0.4em] text-blue-600 dark:text-blue-400 block">The Narrative</span>
                         </div>
@@ -270,7 +270,7 @@ export function AboutPage({ isAdmin }: { isAdmin?: boolean }) {
                           multiline
                           initialValue={aboutData?.deepIntroContent || defaultIntro}
                           onSave={(val) => updateAbout({ deepIntroContent: val })}
-                          className="text-zinc-400 dark:text-zinc-500 text-sm md:text-xl leading-snug font-medium tracking-tight max-w-2xl"
+                          className="text-zinc-500 dark:text-zinc-500 text-sm md:text-xl leading-relaxed md:leading-snug font-medium tracking-tight max-w-2xl px-1"
                         />
                       </div>
                     </motion.div>
@@ -282,25 +282,25 @@ export function AboutPage({ isAdmin }: { isAdmin?: boolean }) {
             <VisualEditorWrapper isAdmin={isAdmin} onEdit={() => setActiveEditor('education')} label="Manage Education">
               <motion.section 
                 style={{ opacity: eduOpacity, pointerEvents: eduPointerEvents as any }}
-                className="md:sticky md:top-0 min-h-screen md:h-screen w-full flex items-center justify-center bg-[#fdfcfb] dark:bg-zinc-950 z-20 md:overflow-hidden py-12 md:py-0"
+                className="sticky top-0 h-screen w-full flex items-center justify-center bg-[#fdfcfb] dark:bg-zinc-950 z-20 overflow-hidden"
               >
                 <motion.div 
                   style={{ scale: eduScale, y: eduY }}
-                  className="max-w-5xl mx-auto px-6 w-full flex flex-col justify-center max-h-[90vh] overflow-y-auto no-scrollbar pointer-events-auto"
+                  className="max-w-5xl mx-auto px-6 w-full flex flex-col justify-center max-h-[92vh] md:max-h-[85vh] overflow-y-auto md:no-scrollbar pointer-events-auto py-16 md:py-12"
                 >
-                  <div className="text-center mb-8 md:mb-16 space-y-3">
+                  <div className="text-center mb-10 md:mb-16 space-y-3 px-4">
                     <motion.span 
-                      className="text-[10px] md:text-[11px] font-mono uppercase tracking-[0.6em] text-zinc-400 font-bold block"
+                      className="text-[9px] md:text-[11px] font-mono uppercase tracking-[0.4em] md:tracking-[0.6em] text-zinc-400 font-bold block"
                     >
                       Academic Background
                     </motion.span>
-                    <h2 className="text-3xl md:text-6xl font-serif italic text-zinc-900 dark:text-white tracking-tight leading-tight">
+                    <h2 className="text-2xl sm:text-3xl md:text-6xl font-serif italic text-zinc-900 dark:text-white tracking-tight leading-tight balance">
                       Educational Foundations
                     </h2>
-                    <div className="w-16 md:w-20 h-[1px] bg-gradient-to-r from-transparent via-zinc-300 dark:via-zinc-700 to-transparent mx-auto mt-3 md:mt-4" />
+                    <div className="w-12 md:w-20 h-[1px] bg-gradient-to-r from-transparent via-zinc-300 dark:via-zinc-700 to-transparent mx-auto mt-3 md:mt-4" />
                   </div>
 
-                  <div className="relative max-w-4xl mx-auto w-full grid grid-cols-1 md:grid-cols-2 gap-6 md:gap-24 px-4 md:px-0">
+                  <div className="relative max-w-4xl mx-auto w-full grid grid-cols-1 md:grid-cols-2 gap-8 md:gap-24 px-4 md:px-0">
                     {/* Connecting Line (Tree Branch) */}
                     <div className="absolute left-[-16px] md:left-1/2 top-4 bottom-4 w-[2px] bg-zinc-100 dark:bg-white/5 md:-translate-x-1/2">
                       <motion.div 
@@ -321,7 +321,7 @@ export function AboutPage({ isAdmin }: { isAdmin?: boolean }) {
                       </div>
                       
                       <div className="w-full p-6 md:p-8 bg-white dark:bg-zinc-900/50 border border-zinc-100 dark:border-white/5 rounded-2xl md:rounded-3xl shadow-[0_20px_50px_rgba(0,0,0,0.02)] dark:shadow-none group-hover:shadow-2xl group-hover:border-blue-600/20 transition-all duration-700">
-                        <div className="space-y-3 md:space-y-4">
+                        <div className="space-y-2 md:space-y-4">
                           <GraduationCap className="text-blue-600 mb-2 md:mb-4 md:ml-auto" size={isMobileSize ? 18 : 22} />
                           <div>
                             <p className="text-[9px] md:text-[10px] font-mono font-bold uppercase tracking-widest text-zinc-400 mb-1">Sri Lanka // 2022</p>
@@ -347,7 +347,7 @@ export function AboutPage({ isAdmin }: { isAdmin?: boolean }) {
                       </div>
 
                       <div className="w-full p-6 md:p-8 bg-white dark:bg-zinc-900/50 border border-zinc-100 dark:border-white/5 rounded-2xl md:rounded-3xl shadow-[0_20px_50px_rgba(0,0,0,0.02)] dark:shadow-none group-hover:shadow-2xl group-hover:border-blue-600/20 transition-all duration-700">
-                        <div className="space-y-3 md:space-y-4">
+                        <div className="space-y-2 md:space-y-4">
                           <Binary className="text-blue-600 mb-2 md:mb-4" size={isMobileSize ? 18 : 22} />
                           <div>
                             <div className="inline-flex items-center gap-2 px-2 py-0.5 md:px-3 md:py-1 rounded-full bg-blue-50 dark:bg-blue-900/20 text-blue-600 dark:text-blue-400 text-[8px] md:text-[9px] font-bold uppercase tracking-widest mb-1.5 md:mb-2 text-center">
@@ -371,34 +371,34 @@ export function AboutPage({ isAdmin }: { isAdmin?: boolean }) {
             <VisualEditorWrapper isAdmin={isAdmin} onEdit={() => setActiveEditor('certifications')} label="Manage Certifications">
               <motion.section 
                 style={{ opacity: certSectionOpacity, pointerEvents: certPointerEvents as any }}
-                className="md:sticky md:top-0 min-h-screen md:h-screen w-full flex items-center justify-center bg-white dark:bg-black z-30 md:overflow-hidden py-16 md:py-0"
+                className="sticky top-0 h-screen w-full flex items-center justify-center bg-white dark:bg-black z-30 overflow-hidden"
               >
                 <motion.div 
                   style={{ scale: certSectionScale, y: certSectionY }}
-                  className="max-w-7xl mx-auto px-6 w-full flex flex-col items-center"
+                  className="max-w-7xl mx-auto px-6 w-full flex flex-col items-center h-full sm:h-auto overflow-y-auto md:no-scrollbar py-12"
                 >
-                  <div className="text-center mb-8 md:mb-10 space-y-3">
+                  <div className="text-center mb-10 md:mb-12 space-y-3 px-4 pt-12 md:pt-0">
                     <motion.span 
                       className="text-[10px] md:text-sm font-mono uppercase tracking-[0.4em] text-blue-600 font-bold block"
                     >
                       Professional Growth
                     </motion.span>
-                    <h2 className="text-3xl md:text-7xl font-black tracking-tighter uppercase text-black dark:text-white leading-none">
+                    <h2 className="text-2xl sm:text-3xl md:text-7xl font-black tracking-tighter uppercase text-black dark:text-white leading-tight md:leading-none balance">
                       Certifications & Achievements
                     </h2>
-                    <p className="text-zinc-500 dark:text-zinc-400 text-[10px] md:text-xs font-bold uppercase tracking-[0.3em] mt-4">
+                    <p className="text-zinc-500 dark:text-zinc-400 text-[8px] md:text-xs font-bold uppercase tracking-[0.2em] md:tracking-[0.3em] mt-3 md:mt-4 balance">
                       Verified Credentials • Skill Recognition • Professional Milestones
                     </p>
                   </div>
 
                   {/* Category Navigation */}
-                  <div className="w-full flex justify-center mb-4 md:mb-6">
-                    <div className="flex flex-wrap justify-center gap-2 md:gap-4 p-1 bg-zinc-100 dark:bg-zinc-900 rounded-full border border-zinc-200 dark:border-white/5 shadow-inner">
+                  <div className="w-full flex justify-center mb-8 md:mb-12">
+                    <div className="flex flex-wrap justify-center gap-2 p-1.5 bg-zinc-100 dark:bg-zinc-900 rounded-2xl md:rounded-full border border-zinc-200 dark:border-white/5 shadow-inner max-w-[90vw] md:max-w-none">
                       {(['Certificates', 'Badges', 'Achievements'] as const).map((tab) => (
                         <button
                           key={tab}
                           onClick={() => setActiveTab(tab)}
-                          className={`px-6 md:px-10 py-2 md:py-3.5 rounded-full text-[10px] md:text-xs font-bold uppercase tracking-[0.2em] transition-all duration-500 cursor-pointer relative z-40 ${
+                          className={`px-4 md:px-10 py-2.5 md:py-3.5 rounded-xl md:rounded-full text-[9px] md:text-xs font-bold uppercase tracking-[0.2em] transition-all duration-500 cursor-pointer relative z-40 ${
                             activeTab === tab 
                               ? 'bg-white dark:bg-zinc-800 text-blue-600 shadow-xl scale-105 ring-1 ring-zinc-200/50 dark:ring-white/10' 
                               : 'text-zinc-500 hover:text-zinc-800 dark:hover:text-zinc-200'
@@ -410,7 +410,7 @@ export function AboutPage({ isAdmin }: { isAdmin?: boolean }) {
                     </div>
                   </div>
 
-                  <div className="relative w-full max-h-[70vh] overflow-y-auto custom-scrollbar p-2 pointer-events-auto">
+                  <div className="relative w-full p-2 pointer-events-auto">
                     <AnimatePresence mode="popLayout">
                       {(() => {
                         const filteredCerts = certs

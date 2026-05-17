@@ -99,8 +99,8 @@ export function ToolkitManager() {
                      onChange={e => setNewSkill({...newSkill, category: e.target.value})}
                      className="w-full h-12 bg-black border border-white/10 rounded-xl px-4 text-[10px] uppercase font-bold tracking-widest text-zinc-400 focus:text-blue-500 focus:outline-none appearance-none transition-all cursor-pointer"
                    >
-                     <option value="technical_systems">Technical Systems</option>
-                     <option value="strategic_impact">Strategic Impact</option>
+                     <option value="technical_systems">Technical Mastery</option>
+                     <option value="strategic_impact">Soft Skills & Leadership</option>
                      <option value="innovation_lab">Innovation Lab</option>
                      <option value="creative_toolkit">Creative Toolkit</option>
                    </select>
@@ -174,7 +174,7 @@ export function ToolkitManager() {
                        {iconMap[cat]}
                     </div>
                     <div>
-                       <h3 className="text-sm font-bold uppercase tracking-widest text-white">{cat.replace('_', ' ')}</h3>
+                       <h3 className="text-sm font-bold uppercase tracking-widest text-white">{cat === 'technical_systems' ? 'Technical Mastery' : cat === 'strategic_impact' ? 'Soft Skills & Leadership' : cat.replace('_', ' ')}</h3>
                        <p className="text-[9px] text-zinc-600 uppercase tracking-widest mt-0.5">Sector {idx + 1}</p>
                     </div>
                  </div>

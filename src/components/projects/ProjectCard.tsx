@@ -67,7 +67,7 @@ export function ProjectCard({ project }: { project: Project }) {
                 </span>
               </div>
               <Link to={`/projects/${project.slug}`}>
-                <h3 className="text-3xl md:text-4xl font-bold tracking-tight text-zinc-900 dark:text-white group-hover:text-blue-600 transition-colors uppercase">
+                <h3 className="text-3xl md:text-4xl font-bold tracking-tight text-zinc-900 dark:text-white group-hover:text-blue-600 transition-colors uppercase [text-wrap:balance]">
                   {project.title}
                 </h3>
               </Link>

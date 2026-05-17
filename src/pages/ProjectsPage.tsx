@@ -165,12 +165,12 @@ export function ProjectsPage({ isAdmin }: { isAdmin?: boolean }) {
     <main className="pt-32 pb-32 px-6 bg-white dark:bg-black min-h-screen transition-colors duration-1000">
       <div className="max-w-7xl mx-auto space-y-16">
         {/* Header Section */}
-        <header className="space-y-8 flex flex-col items-center text-center">
+        <header className="space-y-6 md:space-y-8 flex flex-col items-center text-center">
           <div className="space-y-4">
             <motion.span 
               initial={{ opacity: 0, y: 20 }}
               animate={{ opacity: 1, y: 0 }}
-              className="text-xs font-mono uppercase tracking-[0.6em] text-blue-600 block"
+              className="text-[9px] md:text-xs font-mono uppercase tracking-[0.4em] md:tracking-[0.6em] text-blue-600 block"
             >
               THE INNOVATION LAB
             </motion.span>
@@ -178,7 +178,7 @@ export function ProjectsPage({ isAdmin }: { isAdmin?: boolean }) {
               initial={{ opacity: 0, y: 20 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ delay: 0.1 }}
-              className="text-6xl md:text-8xl font-black tracking-tighter leading-[0.9] uppercase max-w-4xl text-zinc-900 dark:text-white"
+              className="text-4xl sm:text-5xl md:text-7xl lg:text-8xl font-black tracking-tighter leading-[1.0] md:leading-[0.9] uppercase max-w-4xl text-zinc-900 dark:text-white [text-wrap:balance]"
             >
               BUILDING REAL-WORLD <span className="text-transparent bg-clip-text bg-gradient-to-r from-blue-600 to-indigo-600">INTELLIGENCE</span>
             </motion.h1>
@@ -187,7 +187,7 @@ export function ProjectsPage({ isAdmin }: { isAdmin?: boolean }) {
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ delay: 0.2 }}
-            className="flex flex-wrap items-center justify-center gap-x-4 gap-y-2 text-sm font-mono text-zinc-400 uppercase tracking-widest"
+            className="flex flex-wrap items-center justify-center gap-x-3 md:gap-x-4 gap-y-2 text-[10px] md:text-sm font-mono text-zinc-400 uppercase tracking-widest"
           >
             <span>Projects</span>
             <span className="w-1 h-1 rounded-full bg-blue-600" />
@@ -198,24 +198,24 @@ export function ProjectsPage({ isAdmin }: { isAdmin?: boolean }) {
         </header>
 
         {/* Filter & Search Bar */}
-        <div className="flex flex-col lg:flex-row gap-6 items-center justify-between p-6 bg-zinc-50 dark:bg-zinc-900/50 rounded-[2.5rem] border border-zinc-100 dark:border-white/5 backdrop-blur-xl sticky top-24 z-40">
+        <div className="flex flex-col lg:flex-row gap-4 md:gap-6 items-center justify-between p-4 md:p-6 bg-zinc-50 dark:bg-zinc-900/50 rounded-3xl md:rounded-[2.5rem] border border-zinc-100 dark:border-white/5 backdrop-blur-xl sticky top-20 md:top-24 z-40">
           <div className="relative w-full lg:w-96 group">
-            <Search className="absolute left-4 top-1/2 -translate-y-1/2 text-zinc-400 group-focus-within:text-blue-600 transition-colors" size={18} />
+            <Search className="absolute left-4 top-1/2 -translate-y-1/2 text-zinc-400 group-focus-within:text-blue-600 transition-colors" size={16} />
             <input 
               type="text" 
-              placeholder="Search projects or technologies..." 
+              placeholder="Search innovation archive..." 
               value={searchQuery}
               onChange={(e) => setSearchQuery(e.target.value)}
-              className="w-full pl-12 pr-4 py-3 bg-white dark:bg-black rounded-2xl border border-zinc-200 dark:border-white/10 focus:outline-none focus:border-blue-600 transition-all text-sm"
+              className="w-full pl-10 md:pl-12 pr-4 py-2.5 md:py-3 bg-white dark:bg-black rounded-xl md:rounded-2xl border border-zinc-200 dark:border-white/10 focus:outline-none focus:border-blue-600 transition-all text-xs md:text-sm"
             />
           </div>
 
-          <div className="flex flex-wrap items-center justify-center gap-2">
+          <div className="flex flex-wrap items-center justify-center gap-1.5 md:gap-2">
             {categories.map(cat => (
               <button
                 key={cat}
                 onClick={() => setSelectedCategory(cat)}
-                className={`px-5 py-2 rounded-xl text-[10px] font-bold uppercase tracking-widest transition-all ${
+                className={`px-3 md:px-5 py-1.5 md:py-2 rounded-lg md:rounded-xl text-[8px] md:text-[10px] font-bold uppercase tracking-widest transition-all ${
                   selectedCategory === cat 
                     ? 'bg-blue-600 text-white shadow-lg shadow-blue-600/20' 
                     : 'bg-white dark:bg-black text-zinc-400 border border-zinc-200 dark:border-white/10 hover:border-blue-600'
